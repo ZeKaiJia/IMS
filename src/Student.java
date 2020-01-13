@@ -1,5 +1,5 @@
 import java.util.Map;
-public class Student extends Object implements Comparable{
+public class Student implements Comparable{
     private int ID;
     private String name;
     private Map<String, Integer> Score;
