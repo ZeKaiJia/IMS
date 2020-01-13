@@ -8,8 +8,9 @@ public class Menu {
         System.out.println("-----------2.删除学生信息-----------");
         System.out.println("-----------3.修改学生信息-----------");
         System.out.println("-----------4.查找学生信息-----------");
-        System.out.println("-----------5.查看科目信息-----------");
-        System.out.println("-----------6.退出管理系统-----------");
+        System.out.println("-----------5.全部学生信息-----------");
+        System.out.println("-----------6.查看科目信息-----------");
+        System.out.println("-----------7.退出管理系统-----------");
         System.out.println("----------------------------------");
     }
     public static int choose() {

@@ -1,12 +1,20 @@
+import java.util.HashMap;
 import java.util.Map;
 public class Student implements Comparable{
     private int ID;
     private String name;
-    private Map<String, Integer> Score;
+    private Map<Subject, Integer> subject;
 
     public Student(int ID, String name) {
         this.ID = ID;
         this.name = name;
+        subject = new HashMap<>();
+        Subject Chinese = new Subject(1,"语文",5);
+        subject.put(Chinese,null);
+        Subject Maths = new Subject(2,"数学",4);
+        subject.put(Maths,null);
+        Subject English = new Subject(3,"英语",3);
+        subject.put(English,null);
     }
 
     public int getID() {
@@ -25,25 +33,8 @@ public class Student implements Comparable{
         this.name = name;
     }
 
-    public int getScore(String key) {
-        return Score.get(key);
-    }
-
-    //增
-    public void setScore(String subject, int score) {
-        Score.put(subject, score);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if ( !(obj instanceof Student) ) {
-            throw  new ClassCastException("类型错误");
-        }
-        Student p = (Student) obj;
-        return this.ID == p.ID;
+    public Map<Subject, Integer> getSubject() {
+        return subject;
     }
 
     @Override
