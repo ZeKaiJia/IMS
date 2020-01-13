@@ -1,6 +1,5 @@
 import java.util.Map;
-
-public class Student {
+public class Student extends Object implements Comparable{
     private int ID;
     private String name;
     private Map<String, Integer> Score;
@@ -33,5 +32,23 @@ public class Student {
     //增
     public void setScore(String subject, int score) {
         Score.put(subject, score);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if ( !(obj instanceof Student) ) {
+            throw  new ClassCastException("类型错误");
+        }
+        Student p = (Student) obj;
+        return this.ID == p.ID;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Student p = (Student) o;
+        return this.ID - p.ID;
     }
 }
