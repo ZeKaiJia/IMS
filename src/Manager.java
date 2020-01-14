@@ -78,8 +78,8 @@ public class Manager {
         System.out.println("ID  姓名  语文  数学  英语");
         for (Student stu : studentCage) {
             System.out.println(stu.getID() + "号  " +
-                    stu.getName() + "  " + stu.getSubject().get(subject[0]) + "  " +
-                    stu.getSubject().get(subject[1]) + "  " + stu.getSubject().get(subject[2]));
+                    stu.getName() + "  " + stu.getSubjectScore("语文") + "  " +
+                    stu.getSubjectScore("数学") + "  " + stu.getSubjectScore("英语"));
         }
     }
 
@@ -156,9 +156,9 @@ public class Manager {
                 flag = true;
                 System.out.println("---ID: " + stu.getID());
                 System.out.println("---姓名: " + stu.getName());
-                System.out.println("---语文: " + stu.getSubject().get(subject[0]));
-                System.out.println("---数学: " + stu.getSubject().get(subject[1]));
-                System.out.println("---英语: " + stu.getSubject().get(subject[1]));
+                System.out.println("---语文: " + stu.getSubjectScore("语文"));
+                System.out.println("---数学: " + stu.getSubjectScore("数学"));
+                System.out.println("---英语: " + stu.getSubjectScore("英语"));
                 break;
             }
         }

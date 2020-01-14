@@ -36,8 +36,13 @@ public class Student implements Comparable{
         this.name = name;
     }
 
-    public Map<Subject, Integer> getSubject() {
-        return subject;
+    public Integer getSubjectScore(String name) {
+        for (Map.Entry<Subject, Integer> entry : subject.entrySet()) {
+            if (entry.getKey().name.equals(name)) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 
     public void setSubject(String sub, Integer score) {
