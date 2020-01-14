@@ -1,5 +1,8 @@
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
+
 public class Student implements Comparable{
     private int ID;
     private String name;
@@ -37,9 +40,30 @@ public class Student implements Comparable{
         return subject;
     }
 
+    public void setSubject(String sub, Integer score) {
+        Set<Subject> keyset = subject.keySet();
+        Iterator<Subject> it = keyset.iterator();
+        while ( it.hasNext() ) {
+            Subject sb = it.next();
+            if ( sb.name.equals(sub) ) {
+                subject.put(sb, score);
+            }
+        }
+//        Set<Map.Entry<Subject, Integer>> entrySet = subject.entrySet();
+//        Iterator<Map.Entry<Subject, Integer>> it = entrySet.iterator();
+//        while ( it.hasNext() ) {
+//            Map.Entry<Subject, Integer> me = it.next();
+//            Subject key = me.getKey();
+//            if ( key.name.equals(sub)) {
+//                subject.put(key,score);
+//            }
+//        }
+    }
+
     @Override
     public int compareTo(Object o) {
         Student p = (Student) o;
         return this.ID - p.ID;
     }
+
 }
