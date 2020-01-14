@@ -139,8 +139,8 @@ public class Manager {
         }
         if ( !flag ) {
             System.out.println("---查无此人");
-            flag = false;
         }
+        flag = false;
     }
 
     //查找
@@ -164,8 +164,8 @@ public class Manager {
         }
         if ( !flag ) {
             System.out.println("---查无此人");
-            flag = false;
         }
+        flag = false;
     }
 
     //查看科目信息
