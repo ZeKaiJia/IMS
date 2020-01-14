@@ -35,6 +35,7 @@ public class Manager {
                     break;
                 //科目
                 case 6:
+                    checkOutSubject();
                     break;
                 //关闭
                 case 7:
@@ -84,7 +85,7 @@ public class Manager {
 
     //修改成绩
     public static void edit() {
-        Integer ID;
+        int ID;
         String name;
         Student stu = null;
         Scanner input = new Scanner(System.in);
@@ -114,7 +115,7 @@ public class Manager {
 
     //修改单科成绩
     public static void update(Student stu, String name) {
-        Integer score;
+        int score;
         Scanner input = new Scanner(System.in);
         System.out.print("---" + name + "成绩: ");
         score = input.nextInt();
@@ -123,8 +124,7 @@ public class Manager {
 
     //删除
     public static void delete() {
-        Integer ID;
-        boolean flag = true;
+        int ID;
         Scanner input = new Scanner(System.in);
         System.out.print("---请输入删除学生的ID: ");
         ID = input.nextInt();
@@ -133,17 +133,47 @@ public class Manager {
             Student stu = it.next();
             if ( stu.getID() == ID ) {
                 studentCage.remove(stu);
-                flag = false;
+                flag = true;
                 break;
             }
         }
-        if ( flag ) {
-            System.out.println("查无此人");
+        if ( !flag ) {
+            System.out.println("---查无此人");
+            flag = false;
         }
     }
 
     //查找
     public static void search() {
+        int ID;
+        Scanner input = new Scanner(System.in);
+        System.out.print("---请输入查找学生的ID: ");
+        ID = input.nextInt();
+        Iterator<Student> it = studentCage.iterator();
+        while ( it.hasNext() ) {
+            Student stu = it.next();
+            if (stu.getID() == ID) {
+                flag = true;
+                System.out.println("---ID: " + stu.getID());
+                System.out.println("---姓名: " + stu.getName());
+                System.out.println("---语文: " + stu.getSubject().get(subject[0]));
+                System.out.println("---数学: " + stu.getSubject().get(subject[1]));
+                System.out.println("---英语: " + stu.getSubject().get(subject[1]));
+                break;
+            }
+        }
+        if ( !flag ) {
+            System.out.println("---查无此人");
+            flag = false;
+        }
+    }
 
+    //查看科目信息
+    private static void checkOutSubject() {
+        System.out.println("-------科目信息表-------");
+        System.out.println("ID       名称        GP");
+        System.out.println(subject[0].ID + "        " + subject[0].name + "        " + subject[0].GP);
+        System.out.println(subject[1].ID + "        " + subject[1].name + "        " + subject[1].GP);
+        System.out.println(subject[2].ID + "        " + subject[2].name + "        " + subject[2].GP);
     }
 }
