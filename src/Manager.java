@@ -41,6 +41,17 @@ public class Manager {
                 case 7:
                     flag = true;
                     break;
+                case 8:
+                    DbUtil.addSubject(subject[0]);
+                    DbUtil.addSubject(subject[0]);
+                    DbUtil.addSubject(subject[0]);
+                    break;
+                case 9:
+                    int ID;
+                    Scanner input = new Scanner(System.in);
+                    System.out.print("---请输入查找学生的ID: ");
+                    ID = input.nextInt();
+                    DbUtil.findStudentList(ID);
             }
             if ( flag ) {
                 break;
@@ -55,9 +66,6 @@ public class Manager {
         subject[0] = Chinese;
         subject[1] = Maths;
         subject[2] = English;
-        DbUtil.addCourse(1,"语文",5);
-        DbUtil.addCourse(2,"数学",4);
-        DbUtil.addCourse(3,"英语",5);
     }
 
     public static void add() {
@@ -69,10 +77,11 @@ public class Manager {
         System.out.print("---请输入学生姓名: ");
         name = input.next();
         Student stu = new Student(ID, name);
-        update(stu,"语文");
-        update(stu,"数学");
-        update(stu,"英语");
+        update_new(stu,"语文");
+        update_new(stu,"数学");
+        update_new(stu,"英语");
         studentCage.add(stu);
+        DbUtil.addStudent(stu);
     }
 
     //懒得用printf的显示全部学生信息
@@ -104,16 +113,21 @@ public class Manager {
         if ( flag ) {
             System.out.print("---请输入要修改的科目名称: ");
             name = input.next();
-//            if ( !name.equals("语文") && !name.equals("数学") && !name.equals("英语") ) {
-//                System.out.println("---请输入正确的科目");
-//                return;
-//            }
             update(stu,name);
         }
         else {
             System.out.println("---查无此人!");
         }
         flag = false;
+    }
+
+    //初始化成绩
+    public static void update_new(Student stu, String name) {
+        int score;
+        Scanner input = new Scanner(System.in);
+        System.out.print("---" + name + "成绩: ");
+        score = input.nextInt();
+        stu.setSubject(name, score);
     }
 
     //修改单科成绩
@@ -123,6 +137,7 @@ public class Manager {
         System.out.print("---" + name + "成绩: ");
         score = input.nextInt();
         stu.setSubject(name, score);
+        DbUtil.update(stu, name, score);
     }
 
     //删除
@@ -136,6 +151,7 @@ public class Manager {
             Student stu = it.next();
             if ( stu.getID() == ID ) {
                 studentCage.remove(stu);
+                DbUtil.delete(stu);
                 flag = true;
                 break;
             }
