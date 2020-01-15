@@ -55,6 +55,9 @@ public class Manager {
         subject[0] = Chinese;
         subject[1] = Maths;
         subject[2] = English;
+        DbUtil.addCourse(1,"语文",5);
+        DbUtil.addCourse(2,"数学",4);
+        DbUtil.addCourse(3,"英语",5);
     }
 
     public static void add() {
