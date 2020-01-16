@@ -14,6 +14,37 @@ public class DbUtil {
         return conn;
     }
 
+    //初始化获取数据
+    public static void initialMySQL() {
+        String sql = "select * from student";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs;
+        //创建一个集合对象用来存放查询到的数据
+        try {
+            conn = DbUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int ID = rs.getInt("ID");
+                String name = rs.getString("姓名");
+                int Chinese = rs.getInt("语文");
+                int Maths = rs.getInt("数学");
+                int English = rs.getInt("英语");
+                Student stu = new Student(ID,name);
+                stu.setSubject("语文",Chinese);
+                stu.setSubject("数学",Maths);
+                stu.setSubject("英语",English);
+                Manager.addAPI(stu);
+            }
+        } catch (SQLException e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        } finally {
+            DbUtil.close(pstmt);
+            DbUtil.close(conn);        //必须关闭
+        }
+    }
     //三个关闭方法
     public static void close (PreparedStatement pstmt){
         //避免出现空指针异常

@@ -10,6 +10,7 @@ public class Manager {
 
     public static void main(String[] args) {
         Menu.show();
+        DbUtil.initialMySQL();
         initialSubject();
         while (true) {
             switch (Menu.choose()) {
@@ -42,9 +43,9 @@ public class Manager {
                     flag = true;
                     break;
                 case 8:
-                    DbUtil.addSubject(subject[0]);
-                    DbUtil.addSubject(subject[0]);
-                    DbUtil.addSubject(subject[0]);
+//                    DbUtil.addSubject(subject[0]);
+//                    DbUtil.addSubject(subject[0]);
+//                    DbUtil.addSubject(subject[0]);
                     break;
                 case 9:
                     int ID;
@@ -80,8 +81,13 @@ public class Manager {
         update_new(stu,"语文");
         update_new(stu,"数学");
         update_new(stu,"英语");
-        studentCage.add(stu);
+        addAPI(stu);
         DbUtil.addStudent(stu);
+    }
+
+    //供工具类和本类同时使用的添加接口，用于数据同步
+    public static void addAPI(Student stu) {
+        studentCage.add(stu);
     }
 
     //懒得用printf的显示全部学生信息

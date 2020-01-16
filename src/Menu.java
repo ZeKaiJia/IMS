@@ -13,7 +13,7 @@ public class Menu {
         System.out.println("-----------7.退出管理系统-----------");
         System.out.println("----------------------------------");
         System.out.println("-----------数据库功能选择-----------");
-        System.out.println("-----------8.初始化课程信息---------");
+        System.out.println("---------//8.初始化课程信息---------");
         System.out.println("-----------9.从数据库中查找---------");
     }
     public static int choose() {
