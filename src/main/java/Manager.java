@@ -1,7 +1,4 @@
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Manager {
     public static boolean flag = false;
@@ -11,7 +8,7 @@ public class Manager {
     public static void main(String[] args) {
         Menu.show();
         DbUtil.initialMySQL();
-        while (true) {
+        do {
             switch (Menu.choose()) {
                 //增加学生信息
                 case 1:
@@ -59,11 +56,9 @@ public class Manager {
                     System.out.print("---请输入查找学生的ID: ");
                     ID = input.nextInt();
                     DbUtil.findStudentList(ID);
+                    break;
             }
-            if (flag) {
-                break;
-            }
-        }
+        } while (!flag);
     }
 
     //增加学生信息
@@ -114,9 +109,7 @@ public class Manager {
         Scanner input = new Scanner(System.in);
         System.out.print("---请输入删除学生的ID: ");
         ID = input.nextInt();
-        Iterator<Student> it = studentCage.iterator();
-        while (it.hasNext()) {
-            Student stu = it.next();
+        for (Student stu : studentCage) {
             if (stu.getID() == ID) {
                 studentCage.remove(stu);
                 DbUtil.delete(stu);
@@ -136,9 +129,7 @@ public class Manager {
         Scanner input = new Scanner(System.in);
         System.out.print("---请输入删除课程的ID: ");
         ID = input.nextInt();
-        Iterator<Subject> it = subjectCage.iterator();
-        while (it.hasNext()) {
-            Subject sub = it.next();
+        for (Subject sub : subjectCage) {
             if (sub.ID == ID) {
                 subjectCage.remove(sub);
                 DbUtil.deleteSubject(sub);
@@ -160,7 +151,7 @@ public class Manager {
         Scanner input = new Scanner(System.in);
         System.out.print("---请输入要修改的学生ID: ");
         ID = input.nextInt();
-        for (Student temp : studentCage) {
+        for ( Student temp : studentCage) {
             if (temp.getID() == ID) {
                 stu = temp;
                 flag = true;
@@ -170,6 +161,7 @@ public class Manager {
         if (flag) {
             System.out.print("---请输入要修改的科目名称: ");
             name = input.next();
+            assert stu != null;
             update(stu, name);
         } else {
             System.out.println("---查无此人!");
@@ -202,16 +194,14 @@ public class Manager {
         Scanner input = new Scanner(System.in);
         System.out.print("---请输入查找学生的ID: ");
         ID = input.nextInt();
-        Iterator<Student> it = studentCage.iterator();
-        while (it.hasNext()) {
-            Student stu = it.next();
+        for (Student stu : studentCage) {
             if (stu.getID() == ID) {
-                flag = true;
                 System.out.println("---ID: " + stu.getID());
                 System.out.println("---姓名: " + stu.getName());
                 System.out.println("---语文: " + stu.getSubjectScore("语文"));
                 System.out.println("---数学: " + stu.getSubjectScore("数学"));
                 System.out.println("---英语: " + stu.getSubjectScore("英语"));
+                flag = true;
                 break;
             }
         }
@@ -227,14 +217,12 @@ public class Manager {
         Scanner input = new Scanner(System.in);
         System.out.print("---请输入查找课程的ID: ");
         ID = input.nextInt();
-        Iterator<Subject> it = subjectCage.iterator();
-        while (it.hasNext()) {
-            Subject sub = it.next();
+        for (Subject sub : subjectCage) {
             if (sub.ID == ID) {
-                flag = true;
                 System.out.println("---ID: " + sub.ID);
                 System.out.println("---名称: " + sub.name);
                 System.out.println("---GP: " + sub.GP);
+                flag = true;
                 break;
             }
         }

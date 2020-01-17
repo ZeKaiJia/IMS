@@ -1,5 +1,3 @@
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,45 +5,41 @@ import java.util.List;
 public class DbUtil {
 
     private static Connection conn = null;
-
+    final private static String user = "root";
+    final private static String password = "kevinjzk";
     //连接方法
     public static Connection getConnection() {
-        if (conn != null) {
-            return conn;
-        }
+        Connection conn = null;
         //数据库初始化驱动
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/local?characterEncoding=UTF-8","root","root");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/local?characterEncoding=UTF-8&useSSL=false",user,password);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return conn;
-
     }
 
     //初始化获取数据
     public static void initialMySQL() {
 
             List<Student> students = getStuData();
-            students.forEach(e-> Manager.addAPI(e));
+            students.forEach(Manager::addAPI);
             List<Subject> subjects = getSubjectData();
-            subjects.forEach(e-> Manager.addAPISub(e));
+            subjects.forEach(Manager::addAPISub);
     }
 
-    /**
-     * 获取成绩信息
-     * @return
-     */
+    //获取成绩信息
+
     private static List<Subject> getSubjectData() {
         List<Subject> subjects = new ArrayList<>();
-        String sqlstu = "select * from subject";
+        String sqlsub = "select * from subject";
         conn = DbUtil.getConnection();
-        PreparedStatement pst1 = null;
+        PreparedStatement pst2 = null;
         ResultSet rs2 = null;
         try {
-            pst1 = conn.prepareStatement(sqlstu);
-            rs2 = pst1.executeQuery();
+            pst2 = conn.prepareStatement(sqlsub);
+            rs2 = pst2.executeQuery();
             while (rs2.next()) {
                 int ID = rs2.getInt("ID");
                 String name = rs2.getString("name");
@@ -57,17 +51,15 @@ public class DbUtil {
             e.printStackTrace();
             return subjects;
         }finally {
-            close(pst1);
+            close(pst2);
             close(rs2);
         }
         return subjects;
     }
 
 
-    /**
-     * 获取学生信息
-     * @return
-     */
+    //获取学生信息
+
     private static List<Student> getStuData() {
         List<Student> students = new ArrayList<>();
         String sqlstu = "select * from student";
@@ -98,6 +90,7 @@ public class DbUtil {
         }
         return students;
     }
+
     //三个关闭方法
     public static void close (PreparedStatement pstmt) {
         //避免出现空指针异常

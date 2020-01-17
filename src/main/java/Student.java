@@ -24,17 +24,17 @@ public class Student implements Comparable{
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+//    public void setID(int ID) {
+//        this.ID = ID;
+//    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public Integer getSubjectScore(String name) {
         for (Map.Entry<Subject, Integer> entry : subject.entrySet()) {
@@ -47,11 +47,9 @@ public class Student implements Comparable{
 
     public void setSubject(String sub, Integer score) {
         Set<Subject> keyset = subject.keySet();
-        Iterator<Subject> it = keyset.iterator();
-        while ( it.hasNext() ) {
-            Subject sb = it.next();
-            if ( sb.name.equals(sub) ) {
-                subject.put(sb, score);
+        for (Subject temp : keyset) {
+            if ( temp.name.equals(sub) ) {
+                subject.put(temp, score);
             }
         }
     }
