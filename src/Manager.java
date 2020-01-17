@@ -6,69 +6,67 @@ import java.util.TreeSet;
 public class Manager {
     public static boolean flag = false;
     private static Set<Student> studentCage = new TreeSet<>();
-    private static Subject[] subject = new Subject[3];
+    private static Set<Subject> subjectCage = new TreeSet<>();
 
     public static void main(String[] args) {
         Menu.show();
         DbUtil.initialMySQL();
-        initialSubject();
         while (true) {
             switch (Menu.choose()) {
-                //增加
+                //增加学生信息
                 case 1:
                     add();
                     break;
-                //删除
+                //删除学生信息
                 case 2:
                     delete();
                     break;
-                //修改
+                //修改学生成绩
                 case 3:
                     edit();
                     break;
-                //查找
+                //查找学生信息
                 case 4:
                     search();
                     break;
-                //显示
+                //全部学生信息
                 case 5:
                     display();
                     break;
-                //科目
+                //增加教学科目
                 case 6:
-                    checkOutSubject();
+                    addSubject();
                     break;
-                //关闭
+                //删除教学科目
                 case 7:
+                    deleteSubject();
+                    break;
+                //全部科目信息
+                case 8:
+                    displaySubject();
+                    break;
+                //查找科目信息
+                case 9:
+                    searchSubject();
+                    break;
+                //退出管理系统
+                case 10:
                     flag = true;
                     break;
-                case 8:
-//                    DbUtil.addSubject(subject[0]);
-//                    DbUtil.addSubject(subject[0]);
-//                    DbUtil.addSubject(subject[0]);
-                    break;
-                case 9:
+                case 11:
                     int ID;
                     Scanner input = new Scanner(System.in);
                     System.out.print("---请输入查找学生的ID: ");
                     ID = input.nextInt();
                     DbUtil.findStudentList(ID);
             }
-            if ( flag ) {
+            if (flag) {
                 break;
             }
         }
     }
 
-    public static void initialSubject() {
-        Subject Chinese = new Subject(1,"语文",5);
-        Subject Maths = new Subject(2,"数学",4);
-        Subject English = new Subject(3,"英语",3);
-        subject[0] = Chinese;
-        subject[1] = Maths;
-        subject[2] = English;
-    }
-
+    //增加学生信息
     public static void add() {
         int ID;
         String name;
@@ -78,30 +76,83 @@ public class Manager {
         System.out.print("---请输入学生姓名: ");
         name = input.next();
         Student stu = new Student(ID, name);
-        update_new(stu,"语文");
-        update_new(stu,"数学");
-        update_new(stu,"英语");
+        update_new(stu, "语文");
+        update_new(stu, "数学");
+        update_new(stu, "英语");
         addAPI(stu);
         DbUtil.addStudent(stu);
+    }
+
+    //增加教学科目
+    public static void addSubject() {
+        int ID;
+        String name;
+        int GP;
+        Scanner input = new Scanner(System.in);
+        System.out.print("---请输入课程ID: ");
+        ID = input.nextInt();
+        System.out.print("---请输入课程名称: ");
+        name = input.next();
+        System.out.print("---请输入课程GP: ");
+        GP = input.nextInt();
+        Subject sub = new Subject(ID, name, GP);
+        addAPISub(sub);
+        DbUtil.addSubject(sub);
     }
 
     //供工具类和本类同时使用的添加接口，用于数据同步
     public static void addAPI(Student stu) {
         studentCage.add(stu);
     }
-
-    //懒得用printf的显示全部学生信息
-    public static void display() {
-        System.out.println("-------学生信息表--------");
-        System.out.println("ID  姓名  语文  数学  英语");
-        for (Student stu : studentCage) {
-            System.out.println(stu.getID() + "号  " +
-                    stu.getName() + "  " + stu.getSubjectScore("语文") + "  " +
-                    stu.getSubjectScore("数学") + "  " + stu.getSubjectScore("英语"));
-        }
+    public static void addAPISub(Subject sub) {
+        subjectCage.add(sub);
     }
 
-    //修改成绩
+    //删除学生信息
+    public static void delete() {
+        int ID;
+        Scanner input = new Scanner(System.in);
+        System.out.print("---请输入删除学生的ID: ");
+        ID = input.nextInt();
+        Iterator<Student> it = studentCage.iterator();
+        while (it.hasNext()) {
+            Student stu = it.next();
+            if (stu.getID() == ID) {
+                studentCage.remove(stu);
+                DbUtil.delete(stu);
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            System.out.println("---查无此人");
+        }
+        flag = false;
+    }
+
+    //删除教学科目
+    public static void deleteSubject() {
+        int ID;
+        Scanner input = new Scanner(System.in);
+        System.out.print("---请输入删除课程的ID: ");
+        ID = input.nextInt();
+        Iterator<Subject> it = subjectCage.iterator();
+        while (it.hasNext()) {
+            Subject sub = it.next();
+            if (sub.ID == ID) {
+                subjectCage.remove(sub);
+                DbUtil.deleteSubject(sub);
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            System.out.println("---查无此课");
+        }
+        flag = false;
+    }
+
+    //修改学生成绩
     public static void edit() {
         int ID;
         String name;
@@ -109,19 +160,18 @@ public class Manager {
         Scanner input = new Scanner(System.in);
         System.out.print("---请输入要修改的学生ID: ");
         ID = input.nextInt();
-        for ( Student temp : studentCage ) {
-            if ( temp.getID() == ID ) {
+        for (Student temp : studentCage) {
+            if (temp.getID() == ID) {
                 stu = temp;
                 flag = true;
                 break;
             }
         }
-        if ( flag ) {
+        if (flag) {
             System.out.print("---请输入要修改的科目名称: ");
             name = input.next();
-            update(stu,name);
-        }
-        else {
+            update(stu, name);
+        } else {
             System.out.println("---查无此人!");
         }
         flag = false;
@@ -146,36 +196,14 @@ public class Manager {
         DbUtil.update(stu, name, score);
     }
 
-    //删除
-    public static void delete() {
-        int ID;
-        Scanner input = new Scanner(System.in);
-        System.out.print("---请输入删除学生的ID: ");
-        ID = input.nextInt();
-        Iterator<Student> it = studentCage.iterator();
-        while ( it.hasNext() ) {
-            Student stu = it.next();
-            if ( stu.getID() == ID ) {
-                studentCage.remove(stu);
-                DbUtil.delete(stu);
-                flag = true;
-                break;
-            }
-        }
-        if ( !flag ) {
-            System.out.println("---查无此人");
-        }
-        flag = false;
-    }
-
-    //查找
+    //查找学生信息
     public static void search() {
         int ID;
         Scanner input = new Scanner(System.in);
         System.out.print("---请输入查找学生的ID: ");
         ID = input.nextInt();
         Iterator<Student> it = studentCage.iterator();
-        while ( it.hasNext() ) {
+        while (it.hasNext()) {
             Student stu = it.next();
             if (stu.getID() == ID) {
                 flag = true;
@@ -187,18 +215,52 @@ public class Manager {
                 break;
             }
         }
-        if ( !flag ) {
+        if (!flag) {
             System.out.println("---查无此人");
         }
         flag = false;
     }
 
-    //查看科目信息
-    private static void checkOutSubject() {
+    //查找科目信息
+    public  static void searchSubject() {
+        int ID;
+        Scanner input = new Scanner(System.in);
+        System.out.print("---请输入查找课程的ID: ");
+        ID = input.nextInt();
+        Iterator<Subject> it = subjectCage.iterator();
+        while (it.hasNext()) {
+            Subject sub = it.next();
+            if (sub.ID == ID) {
+                flag = true;
+                System.out.println("---ID: " + sub.ID);
+                System.out.println("---名称: " + sub.name);
+                System.out.println("---GP: " + sub.GP);
+                break;
+            }
+        }
+        if (!flag) {
+            System.out.println("---查无此课");
+        }
+        flag = false;
+    }
+
+    //全部学生信息--懒得用printf的显示全部学生信息
+    public static void display() {
+        System.out.println("-------学生信息表--------");
+        System.out.println("ID  姓名  语文  数学  英语");
+        for (Student stu : studentCage) {
+            System.out.println(stu.getID() + "号  " +
+                    stu.getName() + "  " + stu.getSubjectScore("语文") + "  " +
+                    stu.getSubjectScore("数学") + "  " + stu.getSubjectScore("英语"));
+        }
+    }
+
+    //全部科目信息
+    private static void displaySubject() {
         System.out.println("-------科目信息表-------");
         System.out.println("ID       名称        GP");
-        System.out.println(subject[0].ID + "        " + subject[0].name + "        " + subject[0].GP);
-        System.out.println(subject[1].ID + "        " + subject[1].name + "        " + subject[1].GP);
-        System.out.println(subject[2].ID + "        " + subject[2].name + "        " + subject[2].GP);
+        for ( Subject sub : subjectCage ) {
+            System.out.println(sub.ID + "        " + sub.name + "        " + sub.GP);
+        }
     }
 }

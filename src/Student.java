@@ -54,15 +54,6 @@ public class Student implements Comparable{
                 subject.put(sb, score);
             }
         }
-//        Set<Map.Entry<Subject, Integer>> entrySet = subject.entrySet();
-//        Iterator<Map.Entry<Subject, Integer>> it = entrySet.iterator();
-//        while ( it.hasNext() ) {
-//            Map.Entry<Subject, Integer> me = it.next();
-//            Subject key = me.getKey();
-//            if ( key.name.equals(sub)) {
-//                subject.put(key,score);
-//            }
-//        }
     }
 
     @Override
@@ -70,5 +61,4 @@ public class Student implements Comparable{
         Student p = (Student) o;
         return this.ID - p.ID;
     }
-
 }

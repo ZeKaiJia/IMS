@@ -1,4 +1,4 @@
-public class Subject {
+public class Subject implements Comparable{
     public int ID;
     public String name;
     public int GP;
@@ -19,5 +19,11 @@ public class Subject {
 
     public int getGP() {
         return GP;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Subject s = (Subject) o;
+        return this.ID - s.ID;
     }
 }

@@ -16,37 +16,49 @@ public class DbUtil {
 
     //初始化获取数据
     public static void initialMySQL() {
-        String sql = "select * from student";
+        String sqlstu = "select * from student";
+        String sqlsub = "select * from subject";
         Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs;
+        PreparedStatement pst1 = null, pst2 = null;
+        ResultSet rs1, rs2;
         //创建一个集合对象用来存放查询到的数据
         try {
             conn = DbUtil.getConnection();
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                int ID = rs.getInt("ID");
-                String name = rs.getString("姓名");
-                int Chinese = rs.getInt("语文");
-                int Maths = rs.getInt("数学");
-                int English = rs.getInt("英语");
+            pst1 = conn.prepareStatement(sqlstu);
+            pst2 = conn.prepareStatement(sqlsub);
+            rs1 = pst1.executeQuery();
+            rs2 = pst2.executeQuery();
+            while (rs1.next()) {
+                int ID = rs1.getInt("ID");
+                String name = rs1.getString("姓名");
+                int Chinese = rs1.getInt("语文");
+                int Maths = rs1.getInt("数学");
+                int English = rs1.getInt("英语");
                 Student stu = new Student(ID,name);
                 stu.setSubject("语文",Chinese);
                 stu.setSubject("数学",Maths);
                 stu.setSubject("英语",English);
                 Manager.addAPI(stu);
             }
+            while (rs2.next()) {
+                int ID = rs2.getInt("ID");
+                String name = rs2.getString("name");
+                int GP = rs2.getInt("GP");
+                Subject sub = new Subject(ID, name, GP);
+                Manager.addAPISub(sub);
+            }
         } catch (SQLException e) {
             // TODO: handle exception
             e.printStackTrace();
         } finally {
-            DbUtil.close(pstmt);
+            DbUtil.close(pst1);
+            DbUtil.close(pst2);
             DbUtil.close(conn);        //必须关闭
         }
     }
+
     //三个关闭方法
-    public static void close (PreparedStatement pstmt){
+    public static void close (PreparedStatement pstmt) {
         //避免出现空指针异常
         if (pstmt != null) {
             try {
@@ -56,7 +68,7 @@ public class DbUtil {
             }
         }
     }
-    public static void close (Connection conn){
+    public static void close (Connection conn) {
         if (conn != null) {
             try {
                 conn.close();
@@ -66,7 +78,7 @@ public class DbUtil {
             }
         }
     }
-    public static void close (ResultSet rs){
+    public static void close (ResultSet rs) {
         if (rs != null) {
             try {
                 rs.close();
@@ -77,23 +89,23 @@ public class DbUtil {
         }
     }
 
-    //增加课程信息表
+    //增加教学科目表
     public static void addSubject(Subject sub) {
         String sql = "insert into subject values(?,?,?)";
         //该语句为每个 IN 参数保留一个问号（“？”）作为占位符
         Connection conn = null;				//和数据库取得连接
         PreparedStatement pstmt = null;		//创建statement
-        try{
+        try {
             conn = DbUtil.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, sub.ID); //给占位符赋值
             pstmt.setString(2, sub.name); //给占位符赋值
             pstmt.setInt(3, sub.GP); //给占位符赋值
             pstmt.executeUpdate();			//执行
-        }catch(SQLException e){
+        }catch(SQLException e) {
             e.printStackTrace();
         }
-        finally{
+        finally {
             DbUtil.close(pstmt);
             DbUtil.close(conn);		//必须关闭
         }
@@ -105,7 +117,7 @@ public class DbUtil {
         //该语句为每个 IN 参数保留一个问号（“？”）作为占位符
         Connection conn = null;				//和数据库取得连接
         PreparedStatement pstmt = null;		//创建statement
-        try{
+        try {
             conn = DbUtil.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, stu.getID()); //给占位符赋值
@@ -114,10 +126,10 @@ public class DbUtil {
             pstmt.setInt(4, stu.getSubjectScore("数学")); //给占位符赋值
             pstmt.setInt(5, stu.getSubjectScore("英语")); //给占位符赋值
             pstmt.executeUpdate();			//执行
-        }catch(SQLException e){
+        }catch(SQLException e) {
             e.printStackTrace();
         }
-        finally{
+        finally {
             DbUtil.close(pstmt);
             DbUtil.close(conn);		//必须关闭
         }
@@ -129,16 +141,16 @@ public class DbUtil {
         //该语句为每个 IN 参数保留一个问号（“？”）作为占位符
         Connection conn = null;				//和数据库取得连接
         PreparedStatement pstmt = null;		//创建statement
-        try{
+        try {
             conn = DbUtil.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, score); //给占位符赋值
             pstmt.setInt(2, stu.getID()); //给占位符赋值
             pstmt.executeUpdate();			//执行
-        }catch(SQLException e){
+        }catch(SQLException e) {
             e.printStackTrace();
         }
-        finally{
+        finally {
             DbUtil.close(pstmt);
             DbUtil.close(conn);		//必须关闭
         }
@@ -150,15 +162,35 @@ public class DbUtil {
         //该语句为每个 IN 参数保留一个问号（“？”）作为占位符
         Connection conn = null;				//和数据库取得连接
         PreparedStatement pstmt = null;		//创建statement
-        try{
+        try {
             conn = DbUtil.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, stu.getID()); //给占位符赋值
             pstmt.executeUpdate();			//执行
-        }catch(SQLException e){
+        }catch(SQLException e) {
             e.printStackTrace();
         }
-        finally{
+        finally {
+            DbUtil.close(pstmt);
+            DbUtil.close(conn);		//必须关闭
+        }
+    }
+
+    //删除教学课程表
+    public static void deleteSubject(Subject sub) {
+        String sql = "delete from subject where id = ?";
+        //该语句为每个 IN 参数保留一个问号（“？”）作为占位符
+        Connection conn = null;				//和数据库取得连接
+        PreparedStatement pstmt = null;		//创建statement
+        try {
+            conn = DbUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, sub.ID); //给占位符赋值
+            pstmt.executeUpdate();			//执行
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
             DbUtil.close(pstmt);
             DbUtil.close(conn);		//必须关闭
         }
