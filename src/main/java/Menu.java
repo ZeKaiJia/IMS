@@ -16,7 +16,8 @@ public class Menu {
         System.out.println("-----------10.退出管理系统-----------");
         System.out.println("----------------------------------");
         System.out.println("-----------数据库功能选择-----------");//调试用
-        System.out.println("-----------11.从数据库中查找---------");
+        System.out.println("---------11.从数据库中查找学生-------");
+        System.out.println("---------12.从数据库中查找课程-------");
     }
     public static int choose() {
         System.out.print("-->请选择功能: ");

@@ -30,7 +30,6 @@ public class DbUtil {
     }
 
     //获取成绩信息
-
     private static List<Subject> getSubjectData() {
         List<Subject> subjects = new ArrayList<>();
         String sqlsub = "select * from subject";
@@ -59,7 +58,6 @@ public class DbUtil {
 
 
     //获取学生信息
-
     private static List<Student> getStuData() {
         List<Student> students = new ArrayList<>();
         String sqlstu = "select * from student";
@@ -230,35 +228,32 @@ public class DbUtil {
         }
     }
 
-    //查询信息
+    //查询学生信息
+    //TODO "这里调用了刚刚写的getStuData()"
     public static void findStudentList(Integer ID) {
-        String sql = "select * from student where id = ?";
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs;
-        //创建一个集合对象用来存放查询到的数据
-        try {
-            conn = DbUtil.getConnection();
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, ID); //给占位符赋值
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                String name = rs.getString("姓名");
-                int Chinese = rs.getInt("语文");
-                int Maths = rs.getInt("数学");
-                int English = rs.getInt("英语");
+        List<Student> stuList;
+        stuList = getStuData();
+        for (Student stu : stuList) {
+            if (stu.getID() == ID) {
                 System.out.println("---ID: " + ID);
-                System.out.println("---姓名: " + name);
-                System.out.println("---语文: " + Chinese);
-                System.out.println("---数学: " + Maths);
-                System.out.println("---英语: " + English);
+                System.out.println("---姓名: " + stu.getName());
+                System.out.println("---语文: " + stu.getSubjectScore("语文"));
+                System.out.println("---数学: " + stu.getSubjectScore("数学"));
+                System.out.println("---英语: " + stu.getSubjectScore("英语"));
             }
-        } catch (SQLException e) {
-            // TODO: handle exception
-            e.printStackTrace();
-        } finally {
-            DbUtil.close(pstmt);
-            DbUtil.close(conn);        //必须关闭
+        }
+    }
+
+    //查询课程信息
+    public static void findSubjectList(Integer ID) {
+        List<Subject> subList;
+        subList = getSubjectData();
+        for (Subject sub : subList) {
+            if (sub.ID == ID) {
+                System.out.println("---ID: " + ID);
+                System.out.println("---名称: " + sub.name);
+                System.out.println("---GP: " + sub.GP);
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ public class Manager {
     private static Set<Subject> subjectCage = new TreeSet<>();
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
         Menu.show();
         DbUtil.initialMySQL();
         do {
@@ -52,10 +53,14 @@ public class Manager {
                     break;
                 case 11:
                     int ID;
-                    Scanner input = new Scanner(System.in);
                     System.out.print("---请输入查找学生的ID: ");
                     ID = input.nextInt();
                     DbUtil.findStudentList(ID);
+                    break;
+                case 12:
+                    System.out.print("---请输入查找课程的ID: ");
+                    ID = input.nextInt();
+                    DbUtil.findSubjectList(ID);
                     break;
             }
         } while (!flag);
