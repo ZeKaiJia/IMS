@@ -1,33 +1,82 @@
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbUtil {
+
+    private static Connection conn = null;
+
     //连接方法
     public static Connection getConnection() {
-        Connection conn = null;
+        if (conn != null) {
+            return conn;
+        }
         //数据库初始化驱动
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/local?characterEncoding=UTF-8","root","kevinjzk");
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/local?characterEncoding=UTF-8","root","root");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return conn;
+
     }
 
     //初始化获取数据
     public static void initialMySQL() {
-        String sqlstu = "select * from student";
-        String sqlsub = "select * from subject";
-        Connection conn = null;
-        PreparedStatement pst1 = null, pst2 = null;
-        ResultSet rs1, rs2;
-        //创建一个集合对象用来存放查询到的数据
+
+            List<Student> students = getStuData();
+            students.forEach(e-> Manager.addAPI(e));
+            List<Subject> subjects = getSubjectData();
+            subjects.forEach(e-> Manager.addAPISub(e));
+    }
+
+    /**
+     * 获取成绩信息
+     * @return
+     */
+    private static List<Subject> getSubjectData() {
+        List<Subject> subjects = new ArrayList<>();
+        String sqlstu = "select * from subject";
+        conn = DbUtil.getConnection();
+        PreparedStatement pst1 = null;
+        ResultSet rs2 = null;
         try {
-            conn = DbUtil.getConnection();
             pst1 = conn.prepareStatement(sqlstu);
-            pst2 = conn.prepareStatement(sqlsub);
+            rs2 = pst1.executeQuery();
+            while (rs2.next()) {
+                int ID = rs2.getInt("ID");
+                String name = rs2.getString("name");
+                int GP = rs2.getInt("GP");
+                Subject sub = new Subject(ID, name, GP);
+                subjects.add(sub);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return subjects;
+        }finally {
+            close(pst1);
+            close(rs2);
+        }
+        return subjects;
+    }
+
+
+    /**
+     * 获取学生信息
+     * @return
+     */
+    private static List<Student> getStuData() {
+        List<Student> students = new ArrayList<>();
+        String sqlstu = "select * from student";
+        conn = DbUtil.getConnection();
+        PreparedStatement pst1 = null;
+        ResultSet rs1 = null;
+        try {
+            pst1 = conn.prepareStatement(sqlstu);
             rs1 = pst1.executeQuery();
-            rs2 = pst2.executeQuery();
             while (rs1.next()) {
                 int ID = rs1.getInt("ID");
                 String name = rs1.getString("姓名");
@@ -38,25 +87,17 @@ public class DbUtil {
                 stu.setSubject("语文",Chinese);
                 stu.setSubject("数学",Maths);
                 stu.setSubject("英语",English);
-                Manager.addAPI(stu);
-            }
-            while (rs2.next()) {
-                int ID = rs2.getInt("ID");
-                String name = rs2.getString("name");
-                int GP = rs2.getInt("GP");
-                Subject sub = new Subject(ID, name, GP);
-                Manager.addAPISub(sub);
+                students.add(stu);
             }
         } catch (SQLException e) {
-            // TODO: handle exception
             e.printStackTrace();
-        } finally {
-            DbUtil.close(pst1);
-            DbUtil.close(pst2);
-            DbUtil.close(conn);        //必须关闭
+            return students;
+        }finally {
+            close(pst1);
+            close(rs1);
         }
+        return students;
     }
-
     //三个关闭方法
     public static void close (PreparedStatement pstmt) {
         //避免出现空指针异常
