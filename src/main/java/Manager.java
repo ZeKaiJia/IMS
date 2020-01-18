@@ -152,12 +152,7 @@ public class Manager {
     }
 
     public static Student findByName(String name) {
-        for (Student stu: studentCage) {
-            if (stu.getName().equals(name)) {
-                return stu;
-            }
-        }
-        return null;
+        return studentCage.stream().filter(e -> name.equals(e.getName())).findAny().orElse(null);
     }
 
     public static Subject findByIDSubject(int ID) {
