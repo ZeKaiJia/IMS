@@ -13,7 +13,7 @@ public class Menu {
         System.out.println("-----------7.删除教学科目-----------");
         System.out.println("-----------8.全部科目信息-----------");
         System.out.println("-----------9.查找科目信息-----------");
-        System.out.println("-----------10.退出管理系统-----------");
+        System.out.println("-----------10.退出管理系统----------");
         System.out.println("----------------------------------");
         System.out.println("-----------数据库功能选择-----------");//调试用
         System.out.println("---------11.从数据库中查找学生-------");
