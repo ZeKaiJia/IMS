@@ -13,29 +13,15 @@ public class Student implements Comparable{
             Subject sub = new Subject(DbUtil.getSubjectData().get(i).ID,DbUtil.getSubjectData().get(i).name,DbUtil.getSubjectData().get(i).GP);
             subject.put(sub, null);
         }
-//        Subject Chinese = new Subject(1,"语文",5);
-//        subject.put(Chinese,null);
-//        Subject Maths = new Subject(2,"数学",4);
-//        subject.put(Maths,null);
-//        Subject English = new Subject(3,"英语",3);
-//        subject.put(English,null);
     }
 
     public int getID() {
         return ID;
     }
 
-//    public void setID(int ID) {
-//        this.ID = ID;
-//    }
-
     public String getName() {
         return name;
     }
-
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 
     public Integer getSubjectScore(String name) {
         for (Map.Entry<Subject, Integer> entry : subject.entrySet()) {

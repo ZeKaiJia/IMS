@@ -88,9 +88,6 @@ public class Manager {
             for ( Subject sub : subjectCage ) {
                 update_new(stu, sub.name);
             }
-//            update_new(stu, "语文");
-//            update_new(stu, "数学");
-//            update_new(stu, "英语");
             addAPI(stu);
             DbUtil.addStudent(stu);
         }
@@ -298,9 +295,6 @@ public class Manager {
             for (int i=0; i<subjectCage.size(); i++) {
                 System.out.println("---" + DbUtil.getSubjectData().get(i).name + ": " +stu.getSubjectScore(DbUtil.getSubjectData().get(i).name));
             }
-//            System.out.println("---语文: " + stu.getSubjectScore("语文"));
-//            System.out.println("---数学: " + stu.getSubjectScore("数学"));
-//            System.out.println("---英语: " + stu.getSubjectScore("英语"));
         }
         else {
             NotFind(1);

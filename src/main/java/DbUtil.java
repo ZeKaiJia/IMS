@@ -77,18 +77,11 @@ public class DbUtil {
                     subjectName.add(getSubjectData().get(i).name);
                     subjectScore.add(rs1.getInt(subjectName.get(i)));
                 }
-//                int Chinese = rs1.getInt("语文");
-//                int Maths = rs1.getInt("数学");
-//                int English = rs1.getInt("英语");
                 Student stu = new Student(ID,name);
                 for (int i=0; i<Manager.getSubjectCage().size(); i++) {
                     stu.setSubject(subjectName.get(i),subjectScore.get(i));
                 }
                 students.add(stu);
-//                stu.setSubject("语文",Chinese);
-//                stu.setSubject("数学",Maths);
-//                stu.setSubject("英语",English);
-//                students.add(stu);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,9 +174,6 @@ public class DbUtil {
                 pstmt.setInt(i+3, studentScore.get(i));
             }
             pstmt.executeUpdate();			//执行
-//            pstmt.setInt(3, stu.getSubjectScore("语文")); //给占位符赋值
-//            pstmt.setInt(4, stu.getSubjectScore("数学")); //给占位符赋值
-//            pstmt.setInt(5, stu.getSubjectScore("英语")); //给占位符赋值
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -270,9 +260,6 @@ public class DbUtil {
                 for (int i=0; i<Manager.getSubjectCage().size(); i++) {
                     System.out.println("---" + getSubjectData().get(i).name + stu.getSubjectScore(getSubjectData().get(i).name));
                 }
-//                System.out.println("---语文: " + stu.getSubjectScore("语文"));
-//                System.out.println("---数学: " + stu.getSubjectScore("数学"));
-//                System.out.println("---英语: " + stu.getSubjectScore("英语"));
             }
         }
     }
