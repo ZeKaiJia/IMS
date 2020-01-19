@@ -9,17 +9,17 @@ public class Subject implements Comparable{
         this.GP = GP;
     }
 
-//    public int getID() {
-//        return ID;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public int getGP() {
-//        return GP;
-//    }
+    public int getID() {
+        return ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getGP() {
+        return GP;
+    }
 
     @Override
     public int compareTo(Object o) {

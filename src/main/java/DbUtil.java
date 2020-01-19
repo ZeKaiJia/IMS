@@ -22,15 +22,14 @@ public class DbUtil {
 
     //初始化获取数据
     public static void initialMySQL() {
-
-            List<Student> students = getStuData();
-            students.forEach(Manager::addAPI);
-            List<Subject> subjects = getSubjectData();
-            subjects.forEach(Manager::addAPISub);
+        List<Subject> subjects = getSubjectData();
+        subjects.forEach(Manager::addAPISub);
+        List<Student> students = getStuData();
+        students.forEach(Manager::addAPI);
     }
 
     //获取成绩信息
-    private static List<Subject> getSubjectData() {
+    static List<Subject> getSubjectData() {
         List<Subject> subjects = new ArrayList<>();
         String sqlsub = "select * from subject";
         conn = DbUtil.getConnection();
@@ -64,20 +63,32 @@ public class DbUtil {
         conn = DbUtil.getConnection();
         PreparedStatement pst1 = null;
         ResultSet rs1 = null;
+        List<String> subjectName = new ArrayList<>();
+        List<Integer> subjectScore = new ArrayList<>();
         try {
             pst1 = conn.prepareStatement(sqlstu);
             rs1 = pst1.executeQuery();
             while (rs1.next()) {
+                subjectName.clear();
+                subjectScore.clear();
                 int ID = rs1.getInt("ID");
                 String name = rs1.getString("姓名");
-                int Chinese = rs1.getInt("语文");
-                int Maths = rs1.getInt("数学");
-                int English = rs1.getInt("英语");
+                for (int i=0; i<Manager.getSubjectCage().size(); i++) {
+                    subjectName.add(getSubjectData().get(i).name);
+                    subjectScore.add(rs1.getInt(subjectName.get(i)));
+                }
+//                int Chinese = rs1.getInt("语文");
+//                int Maths = rs1.getInt("数学");
+//                int English = rs1.getInt("英语");
                 Student stu = new Student(ID,name);
-                stu.setSubject("语文",Chinese);
-                stu.setSubject("数学",Maths);
-                stu.setSubject("英语",English);
+                for (int i=0; i<Manager.getSubjectCage().size(); i++) {
+                    stu.setSubject(subjectName.get(i),subjectScore.get(i));
+                }
                 students.add(stu);
+//                stu.setSubject("语文",Chinese);
+//                stu.setSubject("数学",Maths);
+//                stu.setSubject("英语",English);
+//                students.add(stu);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,16 +135,20 @@ public class DbUtil {
     //增加教学科目表
     public static void addSubject(Subject sub) {
         String sql = "insert into subject values(?,?,?)";
+        String sql_2 = "alter table student add column " + sub.name + " int";
         //该语句为每个 IN 参数保留一个问号（“？”）作为占位符
         Connection conn = null;				//和数据库取得连接
         PreparedStatement pstmt = null;		//创建statement
+        PreparedStatement pstmt_2;
         try {
             conn = DbUtil.getConnection();
             pstmt = conn.prepareStatement(sql);
+            pstmt_2 = conn.prepareStatement(sql_2);
             pstmt.setInt(1, sub.ID); //给占位符赋值
             pstmt.setString(2, sub.name); //给占位符赋值
             pstmt.setInt(3, sub.GP); //给占位符赋值
             pstmt.executeUpdate();			//执行
+            pstmt_2.executeUpdate();
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -145,7 +160,15 @@ public class DbUtil {
 
     //增加学生信息表
     public static void addStudent(Student stu) {
-        String sql = "insert into student values(?,?,?,?,?)";
+        StringBuilder string=new StringBuilder("?)");
+        List<Integer> studentScore = new ArrayList<>();
+        List<String> subjectName = new ArrayList<>();
+        for (int i=0; i<Manager.getSubjectCage().size(); i++) {
+            string.insert(0,"?,");
+            subjectName.add(getSubjectData().get(i).name);
+            studentScore.add(stu.getSubjectScore(subjectName.get(i)));
+        }
+        String sql = "insert into student values(?,"+ string;
         //该语句为每个 IN 参数保留一个问号（“？”）作为占位符
         Connection conn = null;				//和数据库取得连接
         PreparedStatement pstmt = null;		//创建statement
@@ -154,10 +177,13 @@ public class DbUtil {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, stu.getID()); //给占位符赋值
             pstmt.setString(2, stu.getName()); //给占位符赋值
-            pstmt.setInt(3, stu.getSubjectScore("语文")); //给占位符赋值
-            pstmt.setInt(4, stu.getSubjectScore("数学")); //给占位符赋值
-            pstmt.setInt(5, stu.getSubjectScore("英语")); //给占位符赋值
+            for (int i=0; i<Manager.getSubjectCage().size(); i++) {
+                pstmt.setInt(i+3, studentScore.get(i));
+            }
             pstmt.executeUpdate();			//执行
+//            pstmt.setInt(3, stu.getSubjectScore("语文")); //给占位符赋值
+//            pstmt.setInt(4, stu.getSubjectScore("数学")); //给占位符赋值
+//            pstmt.setInt(5, stu.getSubjectScore("英语")); //给占位符赋值
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -211,14 +237,18 @@ public class DbUtil {
     //删除教学课程表
     public static void deleteSubject(Subject sub) {
         String sql = "delete from subject where id = ?";
+        String sql_2 = "alter table student drop column " + sub.name;
         //该语句为每个 IN 参数保留一个问号（“？”）作为占位符
         Connection conn = null;				//和数据库取得连接
         PreparedStatement pstmt = null;		//创建statement
+        PreparedStatement pstmt_2;
         try {
             conn = DbUtil.getConnection();
             pstmt = conn.prepareStatement(sql);
+            pstmt_2 = conn.prepareStatement(sql_2);
             pstmt.setInt(1, sub.ID); //给占位符赋值
             pstmt.executeUpdate();			//执行
+            pstmt_2.executeUpdate();
         }catch(SQLException e) {
             e.printStackTrace();
         }
@@ -237,9 +267,12 @@ public class DbUtil {
             if (stu.getID() == ID) {
                 System.out.println("---ID: " + ID);
                 System.out.println("---姓名: " + stu.getName());
-                System.out.println("---语文: " + stu.getSubjectScore("语文"));
-                System.out.println("---数学: " + stu.getSubjectScore("数学"));
-                System.out.println("---英语: " + stu.getSubjectScore("英语"));
+                for (int i=0; i<Manager.getSubjectCage().size(); i++) {
+                    System.out.println("---" + getSubjectData().get(i).name + stu.getSubjectScore(getSubjectData().get(i).name));
+                }
+//                System.out.println("---语文: " + stu.getSubjectScore("语文"));
+//                System.out.println("---数学: " + stu.getSubjectScore("数学"));
+//                System.out.println("---英语: " + stu.getSubjectScore("英语"));
             }
         }
     }

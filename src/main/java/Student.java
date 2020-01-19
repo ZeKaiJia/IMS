@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Student implements Comparable{
     private int ID;
@@ -11,13 +8,17 @@ public class Student implements Comparable{
     public Student(int ID, String name) {
         this.ID = ID;
         this.name = name;
-        subject = new HashMap<>();
-        Subject Chinese = new Subject(1,"语文",5);
-        subject.put(Chinese,null);
-        Subject Maths = new Subject(2,"数学",4);
-        subject.put(Maths,null);
-        Subject English = new Subject(3,"英语",3);
-        subject.put(English,null);
+        subject = new TreeMap<>();
+        for (int i=0; i<Manager.getSubjectCage().size(); i++) {
+            Subject sub = new Subject(DbUtil.getSubjectData().get(i).ID,DbUtil.getSubjectData().get(i).name,DbUtil.getSubjectData().get(i).GP);
+            subject.put(sub, null);
+        }
+//        Subject Chinese = new Subject(1,"语文",5);
+//        subject.put(Chinese,null);
+//        Subject Maths = new Subject(2,"数学",4);
+//        subject.put(Maths,null);
+//        Subject English = new Subject(3,"英语",3);
+//        subject.put(English,null);
     }
 
     public int getID() {
