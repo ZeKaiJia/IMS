@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper:映射器
+    1.namespace="": 本文件用来管理namespace所指接口，主要实现接口中声明的方法。
+    2.select: 实现一个查询操作。
+    3.id: namespace接口中的方法名。
+    4.resulttype: 返回的结果类型。如果没有不需要写。
+    5.parameterType: 该方法输入的参数类型。
+    6.insert: 表示添加。
+    -->
+<mapper namespace="com/mybatis/mapper/MonsterMapper">
+    <insert id="addMonster" parameterType="Monster"
+            useGeneratedKeys="true" keyProperty="monster_id">
+        INSERT INTO Monster (age, birthday, email, gender, name, salary)
+        VALUES(#{age}, #{birthday}, #{email}, #{gender}, #{name}, #{salary})
+    </insert>
+</mapper>
