@@ -10,7 +10,7 @@
     5.parameterType: 该方法输入的参数类型。
     6.insert: 表示添加。
     -->
-<mapper namespace="com/mybatis/mapper/MonsterMapper">
+<mapper namespace="com.mybatis.mapper.MonsterMapper">
     <insert id="addMonster" parameterType="Monster"
             useGeneratedKeys="true" keyProperty="monster_id">
         INSERT INTO Monster (age, birthday, email, gender, name, salary)

@@ -27,6 +27,6 @@
     </environments>
     <mappers>
         <!--在这里我们注册Mapper.xml文件-->
-        <mapper resource="com/mybatis/mapper"/>
+        <mapper resource="MonsterMapper.xml"/>
     </mappers>
 </configuration>
