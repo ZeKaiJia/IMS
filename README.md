@@ -3,7 +3,7 @@ org.apache.ibatis.exceptions.PersistenceException:
 ### The error may exist in com/mybatis/mapper
 ### Cause: org.apache.ibatis.builder.BuilderException: Error parsing SQL Mapper Configuration. Cause: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; 前言中不允许有内容。
 
-	~~ at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
+	`at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
 	at org.apache.ibatis.session.SqlSessionFactoryBuilder.build(SqlSessionFactoryBuilder.java:80)
 	at org.apache.ibatis.session.SqlSessionFactoryBuilder.build(SqlSessionFactoryBuilder.java:64)
 	at com.mybatis.test.testMyBatis.init(testMyBatis.java:25)
@@ -61,4 +61,4 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; 前言
 	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:246)
 	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
 	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:261)
-	... 35 more ~~
+	... 35 more`
