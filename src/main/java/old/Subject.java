@@ -1,3 +1,5 @@
+package old;
+
 public class Subject implements Comparable{
     public int ID;
     public String name;

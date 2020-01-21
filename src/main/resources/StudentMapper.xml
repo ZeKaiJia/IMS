@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mapper:映射器
+    1.namespace="": 本文件用来管理namespace所指接口，主要实现接口中声明的方法。
+    2.select: 实现一个查询操作。
+    3.id: namespace接口中的方法名。
+    4.resulttype: 返回的结果类型。如果没有不需要写。
+    5.parameterType: 该方法输入的参数类型。
+    6.insert: 表示添加。
+    -->
+<mapper namespace="cn.kevin.stu.manage.mapper.StudentMapper">
+    <insert id="addStudent" parameterType="Student"
+            useGeneratedKeys="true" keyProperty="stuId">
+        INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName)
+        SELECT #{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}
+        WHERE NOT EXISTS(SELECT * FROM Student WHERE stuId = #{stuId}) LIMIT 1
+    </insert>
+    <delete id="deleteStudentById" parameterType="Integer">
+        DELETE FROM Student
+        WHERE stuId = #{stuId}
+    </delete>
+    <update id="updateStudent" parameterType="Student">
+        UPDATE Student SET stuAge = #{stuAge}, stuBirthday = #{stuBirthday},
+        stuEmail = #{stuEmail}, stuGender = #{stuGender}, stuName = #{stuName} WHERE stuId = #{stuId}
+    </update>
+    <select id="selectStudent" parameterType="Integer" resultType="Student">
+        SELECT * FROM Student
+        WHERE  stuId = #{stuId}
+    </select>
+    <select id="selectAllStudent" resultType="Student">
+        SELECT * FROM Student
+    </select>
+</mapper>
