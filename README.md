@@ -2,7 +2,8 @@
 ## 说明
 本人能力有限，由于第一次接触Java、MySQL和GIT，有点手忙脚乱，之前的版本更新说明没有写。2020年1月16号开始更新1.2.5版本。<br>
 ~~需要导入Java jdbc的包(mysql-connector-java-8.0.19),请在社区自行下载(https://dev.mysql.com/downloads/)~~。<br>
-~~需要修改数据库IP、账号和密码，见DbUtil类中Connection对象conn。~~jar包已经可以通过Maven直接导入，数据库连接请修改jdbc.properties文件。
+~~需要修改数据库IP、账号和密码，见DbUtil类中Connection对象conn。~~ <br>
+jar包已经可以通过Maven直接导入，数据库连接请修改jdbc.properties文件。
 
 ## 开发日志
 ### 2020.1.16 - Demo 1.2.5
