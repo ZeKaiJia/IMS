@@ -17,4 +17,19 @@
         SELECT #{subId}, #{subName}, #{subTeacherId}, #{subCredit}
         WHERE NOT EXISTS(SELECT * FROM subject WHERE subId=#{subId}) LIMIT 1
     </insert>
+    <delete id="deleteSubjectById" parameterType="Integer">
+        DELETE FROM Subject
+        WHERE subId = #{subId}
+    </delete>
+    <update id="updateSubject" parameterType="Subject">
+        UPDATE Subject SET subName = #{subName}, subTeacherId = #{subTeacherId}, subCredit = #{subCredit}
+        WHERE EXISTS(SELECT * FROM subject WHERE subId=#{subId}) LIMIT 1
+    </update>
+    <select id="selectSubject" parameterType="Integer" resultType="Subject">
+        SELECT * FROM Subject
+        WHERE  subId = #{subId}
+    </select>
+    <select id="selectAllSubject" resultType="Subject">
+        SELECT * FROM Subject
+    </select>
 </mapper>
