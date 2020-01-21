@@ -1,3 +1,5 @@
+package com.jzk.sms;
+
 public class Subject implements Comparable{
     public int ID;
     public String name;

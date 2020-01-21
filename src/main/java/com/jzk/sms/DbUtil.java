@@ -1,3 +1,7 @@
+package com.jzk.sms;
+
+import com.jzk.sms.entity.Student;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +33,7 @@ public class DbUtil {
     }
 
     //获取成绩信息
-    static List<Subject> getSubjectData() {
+    public static List<Subject> getSubjectData() {
         List<Subject> subjects = new ArrayList<>();
         String sqlsub = "select * from subject";
         conn = DbUtil.getConnection();

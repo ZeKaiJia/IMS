@@ -1,16 +1,40 @@
+package com.jzk.sms;
+
+import com.jzk.sms.controller.AddController;
+import com.jzk.sms.controller.BaseController;
+import com.jzk.sms.controller.DelController;
+import com.jzk.sms.entity.Student;
+
 import java.util.*;
 
 public class Manager {
     public static boolean flag = false;
-    private static Set<Student> studentCage = new TreeSet<>();
-    private static Set<Subject> subjectCage = new TreeSet<>();
+
 
     public static void main(String[] args) {
+        Map<Integer, BaseController> controllerMap = new HashMap<>();
+
+        controllerMap.put(1, new AddController());
+        controllerMap.put(2, new DelController());
+
+
+
+
         Scanner input = new Scanner(System.in);
         Menu.show();
         DbUtil.initialMySQL();
-        do {
-            switch (Menu.choose()) {
+        while (!flag) {
+            Menu.showChoose();
+            int choose = Menu.choose();
+            BaseController controller = controllerMap.get(choose);
+            if (controller == null) {
+                System.out.println("没有这个controller！");
+                continue;
+            }
+            controller.doBiz();
+
+
+            /*switch (choose) {
                 //增加学生信息
                 case 1:
                     add();
@@ -62,36 +86,16 @@ public class Manager {
                     ID = input.nextInt();
                     DbUtil.findSubjectList(ID);
                     break;
-            }
-        } while (!flag);
+            }*/
+        }
+        ;
     }
 
     public static Set<Subject> getSubjectCage() {
         return subjectCage;
     }
 
-    //增加学生信息
-    public static void add() {
-        int ID;
-        String name;
-        Scanner input = new Scanner(System.in);
-        System.out.print("---请输入学生ID: ");
-        ID = input.nextInt();
-        System.out.print("---请输入学生姓名: ");
-        name = input.next();
-        Student stu = new Student(ID, name);
-        Student temp = findByID(ID);
-        if ( temp != null ) {
-            repeatFind(1);
-        }
-        else {
-            for ( Subject sub : subjectCage ) {
-                update_new(stu, sub.name);
-            }
-            addAPI(stu);
-            DbUtil.addStudent(stu);
-        }
-    }
+
 
     //增加教学科目
     public static void addSubject() {
@@ -108,10 +112,9 @@ public class Manager {
         Subject sub = new Subject(ID, name, GP);
         Subject tempI = findByIDSubject(ID);
         Subject tempN = findByNameSubject(name);
-        if ( tempI != null || tempN != null ) {
+        if (tempI != null || tempN != null) {
             repeatFind(0);
-        }
-        else {
+        } else {
             addAPISub(sub);
             DbUtil.addSubject(sub);
         }
@@ -121,43 +124,30 @@ public class Manager {
     public static void addAPI(Student stu) {
         studentCage.add(stu);
     }
+
     public static void addAPISub(Subject sub) {
         subjectCage.add(sub);
     }
 
     //没有查找到信息后的反馈功能
     public static void NotFind(int section) {
-        if ( section == 1 ) {
+        if (section == 1) {
             System.out.println("---查无此人!");
-        }
-        else {
+        } else {
             System.out.println("---查无此课!");
         }
     }
 
     //重复查找到信息后的反馈功能
     public static void repeatFind(int section) {
-        if ( section == 1 ) {
+        if (section == 1) {
             System.out.println("---学生ID重复!");
-        }
-        else {
+        } else {
             System.out.println("---课程ID或名称重复!");
         }
     }
 
-    //供其他功能使用的查找方法，可以通过ID、名称来查找
-    public static Student findByID(int ID) {
-        return studentCage.stream().filter(e -> ID == e.getID()).findAny().orElse(null);
-    }
-    public static Student findByName(String name) {
-        return studentCage.stream().filter(e -> name.equals(e.getName())).findAny().orElse(null);
-    }
-    public static Subject findByIDSubject(int ID) {
-        return subjectCage.stream().filter(e -> ID == e.ID).findAny().orElse(null);
-    }
-    public static Subject findByNameSubject(String name) {
-        return subjectCage.stream().filter(e -> name.equals(e.name)).findAny().orElse(null);
-    }
+
 
     //删除学生信息
     public static void delete() {
@@ -183,8 +173,7 @@ public class Manager {
             studentCage.remove(stu);
             DbUtil.delete(stu);
             System.out.println("---删除成功");
-        }
-        else {
+        } else {
             NotFind(1);
         }
     }
@@ -213,8 +202,7 @@ public class Manager {
             subjectCage.remove(sub);
             DbUtil.deleteSubject(sub);
             System.out.println("---删除成功");
-        }
-        else {
+        } else {
             NotFind(0);
         }
     }
@@ -244,8 +232,7 @@ public class Manager {
             name = input.next();
             update(stu, name);
             System.out.println("---修改成功");
-        }
-        else {
+        } else {
             NotFind(1);
         }
     }
@@ -289,20 +276,19 @@ public class Manager {
                 stu = findByName(name);
                 break;
         }
-        if ( stu != null ) {
+        if (stu != null) {
             System.out.println("---ID: " + stu.getID());
             System.out.println("---姓名: " + stu.getName());
-            for (int i=0; i<subjectCage.size(); i++) {
-                System.out.println("---" + DbUtil.getSubjectData().get(i).name + ": " +stu.getSubjectScore(DbUtil.getSubjectData().get(i).name));
+            for (int i = 0; i < subjectCage.size(); i++) {
+                System.out.println("---" + DbUtil.getSubjectData().get(i).name + ": " + stu.getSubjectScore(DbUtil.getSubjectData().get(i).name));
             }
-        }
-        else {
+        } else {
             NotFind(1);
         }
     }
 
     //查找科目信息
-    public  static void searchSubject() {
+    public static void searchSubject() {
         int ID, choice;
         String name;
         Subject sub = null;
@@ -321,12 +307,11 @@ public class Manager {
                 sub = findByNameSubject(name);
                 break;
         }
-        if ( sub != null ) {
+        if (sub != null) {
             System.out.println("---ID: " + sub.ID);
             System.out.println("---名称: " + sub.name);
             System.out.println("---GP: " + sub.GP);
-        }
-        else {
+        } else {
             NotFind(0);
         }
     }
@@ -335,8 +320,8 @@ public class Manager {
     public static void display() {
         StringBuilder title = new StringBuilder("---学生信息表---");
         StringBuilder sub = new StringBuilder("  ID   姓名");
-        for (int i=0; i<subjectCage.size(); i++) {
-            title.insert(0,"--");
+        for (int i = 0; i < subjectCage.size(); i++) {
+            title.insert(0, "--");
             title.append("--");
             sub.append("  ").append(DbUtil.getSubjectData().get(i).name);
         }
@@ -344,7 +329,7 @@ public class Manager {
         System.out.println(sub);
         for (Student stu : studentCage) {
             System.out.print("  " + stu.getID() + "号  " + stu.getName());
-            for (int i=0; i<subjectCage.size(); i++) {
+            for (int i = 0; i < subjectCage.size(); i++) {
                 System.out.print("   " + stu.getSubjectScore(DbUtil.getSubjectData().get(i).name));
             }
             System.out.println();
@@ -355,7 +340,7 @@ public class Manager {
     private static void displaySubject() {
         System.out.println("-------科目信息表-------");
         System.out.println("ID       名称        GP");
-        for ( Subject sub : subjectCage ) {
+        for (Subject sub : subjectCage) {
             System.out.println(sub.ID + "        " + sub.name + "        " + sub.GP);
         }
     }

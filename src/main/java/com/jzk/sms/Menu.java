@@ -1,3 +1,5 @@
+package com.jzk.sms;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -19,8 +21,12 @@ public class Menu {
         System.out.println("---------11.从数据库中查找学生-------");
         System.out.println("---------12.从数据库中查找课程-------");
     }
-    public static int choose() {
+    public static void showChoose() {
         System.out.print("-->请选择功能: ");
+
+    }
+
+    public static int choose() {
         Scanner input = new Scanner(System.in);
         return input.nextInt();
     }

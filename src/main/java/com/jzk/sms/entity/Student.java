@@ -1,3 +1,9 @@
+package com.jzk.sms.entity;
+
+import com.jzk.sms.DbUtil;
+import com.jzk.sms.Manager;
+import com.jzk.sms.Subject;
+
 import java.util.*;
 
 public class Student implements Comparable{
@@ -9,7 +15,7 @@ public class Student implements Comparable{
         this.ID = ID;
         this.name = name;
         subject = new TreeMap<>();
-        for (int i=0; i<Manager.getSubjectCage().size(); i++) {
+        for (int i = 0; i<Manager.getSubjectCage().size(); i++) {
             Subject sub = new Subject(DbUtil.getSubjectData().get(i).ID,DbUtil.getSubjectData().get(i).name,DbUtil.getSubjectData().get(i).GP);
             subject.put(sub, null);
         }
