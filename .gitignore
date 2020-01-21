@@ -2,8 +2,7 @@
 .idea/
 out/
 *.iml
-stu.manage.iml
-
+MybatisTest.iml
 # Created by https://www.gitignore.io/api/Java,macos
 # Edit at https://www.gitignore.io/?templates=Java,macos
 
