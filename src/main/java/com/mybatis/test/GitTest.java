@@ -1,6 +1,6 @@
 package com.mybatis.test;
 
-/**
+/**safasdfasdfasdf
  * @author Sean Wu
  */
 public class GitTest {
