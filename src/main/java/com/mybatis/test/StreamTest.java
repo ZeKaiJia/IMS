@@ -5,7 +5,7 @@ import java.util.*;
 public class StreamTest {
 
 
-    private int size = 10000000;
+    private int size = 9999;
 
     List<Integer> integers = null;
 
