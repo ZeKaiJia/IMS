@@ -2,6 +2,8 @@
 .idea/
 out/
 
+.iml
+
 # Created by https://www.gitignore.io/api/Java,macos
 # Edit at https://www.gitignore.io/?templates=Java,macos
 
