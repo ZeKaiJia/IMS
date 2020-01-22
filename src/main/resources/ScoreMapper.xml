@@ -12,7 +12,7 @@
     7.useGeneratedKeys:返回添加对象的主键
     8.keyProperty:返回值SET属性
     -->
-<mapper namespace="cn.kevin.stu.manage.mapper.ScoreMapper">
+<mapper namespace="cn.kevin.sms.mapper.ScoreMapper">
     <insert id="insert" parameterType="Score">
         INSERT INTO Score (stuId, subId, subName, subScore, gmtCreate, gmtModify)
         SELECT #{stuId}, #{subId}, #{subName}, #{subScore}, #{gmtCreate}, #{gmtModify}
@@ -41,6 +41,6 @@
     </select>
     <select id="selectPassScore" parameterType="Integer" resultType="Score">
         SELECT * FROM Score
-        WHERE  subScore >= #{stuId}
+        WHERE  subScore >= #{subScore}
     </select>
 </mapper>

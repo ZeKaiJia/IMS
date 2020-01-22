@@ -1,4 +1,4 @@
-package cn.kevin.stu.manage.entity;
+package cn.kevin.sms.entity;
 
 /**
  * @author kevin

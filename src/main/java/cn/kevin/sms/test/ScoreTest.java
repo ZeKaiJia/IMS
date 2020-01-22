@@ -1,9 +1,7 @@
-package cn.kevin.stu.manage.test;
+package cn.kevin.sms.test;
 
-import cn.kevin.stu.manage.entity.Score;
-import cn.kevin.stu.manage.entity.Student;
-import cn.kevin.stu.manage.mapper.ScoreMapper;
-import cn.kevin.stu.manage.mapper.StudentMapper;
+import cn.kevin.sms.entity.Score;
+import cn.kevin.sms.mapper.ScoreMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +18,7 @@ import java.util.Map;
 /**
  * @author kevin
  */
-public class TestScore {
-    //这是个SQL会话工厂对象[表示通过会话发出SQL原生语言]
-    private SqlSessionFactory sqlSessionFactory;
+public class ScoreTest {
     //这个是SQL会话，通过他可以发出SQL语句
     private SqlSession sqlSession;
 
@@ -39,7 +34,8 @@ public class TestScore {
         InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
 
         //通过SqlSessionFactoryBuilder得到SqlSessionFactory对象
-        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //这是个SQL会话工厂对象[表示通过会话发出SQL原生语言]
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
         //通过SqlSessionFactory对象获取一个SqlSession会话
         sqlSession = sqlSessionFactory.openSession();

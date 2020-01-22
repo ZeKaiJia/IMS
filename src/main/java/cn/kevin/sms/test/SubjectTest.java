@@ -1,7 +1,7 @@
-package cn.kevin.stu.manage.test;
+package cn.kevin.sms.test;
 
-import cn.kevin.stu.manage.entity.Subject;
-import cn.kevin.stu.manage.mapper.SubjectMapper;
+import cn.kevin.sms.entity.Subject;
+import cn.kevin.sms.mapper.SubjectMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,9 +16,7 @@ import java.util.List;
 /**
  * @author kevin
  */
-public class TestSubject {
-    //这是个SQL会话工厂对象[表示通过会话发出SQL原生语言]
-    private SqlSessionFactory sqlSessionFactory;
+public class SubjectTest {
     //这个是SQL会话，通过他可以发出SQL语句
     private SqlSession sqlSession;
 
@@ -32,7 +30,8 @@ public class TestSubject {
         InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
 
         //通过SqlSessionFactoryBuilder得到SqlSessionFactory对象
-        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //这是个SQL会话工厂对象[表示通过会话发出SQL原生语言]
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
         //通过SqlSessionFactory对象获取一个SqlSession会话
         sqlSession = sqlSessionFactory.openSession();

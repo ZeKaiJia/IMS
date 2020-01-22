@@ -1,7 +1,6 @@
-package cn.kevin.stu.manage.mapper;
+package cn.kevin.sms.mapper;
 
-import cn.kevin.stu.manage.entity.Score;
-import cn.kevin.stu.manage.entity.Student;
+import cn.kevin.sms.entity.Score;
 
 import java.util.List;
 import java.util.Map;

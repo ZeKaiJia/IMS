@@ -10,7 +10,7 @@
     5.parameterType: 该方法输入的参数类型。
     6.insert: 表示添加。
     -->
-<mapper namespace="cn.kevin.stu.manage.mapper.SubjectMapper">
+<mapper namespace="cn.kevin.sms.mapper.SubjectMapper">
     <insert id="insert" parameterType="Subject">
         INSERT INTO Subject (subId, subName, subTeacherId, subCredit)
         SELECT #{subId}, #{subName}, #{subTeacherId}, #{subCredit}

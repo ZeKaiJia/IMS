@@ -1,7 +1,7 @@
-package cn.kevin.stu.manage.test;
+package cn.kevin.sms.test;
 
-import cn.kevin.stu.manage.entity.Student;
-import cn.kevin.stu.manage.mapper.StudentMapper;
+import cn.kevin.sms.entity.Student;
+import cn.kevin.sms.mapper.StudentMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -17,9 +17,7 @@ import java.util.List;
 /**
  * @author kevin
  */
-public class TestStudent {
-    //这是个SQL会话工厂对象[表示通过会话发出SQL原生语言]
-    private SqlSessionFactory sqlSessionFactory;
+public class StudentTest {
     //这个是SQL会话，通过他可以发出SQL语句
     private SqlSession sqlSession;
 
@@ -33,7 +31,8 @@ public class TestStudent {
         InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
 
         //通过SqlSessionFactoryBuilder得到SqlSessionFactory对象
-        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        //这是个SQL会话工厂对象[表示通过会话发出SQL原生语言]
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
         //通过SqlSessionFactory对象获取一个SqlSession会话
         sqlSession = sqlSessionFactory.openSession();
@@ -43,16 +42,14 @@ public class TestStudent {
 
     @Test
     public void testInsert() {
-        for (int i=1; i<11; i++) {
             Student student = new Student();
-            student.setStuId(i);
-            student.setStuAge(10+i);
+            student.setStuId(38);
+            student.setStuAge(10);
             student.setStuBirthday(new Date());
-            student.setStuEmail("84592305" + i + "@qq.com");
-            student.setStuGender(i%2);
-            student.setStuName("贾泽楷" + i);
+            student.setStuEmail("84592305@qq.com");
+            student.setStuGender(1);
+            student.setStuName("贾泽楷");
             studentMapper.insert(student);
-        }
         System.out.println("Inserted!");
     }
 
@@ -113,7 +110,7 @@ public class TestStudent {
     }
 
     @After
-    public void destory() {
+    public void destroy() {
         if (sqlSession != null) {
             sqlSession.commit();
             sqlSession.close();

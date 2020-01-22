@@ -12,7 +12,7 @@
     7.useGeneratedKeys:返回添加对象的主键
     8.keyProperty:返回值SET属性
     -->
-<mapper namespace="cn.kevin.stu.manage.mapper.StudentMapper">
+<mapper namespace="cn.kevin.sms.mapper.StudentMapper">
     <insert id="insert" parameterType="Student">
         INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName)
         SELECT #{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}

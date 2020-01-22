@@ -1,6 +1,6 @@
-package cn.kevin.stu.manage.mapper;
+package cn.kevin.sms.mapper;
 
-import cn.kevin.stu.manage.entity.Student;
+import cn.kevin.sms.entity.Student;
 
 import java.util.List;
 

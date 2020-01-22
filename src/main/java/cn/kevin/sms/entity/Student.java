@@ -1,6 +1,7 @@
-package cn.kevin.stu.manage.entity;
+package cn.kevin.sms.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author kevin
@@ -84,5 +85,22 @@ public class Student {
                 ", stuGender=" + stuGender +
                 ", stuName='" + stuName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Student)) {
+            return false;
+        }
+        Student student = (Student) o;
+        return stuId.equals(student.stuId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stuId);
     }
 }
