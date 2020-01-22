@@ -9,17 +9,23 @@ import java.util.List;
  */
 public interface StudentMapper {
     //添加方法
-    void addStudent(Student student);
+    void insert(Student student);
 
     //删除方法 id
-    void deleteStudentById(Integer stuId);
+    void deleteById(Integer stuId);
 
     //修改方法
-    void updateStudent(Student student);
+    void update(Student student);
 
     //单个查找方法 id
-    Student selectStudent(Integer stuId);
+    Student select(Integer stuId);
 
     //全体查找方法
-    List<Student> selectAllStudent();
+    List<Student> selectAll();
+
+    //多参数多返回查找方法
+    List<Student> selectByAllInfo(Student student);
+
+    //模糊查找
+    List<Student> selectSimilarName(String stuName);
 }

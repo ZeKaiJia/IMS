@@ -1,5 +1,6 @@
 package cn.kevin.stu.manage.mapper;
 
+import cn.kevin.stu.manage.entity.Student;
 import cn.kevin.stu.manage.entity.Subject;
 
 import java.util.List;
@@ -9,17 +10,23 @@ import java.util.List;
  */
 public interface SubjectMapper {
     //添加方法
-    void addSubject(Subject subject);
+    void insert(Subject subject);
 
     //删除方法 id
-    void deleteSubjectById(Integer subId);
+    void delete(Integer subId);
 
     //修改方法
-    void updateSubject(Subject subject);
+    void update(Subject subject);
 
     //单个查找方法 id
-    Subject selectSubject(Integer subId);
+    Subject select(Integer subId);
 
     //全体查找方法
-    List<Subject> selectAllSubject();
+    List<Subject> selectAll();
+
+    //多参数多返回查找方法
+    List<Subject> selectByAllInfo(Subject subject);
+
+    //模糊查找
+    List<Subject> selectSimilarName(String subName);
 }

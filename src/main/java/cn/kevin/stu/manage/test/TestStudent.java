@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +24,8 @@ public class TestStudent {
     private SqlSession sqlSession;
 
     private StudentMapper studentMapper;
+
+    List<Student> students;
 
     @Before
     public void init() throws Exception {
@@ -41,7 +42,7 @@ public class TestStudent {
     }
 
     @Test
-    public void testInsertStu() {
+    public void testInsert() {
         for (int i=1; i<11; i++) {
             Student student = new Student();
             student.setStuId(i);
@@ -50,19 +51,19 @@ public class TestStudent {
             student.setStuEmail("84592305" + i + "@qq.com");
             student.setStuGender(i%2);
             student.setStuName("贾泽楷" + i);
-            studentMapper.addStudent(student);
+            studentMapper.insert(student);
         }
         System.out.println("Inserted!");
     }
 
     @Test
-    public void testDeleteStu() {
-        studentMapper.deleteStudentById(1);
+    public void testDelete() {
+        studentMapper.deleteById(1);
         System.out.println("Deleted!");
     }
 
     @Test
-    public void testUpdateStu() {
+    public void testUpdate() {
         Student student = new Student();
         student.setStuId(2);
         student.setStuAge(99);
@@ -70,22 +71,41 @@ public class TestStudent {
         student.setStuEmail("999999999@qq.com");
         student.setStuGender(3);
         student.setStuName("9贾9泽9楷9");
-        studentMapper.updateStudent(student);
+        studentMapper.update(student);
         System.out.println("Updated!");
     }
 
     @Test
-    public void testSelectStuId() {
+    public void testSelect() {
         Student student;
-        student = studentMapper.selectStudent(1);
+        student = studentMapper.select(1);
         System.out.println(student);
         System.out.println("Selected!");
     }
 
     @Test
-    public void testSelectAllStu() {
-        List<Student> students;
-        students = studentMapper.selectAllStudent();
+    public void testSelectAll() {
+        students = studentMapper.selectAll();
+        for (Student stu : students) {
+            System.out.println(stu);
+        }
+        System.out.println("Selected!");
+    }
+
+    @Test
+    public void testSelectByAllInfo() {
+        Student student = new Student();
+        student.setStuGender(1);
+        students = studentMapper.selectByAllInfo(student);
+        for (Student stu : students) {
+            System.out.println(stu);
+        }
+        System.out.println("Selected!");
+    }
+
+    @Test
+    public void testSelectSimilarName() {
+        students = studentMapper.selectSimilarName("9");
         for (Student stu : students) {
             System.out.println(stu);
         }

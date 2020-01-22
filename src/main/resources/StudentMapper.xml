@@ -13,24 +13,33 @@
     8.keyProperty:返回值SET属性
     -->
 <mapper namespace="cn.kevin.stu.manage.mapper.StudentMapper">
-    <insert id="addStudent" parameterType="Student">
+    <insert id="insert" parameterType="Student">
         INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName)
         SELECT #{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}
         WHERE NOT EXISTS(SELECT * FROM Student WHERE stuId = #{stuId}) LIMIT 1
     </insert>
-    <delete id="deleteStudentById" parameterType="Integer">
+    <delete id="deleteById" parameterType="Integer">
         DELETE FROM Student
         WHERE stuId = #{stuId}
     </delete>
-    <update id="updateStudent" parameterType="Student">
+    <update id="update" parameterType="Student">
         UPDATE Student SET stuAge = #{stuAge}, stuBirthday = #{stuBirthday},
         stuEmail = #{stuEmail}, stuGender = #{stuGender}, stuName = #{stuName} WHERE stuId = #{stuId}
     </update>
-    <select id="selectStudent" parameterType="Integer" resultType="Student">
+    <select id="select" parameterType="Integer" resultType="Student">
         SELECT * FROM Student
         WHERE  stuId = #{stuId}
     </select>
-    <select id="selectAllStudent" resultType="Student">
+    <select id="selectAll" resultType="Student">
         SELECT * FROM Student
+    </select>
+    <select id="selectByAllInfo" parameterType="Student" resultType="Student">
+        SELECT * FROM Student
+        WHERE stuId = #{stuId} OR stuAge = #{stuAge} OR stuBirthday = #{stuBirthday}
+           OR stuEmail = #{stuEmail} OR stuGender = #{stuGender} OR stuName = #{stuName}
+    </select>
+    <select id="selectSimilarName" parameterType="String" resultType="Student">
+        SELECT * FROM  Student
+        WHERE stuName LIKE '%${value}%'
     </select>
 </mapper>

@@ -11,8 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +23,8 @@ public class TestSubject {
     private SqlSession sqlSession;
 
     private SubjectMapper subjectMapper;
+
+    List<Subject> subjects;
 
     @Before
     public void init() throws Exception {
@@ -41,47 +41,66 @@ public class TestSubject {
     }
 
     @Test
-    public void testInsertSub() {
+    public void testInsert() {
         for (int i=1; i<6; i++) {
             Subject subject = new Subject();
             subject.setSubId(i);
             subject.setSubName("高数重修" + i);
             subject.setSubTeacherId(i);
             subject.setSubCredit(i*2);
-            subjectMapper.addSubject(subject);
+            subjectMapper.insert(subject);
         }
         System.out.println("Inserted!");
     }
 
     @Test
-    public void testDeleteSub() {
-        subjectMapper.deleteSubjectById(1);
+    public void testDelete() {
+        subjectMapper.delete(1);
         System.out.println("Deleted!");
     }
 
     @Test
-    public void testUpdateStu() {
+    public void testUpdate() {
         Subject subject = new Subject();
         subject.setSubId(2);
         subject.setSubName("高数专升本");
         subject.setSubTeacherId(99);
         subject.setSubCredit(0);
-        subjectMapper.updateSubject(subject);
+        subjectMapper.update(subject);
         System.out.println("Updated!");
     }
 
     @Test
-    public void testSelectStuId() {
+    public void testSelect() {
         Subject subject;
-        subject = subjectMapper.selectSubject(1);
+        subject = subjectMapper.select(1);
         System.out.println(subject);
         System.out.println("Selected!");
     }
 
     @Test
-    public void testSelectAllStu() {
-        List<Subject> subjects;
-        subjects = subjectMapper.selectAllSubject();
+    public void testSelectAll() {
+        subjects = subjectMapper.selectAll();
+        for (Subject sub : subjects) {
+            System.out.println(sub);
+        }
+        System.out.println("Selected!");
+    }
+
+    @Test
+    public void testSelectByAllInfo() {
+        Subject subject = new Subject();
+        subject.setSubTeacherId(3);
+        subjects = subjectMapper.selectByAllInfo(subject);
+        for (Subject sub : subjects) {
+            System.out.println(sub);
+        }
+        System.out.println("Selected!");
+    }
+
+    @Test
+    public void testSelectSimilarName() {
+        subjects = subjectMapper.selectSimilarName("重修");
         for (Subject sub : subjects) {
             System.out.println(sub);
         }
