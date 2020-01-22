@@ -29,5 +29,6 @@
         <!--在这里我们注册Mapper.xml文件-->
         <mapper resource="StudentMapper.xml"/>
         <mapper resource="SubjectMapper.xml"/>
+        <mapper resource="ScoreMapper.xml"/>
     </mappers>
 </configuration>
