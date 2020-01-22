@@ -11,8 +11,7 @@
     6.insert: 表示添加。
     -->
 <mapper namespace="cn.kevin.stu.manage.mapper.SubjectMapper">
-    <insert id="addSubject" parameterType="Subject"
-            useGeneratedKeys="false" keyProperty="subId">
+    <insert id="addSubject" parameterType="Subject">
         INSERT INTO Subject (subId, subName, subTeacherId, subCredit)
         SELECT #{subId}, #{subName}, #{subTeacherId}, #{subCredit}
         WHERE NOT EXISTS(SELECT * FROM subject WHERE subId=#{subId}) LIMIT 1
@@ -23,7 +22,7 @@
     </delete>
     <update id="updateSubject" parameterType="Subject">
         UPDATE Subject SET subName = #{subName}, subTeacherId = #{subTeacherId}, subCredit = #{subCredit}
-        WHERE EXISTS(SELECT * FROM subject WHERE subId=#{subId}) LIMIT 1
+        WHERE subId = #{subId}
     </update>
     <select id="selectSubject" parameterType="Integer" resultType="Subject">
         SELECT * FROM Subject

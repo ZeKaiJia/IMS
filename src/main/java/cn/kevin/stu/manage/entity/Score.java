@@ -4,12 +4,12 @@ package cn.kevin.stu.manage.entity;
  * @author kevin
  */
 public class Score {
-    private Integer stuId;
-    private Integer subId;
-    private String subName;
-    private Integer subScore;
-    private long gmtCreate;
-    private long gmtModify;
+    private Integer stuId;      //Student
+    private Integer subId;      //Subject
+    private String subName;     //Subject
+    private Integer subScore;   //this
+    private long gmtCreate;     //this
+    private long gmtModify;     //this
 
     public Score() {
         super();

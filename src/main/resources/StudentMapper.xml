@@ -9,10 +9,11 @@
     4.resulttype: 返回的结果类型。如果没有不需要写。
     5.parameterType: 该方法输入的参数类型。
     6.insert: 表示添加。
+    7.useGeneratedKeys:返回添加对象的主键
+    8.keyProperty:返回值SET属性
     -->
 <mapper namespace="cn.kevin.stu.manage.mapper.StudentMapper">
-    <insert id="addStudent" parameterType="Student"
-            useGeneratedKeys="true" keyProperty="stuId">
+    <insert id="addStudent" parameterType="Student">
         INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName)
         SELECT #{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}
         WHERE NOT EXISTS(SELECT * FROM Student WHERE stuId = #{stuId}) LIMIT 1

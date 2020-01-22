@@ -62,11 +62,11 @@ public class TestSubject {
     @Test
     public void testUpdateStu() {
         Subject subject = new Subject();
-        subject.setSubId(1);
+        subject.setSubId(2);
         subject.setSubName("高数专升本");
         subject.setSubTeacherId(99);
         subject.setSubCredit(0);
-        subjectMapper.addSubject(subject);
+        subjectMapper.updateSubject(subject);
         System.out.println("Updated!");
     }
 

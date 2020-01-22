@@ -61,18 +61,16 @@ public class TestStudent {
         System.out.println("Deleted!");
     }
 
-    //TODO 照理说 not exists和 exists意义相反，add里是如果存在就不插入，update里是如果存在就修改.
-    // 但是add可以按照逻辑正常操作而update却会100%修改或插入数据，exists失效了？
     @Test
     public void testUpdateStu() {
         Student student = new Student();
-        student.setStuId(1);
+        student.setStuId(2);
         student.setStuAge(99);
         student.setStuBirthday(new Date());
         student.setStuEmail("999999999@qq.com");
         student.setStuGender(3);
         student.setStuName("9贾9泽9楷9");
-        studentMapper.addStudent(student);
+        studentMapper.updateStudent(student);
         System.out.println("Updated!");
     }
 
