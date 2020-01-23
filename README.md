@@ -55,4 +55,8 @@ jar包已经可以通过Maven直接导入，数据库连接请修改jdbc.propert
 <li>采用entity层构建POJO原子实体，controller层获取用户输入数据并且提交给service层处理，service层组合了mapper层中对应mapper里的一个或多个数据库操作方法，最后在test中进行各种测试</li>
 <li>由于输入时间转换成伦敦标准时间会产生差异，所以需要通过Calender类再加一天(目前我是这么想的，具体是不是这个原因导致日期减少了一天还有待考证，因为通过debug可以发现我输入的0点0分被转换成了前一天的下午1点被存进了数据库)</li>
 <li>在ManagerController中提供入口，调用MenuController中的提示信息进行用户层的输入。</li>
-<li>记录一个很严重的问题，就是每次对数据库进行操作完成之后的destroy操作一定要记得写，destroy里包含了对sqlSession的commit操作，只有commit之后数据库中的数据才会改变，因为少写了这个我花了大量的时间进行debug还找不出原因，实在不应该</li>
+<li>记录一个很严重的问题，就是每次对数据库进行操作完成之后的destroy操作一定要记得写，destroy里包含了对sqlSession的commit操作，只有commit之后数据库中的数据才会改变，因为少写了这个我花了大量的时间进行debug还找不出原因，实在不应该。</li>
+
+### 2020.1.24 - Demo 2.1.7
+<li>记录另一个严重的问题，sqlSession同时只能存在一个，也就是说对Mysql数据库的访问是串行的，如果操作完之后没有销毁而调用另一个sqlSession程序就会崩溃，解决方法就是不要在外部Controller中调用两次service中方法，因为我的连接池初始化实在service中建立的，应该在service类中对mapper的功能进行组合封装，将mapper的原子功能组合成Controller中需要用到的功能。</li>
+<li>至此，学生成绩管理系统已经初步完成，今天修复一些小bug，优化一下之后明天或者后天发布正式版。</li>

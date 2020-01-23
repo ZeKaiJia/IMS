@@ -1,6 +1,8 @@
 package cn.kevin.sms.controller;
 
+import cn.kevin.sms.entity.Score;
 import cn.kevin.sms.entity.Student;
+import cn.kevin.sms.service.ScoreService;
 import cn.kevin.sms.service.StudentService;
 import cn.kevin.sms.entity.Subject;
 import cn.kevin.sms.service.SubjectService;
@@ -11,11 +13,9 @@ import java.util.Scanner;
 public class SelectController implements BaseController {
     private StudentService studentService = new StudentService();
     private SubjectService subjectService = new SubjectService();
+    private ScoreService scoreService = new ScoreService();
 
     private Scanner input = new Scanner(System.in);
-
-    private List<Student> students;
-    private List<Subject> subjects;
 
 
     SelectController() throws Exception {
@@ -42,6 +42,7 @@ public class SelectController implements BaseController {
         MenuController.selectStu();
         Student student = new Student();
         boolean flag = true;
+        List<Student> students;
         switch (input.nextInt()) {
             case 1:
                 System.out.print("--- ID: ");
@@ -104,6 +105,7 @@ public class SelectController implements BaseController {
         MenuController.selectSub();
         Subject subject = new Subject();
         boolean flag = true;
+        List<Subject> subjects;
         switch (input.nextInt()) {
             case 1:
                 System.out.print("--- ID: ");
@@ -154,6 +156,63 @@ public class SelectController implements BaseController {
     }
 
     private void selectScore() {
-
+        MenuController.selectSco();
+        Score score = new Score();
+        boolean flag = true;
+        List<Score> scores;
+        switch (input.nextInt()) {
+            case 1:
+                System.out.print("--- Student ID: ");
+                score.setStuId(input.nextInt());
+                System.out.print("--- Subject ID: ");
+                score.setSubId(input.nextInt());
+                break;
+            case 2:
+                System.out.print("--- Student ID: ");
+                score.setStuId(input.nextInt());
+                break;
+            case 3:
+                System.out.print("--- Subject ID: ");
+                score.setSubId(input.nextInt());
+                break;
+            case 4:
+                System.out.print("--- Subject name: ");
+                score.setSubName(input.next());
+                break;
+            case 5:
+                System.out.print("--- Subject score: ");
+                score.setSubScore(input.nextInt());
+                break;
+            case 6:
+                scores = scoreService.selectAll();
+                if ( scores.size() == 0 ) {
+                    System.out.println("--- No information in Score Database!");
+                }
+                else {
+                    scores.forEach(System.out::println);
+                }
+                flag = false;
+                break;
+            case 7:
+                scores = scoreService.selectPassScore(60);
+                if ( scores.size() == 0 ) {
+                    System.out.println("--- No information in Score Database!");
+                }
+                else {
+                    scores.forEach(System.out::println);
+                }
+                flag = false;
+                break;
+            default:
+                MenuController.unCorrect();
+        }
+        if (flag) {
+            scores = scoreService.selectByAllInfo(score);
+            if (scores.size() == 0) {
+                System.out.println("--- No information in Score Database!");
+            } else {
+                scores.forEach(System.out::println);
+            }
+        }
     }
 }

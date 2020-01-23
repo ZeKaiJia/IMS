@@ -1,7 +1,9 @@
 package cn.kevin.sms.controller;
 
+import cn.kevin.sms.entity.Score;
 import cn.kevin.sms.entity.Student;
 import cn.kevin.sms.entity.Subject;
+import cn.kevin.sms.service.ScoreService;
 import cn.kevin.sms.service.StudentService;
 import cn.kevin.sms.service.SubjectService;
 
@@ -14,6 +16,7 @@ import java.util.Scanner;
 public class UpdateController implements BaseController {
     private StudentService studentService = new StudentService();
     private SubjectService subjectService = new SubjectService();
+    private ScoreService scoreService = new ScoreService();
 
     private Scanner input = new Scanner(System.in);
 
@@ -80,6 +83,20 @@ public class UpdateController implements BaseController {
     }
 
     private void updateScore() {
-
+        System.out.println("--- Please input a fixed score's information(use ',' separated)");
+        System.out.println("--- Including student ID subject ID score:");
+        System.out.print("--- ");
+        String string = input.next();
+        String[] info = string.split(",");
+        Integer stuId = Integer.parseInt(info[0]);
+        Integer subId = Integer.parseInt(info[1]);
+        Integer subScore = Integer.parseInt(info[2]);
+        Score score = new Score(stuId, subId, "", subScore, 0, System.currentTimeMillis());
+        if (scoreService.update(score) != null) {
+            System.out.println("--- Update score information successfully!");
+        }
+        else {
+            System.out.println("--- Update score information failed!");
+        }
     }
 }

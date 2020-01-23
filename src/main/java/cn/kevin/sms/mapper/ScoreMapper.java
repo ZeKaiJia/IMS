@@ -1,7 +1,6 @@
 package cn.kevin.sms.mapper;
 
 import cn.kevin.sms.entity.Score;
-import cn.kevin.sms.entity.Student;
 
 import java.util.List;
 import java.util.Map;

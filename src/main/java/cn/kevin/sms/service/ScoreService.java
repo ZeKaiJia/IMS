@@ -81,9 +81,11 @@ public class ScoreService {
 
     public Score update(Score sco) {
         map = new HashMap<>(4);
-        map.put("stuId",score.getStuId());
-        map.put("subId",score.getSubId());
+        map.put("stuId",sco.getStuId());
+        map.put("subId",sco.getSubId());
         score = scoreMapper.select(map);
+        sco.setSubName(score.getSubName());
+        sco.setGmtCreate(score.getGmtCreate());
         if (score != null) {
             scoreMapper.update(sco);
             destroy();

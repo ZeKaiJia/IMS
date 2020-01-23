@@ -70,31 +70,43 @@ public class MenuController {
     public static void deleteSco() {
         System.out.println("--- Please choose the method on how to delete information: ");
         System.out.println("--- 1.By student's subject ID.(Delete 1 info with this student.)");
-        System.out.println("--- 2.By student's ID.(It will delete all info with this student!)");
+        System.out.println("--- 2.By student ID.(It will delete all info with this student!)");
         System.out.print("--- Input: ");
     }
 
     public static void selectStu() {
         System.out.println("--- Please choose the method on how to select information: ");
-        System.out.println("--- 1.By student's ID.");
-        System.out.println("--- 2.By students' age.");
-        System.out.println("--- 3.By student's name.");
+        System.out.println("--- 1.By student ID.");
+        System.out.println("--- 2.By student age.");
+        System.out.println("--- 3.By student name.");
 //        System.out.println("--- 4.By students' birthday.");
-        System.out.println("--- 4.By student's Email.");
-        System.out.println("--- 5.By students' gender.");
-        System.out.println("--- 6.By students' last name.");
+        System.out.println("--- 4.By student Email.");
+        System.out.println("--- 5.By students gender.");
+        System.out.println("--- 6.By students last name.");
         System.out.println("--- 7.All students' information.");
         System.out.print("--- Input: ");
     }
 
     public static void selectSub() {
         System.out.println("--- Please choose the method on how to select information: ");
-        System.out.println("--- 1.By subject's ID.");
-        System.out.println("--- 2.By subjects' full name.");
+        System.out.println("--- 1.By subject ID.");
+        System.out.println("--- 2.By subjects full name.");
         System.out.println("--- 3.By subjects' teacher ID.");
-        System.out.println("--- 4.By subjects' credit.");
-        System.out.println("--- 5.By subjects' part name.");
-        System.out.println("--- 6.All subjects' information.");
+        System.out.println("--- 4.By subjects credit.");
+        System.out.println("--- 5.By subjects part name.");
+        System.out.println("--- 6.All subjects information.");
+        System.out.print("--- Input: ");
+    }
+
+    public static void selectSco() {
+        System.out.println("--- Please choose the method on how to select information: ");
+        System.out.println("--- 1.By student's subject ID.");
+        System.out.println("--- 2.By student ID.");
+        System.out.println("--- 3.By subject ID.");
+        System.out.println("--- 4.By subject name.");
+        System.out.println("--- 5.By subject score.");
+        System.out.println("--- 6.All scores information.");
+        System.out.println("--- 7.Passing score information.");
         System.out.print("--- Input: ");
     }
 

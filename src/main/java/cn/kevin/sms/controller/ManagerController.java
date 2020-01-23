@@ -49,6 +49,7 @@ public class ManagerController {
                 InsertController insertController = new InsertController();
                 //38,21,1999-10-03,jiazekai1003@gmail.com,1,贾泽楷
                 //6,高数专升本,6,6
+                //2,9,1
                 insertController.doBiz(c);
                 break;
             case 2:
