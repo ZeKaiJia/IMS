@@ -23,14 +23,23 @@ public class AddController implements BaseController{
     }
 
     @Override
-    public void doBiz() {
-        addStu();
+    public void doBiz(int choice) {
+        switch (choice) {
+            case 1:
+                addStu();
+                break;
+            case 2:
+                addSub();
+                break;
+            default:
+                MenuController.unCorrect();
+        }
     }
 
     public void addStu() {
-        System.out.println("-> Please input a new student's information(use ',' separated)");
-        System.out.println("-> Including id age birthday Email gender name");
-        System.out.print("-> ");
+        System.out.println("--- Please input a new student's information(use ',' separated)");
+        System.out.println("--- Including id age birthday Email gender name:");
+        System.out.print("--- ");
         String string = input.next();
         String[] info = string.split(",");
         Integer stuId = Integer.parseInt(info[0]);
@@ -48,17 +57,20 @@ public class AddController implements BaseController{
             e.printStackTrace();
         }
         Calendar calendar = new GregorianCalendar();
+        assert stuBirthday != null;
         calendar.setTime(stuBirthday);
         calendar.add(Calendar.DATE,1);
         stuBirthday = calendar.getTime();
 
         Student student = new Student(stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName);
         if (studentService.insert(student) != null) {
-            System.out.println("-> Insert student information successfully!");
+            System.out.println("--- Insert student information successfully!");
         }
         else {
-            System.out.println("-> Insert student information failed!");
+            System.out.println("--- Insert student information failed!");
         }
     }
+    public void addSub() {
 
+    }
 }
