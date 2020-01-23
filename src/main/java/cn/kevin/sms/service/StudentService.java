@@ -8,8 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author kevin
@@ -18,7 +17,7 @@ public class StudentService {
     //这个是SQL会话，通过他可以发出SQL语句
     SqlSession sqlSession;
 
-    private Set<Student> studentSet = new HashSet<>();
+    private List<Student> students;
     private StudentMapper studentMapper;
     private Student student;
 
@@ -56,7 +55,7 @@ public class StudentService {
     public Student delete(Integer stuId) {
         student = studentMapper.select(stuId);
         if ( student != null ) {
-            studentMapper.deleteById(stuId);
+            studentMapper.delete(stuId);
         }
         destroy();
         return student;
@@ -77,5 +76,23 @@ public class StudentService {
         student = studentMapper.select(stuId);
         destroy();
         return student;
+    }
+
+    public List<Student> selectAll() {
+        students = studentMapper.selectAll();
+        destroy();
+        return students;
+    }
+
+    public List<Student> selectByAllInfo(Student student) {
+        students = studentMapper.selectByAllInfo(student);
+        destroy();
+        return students;
+    }
+
+    public List<Student> selectSimilarName(String stuName) {
+        students = studentMapper.selectSimilarName(stuName);
+        destroy();
+        return students;
     }
 }

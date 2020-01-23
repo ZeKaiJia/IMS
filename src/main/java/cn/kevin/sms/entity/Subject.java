@@ -1,5 +1,7 @@
 package cn.kevin.sms.entity;
 
+import java.util.Objects;
+
 /**
  * @author kevin
  */
@@ -60,5 +62,25 @@ public class Subject {
                 ", subTeacherId=" + subTeacherId +
                 ", subCredit=" + subCredit +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Subject)) {
+            return false;
+        }
+        Subject subject = (Subject) o;
+        return subId.equals(subject.subId) &&
+                subName.equals(subject.subName) &&
+                subTeacherId.equals(subject.subTeacherId) &&
+                subCredit.equals(subject.subCredit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subId, subName, subTeacherId, subCredit);
     }
 }

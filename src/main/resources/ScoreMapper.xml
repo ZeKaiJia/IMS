@@ -16,31 +16,50 @@
     <insert id="insert" parameterType="Score">
         INSERT INTO Score (stuId, subId, subName, subScore, gmtCreate, gmtModify)
         SELECT #{stuId}, #{subId}, #{subName}, #{subScore}, #{gmtCreate}, #{gmtModify}
-        WHERE NOT EXISTS(SELECT * FROM Score WHERE stuId = #{stuId} AND subId = #{subId}) LIMIT 1
+        WHERE NOT EXISTS(SELECT * FROM Score WHERE stuId = #{stuId} AND subId = #{subId})
+        LIMIT 1
     </insert>
     <delete id="delete" parameterType="map">
-        DELETE FROM Score
-        WHERE stuId = #{stuId} AND subId = #{subId}
+        DELETE
+        FROM Score
+        WHERE stuId = #{stuId}
+          AND subId = #{subId}
     </delete>
     <delete id="deleteAll" parameterType="Integer">
-        DELETE FROM Score
+        DELETE
+        FROM Score
         WHERE stuId = #{stuId}
     </delete>
     <update id="update" parameterType="Score">
-        UPDATE Score SET subScore = #{subScore}, subName = #{subName}, gmtCreate=#{gmtCreate}, gmtModify = #{gmtModify}
-        WHERE stuId = #{stuId} AND subId = #{subId}
+        UPDATE Score
+        SET subScore  = #{subScore},
+            subName   = #{subName},
+            gmtCreate = #{gmtCreate},
+            gmtModify = #{gmtModify}
+        WHERE stuId = #{stuId}
+          AND subId = #{subId}
     </update>
     <select id="select" parameterType="map" resultType="Score">
-        SELECT * FROM Score
-        WHERE  stuId = #{stuId} AND subId = #{subId}
+        SELECT *
+        FROM Score
+        WHERE stuId = #{stuId}
+          AND subId = #{subId}
+    </select>
+    <select id="selectAll" resultType="Score">
+        SELECT *
+        FROM Score
     </select>
     <select id="selectByAllInfo" parameterType="Score" resultType="Score">
-        SELECT * FROM Score
-        WHERE  stuId = #{stuId} OR subId = #{subId}
-        OR subName = #{subName} OR subScore = #{subScore}
+        SELECT *
+        FROM Score
+        WHERE stuId = #{stuId}
+           OR subId = #{subId}
+           OR subName = #{subName}
+           OR subScore = #{subScore}
     </select>
     <select id="selectPassScore" parameterType="Integer" resultType="Score">
-        SELECT * FROM Score
-        WHERE  subScore >= #{subScore}
+        SELECT *
+        FROM Score
+        WHERE subScore >= #{subScore}
     </select>
 </mapper>

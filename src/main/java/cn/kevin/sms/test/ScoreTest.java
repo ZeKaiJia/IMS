@@ -91,8 +91,9 @@ public class ScoreTest {
     public void testSelect() {
         map.put("stuId",10);
         map.put("subId",1);
-        scores = scoreMapper.select(map);
-        System.out.println(scores);
+        Score score;
+        score = scoreMapper.select(map);
+        System.out.println(score);
         System.out.println("Selected!");
     }
 

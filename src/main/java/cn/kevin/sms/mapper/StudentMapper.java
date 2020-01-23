@@ -12,7 +12,7 @@ public interface StudentMapper {
     void insert(Student student);
 
     //删除方法 id
-    void deleteById(Integer stuId);
+    void delete(Integer stuId);
 
     //修改方法
     void update(Student student);

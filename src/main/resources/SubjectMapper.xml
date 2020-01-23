@@ -14,30 +14,41 @@
     <insert id="insert" parameterType="Subject">
         INSERT INTO Subject (subId, subName, subTeacherId, subCredit)
         SELECT #{subId}, #{subName}, #{subTeacherId}, #{subCredit}
-        WHERE NOT EXISTS(SELECT * FROM subject WHERE subId=#{subId}) LIMIT 1
+        WHERE NOT EXISTS(SELECT * FROM subject WHERE subId = #{subId})
+        LIMIT 1
     </insert>
     <delete id="delete" parameterType="Integer">
-        DELETE FROM Subject
+        DELETE
+        FROM Subject
         WHERE subId = #{subId}
     </delete>
     <update id="update" parameterType="Subject">
-        UPDATE Subject SET subName = #{subName}, subTeacherId = #{subTeacherId}, subCredit = #{subCredit}
+        UPDATE Subject
+        SET subName      = #{subName},
+            subTeacherId = #{subTeacherId},
+            subCredit    = #{subCredit}
         WHERE subId = #{subId}
     </update>
     <select id="select" parameterType="Integer" resultType="Subject">
-        SELECT * FROM Subject
-        WHERE  subId = #{subId}
+        SELECT *
+        FROM Subject
+        WHERE subId = #{subId}
     </select>
     <select id="selectAll" resultType="Subject">
-        SELECT * FROM Subject
+        SELECT *
+        FROM Subject
     </select>
     <select id="selectByAllInfo" parameterType="Subject" resultType="Subject">
-        SELECT * FROM Subject
-        WHERE subId = #{subId} OR subName = #{subName}
-        OR subTeacherId = #{subTeacherId} OR subCredit = #{subCredit}
+        SELECT *
+        FROM Subject
+        WHERE subId = #{subId}
+           OR subName = #{subName}
+           OR subTeacherId = #{subTeacherId}
+           OR subCredit = #{subCredit}
     </select>
     <select id="selectSimilarName" parameterType="String" resultType="Subject">
-        SELECT * FROM Subject
+        SELECT *
+        FROM Subject
         WHERE subName LIKE '%${value}%'
     </select>
 </mapper>

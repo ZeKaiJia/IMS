@@ -55,7 +55,7 @@ public class StudentTest {
 
     @Test
     public void testDelete() {
-        studentMapper.deleteById(1);
+        studentMapper.delete(1);
         System.out.println("Deleted!");
     }
 

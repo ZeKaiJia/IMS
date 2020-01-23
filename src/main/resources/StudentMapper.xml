@@ -16,30 +16,44 @@
     <insert id="insert" parameterType="Student">
         INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName)
         SELECT #{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}
-        WHERE NOT EXISTS(SELECT * FROM Student WHERE stuId = #{stuId}) LIMIT 1
+        WHERE NOT EXISTS(SELECT * FROM Student WHERE stuId = #{stuId})
+        LIMIT 1
     </insert>
-    <delete id="deleteById" parameterType="Integer">
-        DELETE FROM Student
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM Student
         WHERE stuId = #{stuId}
     </delete>
     <update id="update" parameterType="Student">
-        UPDATE Student SET stuAge = #{stuAge}, stuBirthday = #{stuBirthday},
-        stuEmail = #{stuEmail}, stuGender = #{stuGender}, stuName = #{stuName} WHERE stuId = #{stuId}
+        UPDATE Student
+        SET stuAge      = #{stuAge},
+            stuBirthday = #{stuBirthday},
+            stuEmail    = #{stuEmail},
+            stuGender   = #{stuGender},
+            stuName     = #{stuName}
+        WHERE stuId = #{stuId}
     </update>
     <select id="select" parameterType="Integer" resultType="Student">
-        SELECT * FROM Student
-        WHERE  stuId = #{stuId}
+        SELECT *
+        FROM Student
+        WHERE stuId = #{stuId}
     </select>
     <select id="selectAll" resultType="Student">
-        SELECT * FROM Student
+        SELECT *
+        FROM Student
     </select>
     <select id="selectByAllInfo" parameterType="Student" resultType="Student">
-        SELECT * FROM Student
-        WHERE stuId = #{stuId} OR stuAge = #{stuAge} OR stuBirthday = #{stuBirthday}
-           OR stuEmail = #{stuEmail} OR stuGender = #{stuGender} OR stuName = #{stuName}
+        SELECT *
+        FROM Student
+        WHERE stuId = #{stuId}
+           OR stuAge = #{stuAge}
+           OR stuEmail = #{stuEmail}
+           OR stuGender = #{stuGender}
+           OR stuName = #{stuName}
     </select>
     <select id="selectSimilarName" parameterType="String" resultType="Student">
-        SELECT * FROM  Student
+        SELECT *
+        FROM Student
         WHERE stuName LIKE '%${value}%'
     </select>
 </mapper>

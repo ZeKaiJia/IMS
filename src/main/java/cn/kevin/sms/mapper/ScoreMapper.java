@@ -1,6 +1,7 @@
 package cn.kevin.sms.mapper;
 
 import cn.kevin.sms.entity.Score;
+import cn.kevin.sms.entity.Student;
 
 import java.util.List;
 import java.util.Map;
@@ -22,11 +23,14 @@ public interface ScoreMapper {
     void update(Score score);
 
     //查找方法 单科 hashmap 精确查找 and
-    List<Score> select(Map<String, Object> map);
+    Score select(Map<String, Object> map);
+
+    //全体查找方法
+    List<Score> selectAll();
 
     //查找方法 多参数多返回 精确查找 or
     List<Score> selectByAllInfo(Score score);
 
-    //查找党发 及格
+    //查找方法 及格
     List<Score> selectPassScore(Integer subScore);
 }
