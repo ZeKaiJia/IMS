@@ -24,6 +24,7 @@ public class InsertController implements BaseController{
     private Student student;
     private Subject subject;
 
+
     InsertController() throws Exception {
     }
 
@@ -58,8 +59,11 @@ public class InsertController implements BaseController{
         String stuName = info[5];
 
         student = new Student(stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName);
-        if (studentService.insert(student) != null) {
+        Student stuTemp = studentService.insert(student);
+        if ( stuTemp != null) {
             System.out.println("--- Insert student information successfully!");
+            System.out.println("--- INFO: ");
+            System.out.println(stuTemp);
         }
         else {
             System.out.println("--- Insert student information failed!");
@@ -77,8 +81,11 @@ public class InsertController implements BaseController{
         Integer subCredit = Integer.parseInt(info[3]);
 
         subject = new Subject(subId, subName, subTeacherId, subCredit);
-        if (subjectService.insert(subject) != null) {
+        Subject subTemp = subjectService.insert(subject);
+        if ( subTemp != null) {
             System.out.println("--- Insert subject information successfully!");
+            System.out.println("--- INFO: ");
+            System.out.println(subTemp);
         }
         else {
             System.out.println("--- Insert subject information failed!");
@@ -101,8 +108,11 @@ public class InsertController implements BaseController{
         }
         else {
             Score score = new Score(stuId, subId, subject.getSubName(), subScore, System.currentTimeMillis(), System.currentTimeMillis());
-            if ( scoreService.insert(score) != null ) {
+            Score scoreTemp = scoreService.insert(score);
+            if (  scoreTemp != null ) {
                 System.out.println("--- Insert score information successfully!");
+                System.out.println("--- INFO: ");
+                System.out.println(score);
             }
             else {
                 System.out.println("--- Insert score information failed!");

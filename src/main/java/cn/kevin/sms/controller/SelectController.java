@@ -75,6 +75,7 @@ public class SelectController implements BaseController {
                 if (students.size() == 0) {
                     System.out.println("--- No information in Student Database!");
                 } else {
+                    System.out.println("--- INFO: ");
                     students.forEach(System.out::println);
                 }
                 flag = false;
@@ -84,6 +85,7 @@ public class SelectController implements BaseController {
                 if (students.size() == 0) {
                     System.out.println("--- No information in Student Database!");
                 } else {
+                    System.out.println("--- INFO: ");
                     students.forEach(System.out::println);
                 }
                 flag = false;
@@ -96,6 +98,7 @@ public class SelectController implements BaseController {
             if (students.size() == 0) {
                 System.out.println("--- No information in Student Database!");
             } else {
+                System.out.println("--- INFO: ");
                 students.forEach(System.out::println);
             }
         }
@@ -129,6 +132,7 @@ public class SelectController implements BaseController {
                 if (subjects.size() == 0) {
                     System.out.println("--- No information in Subject Database!");
                 } else {
+                    System.out.println("--- INFO: ");
                     subjects.forEach(System.out::println);
                 }
                 flag = false;
@@ -138,6 +142,7 @@ public class SelectController implements BaseController {
                 if (subjects.size() == 0) {
                     System.out.println("--- No information in Subject Database!");
                 } else {
+                    System.out.println("--- INFO: ");
                     subjects.forEach(System.out::println);
                 }
                 flag = false;
@@ -150,6 +155,7 @@ public class SelectController implements BaseController {
             if (subjects.size() == 0) {
                 System.out.println("--- No information in Subject Database!");
             } else {
+                System.out.println("--- INFO: ");
                 subjects.forEach(System.out::println);
             }
         }
@@ -189,6 +195,7 @@ public class SelectController implements BaseController {
                     System.out.println("--- No information in Score Database!");
                 }
                 else {
+                    System.out.println("--- INFO: ");
                     scores.forEach(System.out::println);
                 }
                 flag = false;
@@ -199,6 +206,7 @@ public class SelectController implements BaseController {
                     System.out.println("--- No information in Score Database!");
                 }
                 else {
+                    System.out.println("--- INFO: ");
                     scores.forEach(System.out::println);
                 }
                 flag = false;
@@ -211,6 +219,7 @@ public class SelectController implements BaseController {
             if (scores.size() == 0) {
                 System.out.println("--- No information in Score Database!");
             } else {
+                System.out.println("--- INFO: ");
                 scores.forEach(System.out::println);
             }
         }

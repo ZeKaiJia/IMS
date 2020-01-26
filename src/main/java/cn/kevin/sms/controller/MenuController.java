@@ -119,10 +119,6 @@ public class MenuController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Calendar calendar = new GregorianCalendar();
-        assert date != null;
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE,1);
-        return calendar.getTime();
+        return date;
     }
 }

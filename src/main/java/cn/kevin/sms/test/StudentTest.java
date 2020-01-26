@@ -11,6 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,14 +44,24 @@ public class StudentTest {
 
     @Test
     public void testInsert() {
-            Student student = new Student();
-            student.setStuId(38);
-            student.setStuAge(10);
-            student.setStuBirthday(new Date());
-            student.setStuEmail("84592305@qq.com");
-            student.setStuGender(1);
-            student.setStuName("贾泽楷");
-            studentMapper.insert(student);
+        Student student = new Student();
+        student.setStuId(100);
+        student.setStuAge(10);
+
+        String strDate = "1999-10-3";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        student.setStuBirthday(date);
+        student.setStuEmail("84592305@qq.com");
+        student.setStuGender(1);
+        student.setStuName("贾泽楷");
+        studentMapper.insert(student);
         System.out.println("Inserted!");
     }
 
@@ -62,7 +74,7 @@ public class StudentTest {
     @Test
     public void testUpdate() {
         Student student = new Student();
-        student.setStuId(2);
+        student.setStuId(100);
         student.setStuAge(99);
         student.setStuBirthday(new Date());
         student.setStuEmail("999999999@qq.com");

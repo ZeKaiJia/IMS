@@ -54,8 +54,11 @@ public class UpdateController implements BaseController {
         String stuName = info[5];
 
         Student student = new Student(stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName);
-        if (studentService.update(student) != null) {
+        Student stuTemp = studentService.update(student);
+        if ( stuTemp != null) {
             System.out.println("--- Update student information successfully!");
+            System.out.println("--- INFO: ");
+            System.out.println(stuTemp);
         }
         else {
             System.out.println("--- Update student information failed!");
@@ -74,8 +77,11 @@ public class UpdateController implements BaseController {
         Integer subCredit = Integer.parseInt(info[3]);
 
         Subject subject = new Subject(subId, subName, subTeacherId, subCredit);
-        if (subjectService.update(subject) != null) {
+        Subject subTemp = subjectService.update(subject);
+        if ( subTemp != null) {
             System.out.println("--- Update subject information successfully!");
+            System.out.println("--- INFO: ");
+            System.out.println(subTemp);
         }
         else {
             System.out.println("--- Update subject information failed!");
@@ -92,8 +98,11 @@ public class UpdateController implements BaseController {
         Integer subId = Integer.parseInt(info[1]);
         Integer subScore = Integer.parseInt(info[2]);
         Score score = new Score(stuId, subId, "", subScore, 0, System.currentTimeMillis());
-        if (scoreService.update(score) != null) {
+        Score scoreTemp = scoreService.update(score);
+        if ( scoreTemp != null) {
             System.out.println("--- Update score information successfully!");
+            System.out.println("--- INFO: ");
+            System.out.println(scoreTemp);
         }
         else {
             System.out.println("--- Update score information failed!");

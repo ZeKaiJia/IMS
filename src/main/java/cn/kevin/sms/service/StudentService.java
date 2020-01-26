@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -20,6 +22,7 @@ public class StudentService {
     private List<Student> students;
     private StudentMapper studentMapper;
     private Student student;
+    private Student temp;
 
     public StudentService() throws Exception {
         //得到mybatis-config文件，转换成InputStream流对象
@@ -44,7 +47,12 @@ public class StudentService {
     public Student insert(Student stu) {
         student = studentMapper.select(stu.getStuId());
         if ( student == null ) {
-            studentMapper.insert(stu);
+            temp = new Student(stu);
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(temp.getStuBirthday());
+            calendar.add(Calendar.DATE,1);
+            temp.setStuBirthday(calendar.getTime());
+            studentMapper.insert(temp);
             destroy();
             return stu;
         }
@@ -64,7 +72,12 @@ public class StudentService {
     public Student update(Student stu) {
         student = studentMapper.select(stu.getStuId());
         if (student != null) {
-            studentMapper.update(stu);
+            temp = new Student(stu);
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(temp.getStuBirthday());
+            calendar.add(Calendar.DATE,1);
+            temp.setStuBirthday(calendar.getTime());
+            studentMapper.update(temp);
             destroy();
             return stu;
         }

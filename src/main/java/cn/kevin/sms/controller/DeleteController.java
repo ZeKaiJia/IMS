@@ -1,6 +1,8 @@
 package cn.kevin.sms.controller;
 
 import cn.kevin.sms.entity.Score;
+import cn.kevin.sms.entity.Student;
+import cn.kevin.sms.entity.Subject;
 import cn.kevin.sms.service.ScoreService;
 import cn.kevin.sms.service.StudentService;
 import cn.kevin.sms.service.SubjectService;
@@ -41,8 +43,11 @@ public class DeleteController implements BaseController {
     private void deleteStu() {
         System.out.print("--- Please input the student's ID which you want to delete: ");
         Integer stuId = input.nextInt();
-        if (studentService.delete(stuId) != null) {
+        Student student = studentService.delete(stuId);
+        if ( student != null) {
             System.out.println("--- Delete student information successfully!");
+            System.out.println("--- INFO: ");
+            System.out.println(student);
         }
         else {
             System.out.println("--- Delete student information failed!");
@@ -52,8 +57,11 @@ public class DeleteController implements BaseController {
     private void deleteSub() {
         System.out.print("--- Please input the subject's ID which you want to delete: ");
         Integer subId = input.nextInt();
-        if (subjectService.delete(subId) != null) {
+        Subject subject = subjectService.delete(subId);
+        if ( subject != null) {
             System.out.println("--- Delete subject information successfully!");
+            System.out.println("--- INFO: ");
+            System.out.println(subject);
         }
         else {
             System.out.println("--- Delete subject information failed!");
@@ -73,6 +81,8 @@ public class DeleteController implements BaseController {
                 Score score = scoreService.delete(stuId, subId);
                 if ( score != null ) {
                     System.out.println("--- Delete score information successfully!");
+                    System.out.println("--- INFO: ");
+                    System.out.println(score);
                 }
                 else {
                     System.out.println("--- Delete score information failed!");
@@ -84,6 +94,8 @@ public class DeleteController implements BaseController {
                 List<Score> scores = scoreService.deleteAll(stuId);
                 if ( scores.size() != 0 ) {
                     System.out.println("--- Delete score information successfully!");
+                    System.out.println("--- INFO: ");
+                    scores.forEach(System.out::println);
                 }
                 else {
                     System.out.println("--- Delete score information failed!");

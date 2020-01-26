@@ -1,5 +1,6 @@
 package cn.kevin.sms.entity;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -25,6 +26,15 @@ public class Student {
         this.stuEmail = stuEmail;
         this.stuGender = stuGender;
         this.stuName = stuName;
+    }
+
+    public Student(Student student) {
+        this.stuId = student.stuId;
+        this.stuAge = student.stuAge;
+        this.stuBirthday = student.stuBirthday;
+        this.stuEmail = student.stuEmail;
+        this.stuGender = student.stuGender;
+        this.stuName = student.stuName;
     }
 
     public Integer getStuId() {
@@ -77,14 +87,16 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        String formatDate = null;
+        formatDate = DateFormat.getDateInstance().format(stuBirthday);
+        return "Student {\n" +
                 "stuId=" + stuId +
-                ", stuAge=" + stuAge +
-                ", stuBirthday=" + stuBirthday +
-                ", stuEmail='" + stuEmail + '\'' +
-                ", stuGender=" + stuGender +
-                ", stuName='" + stuName + '\'' +
-                '}';
+                ",\nstuAge=" + stuAge +
+                ",\nstuBirthday=" + formatDate +
+                ",\nstuEmail='" + stuEmail + '\'' +
+                ",\nstuGender=" + stuGender +
+                ",\nstuName='" + stuName + '\'' +
+                " \n}\n";
     }
 
     @Override

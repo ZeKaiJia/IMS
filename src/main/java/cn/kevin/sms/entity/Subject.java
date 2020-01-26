@@ -56,12 +56,12 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject{" +
+        return "Subject {\n" +
                 "subId=" + subId +
-                ", subName='" + subName + '\'' +
-                ", subTeacherId=" + subTeacherId +
-                ", subCredit=" + subCredit +
-                '}';
+                ",\nsubName='" + subName + '\'' +
+                ",\nsubTeacherId=" + subTeacherId +
+                ",\nsubCredit=" + subCredit +
+                "\n}\n";
     }
 
     @Override

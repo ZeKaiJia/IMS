@@ -74,13 +74,13 @@ public class Score {
 
     @Override
     public String toString() {
-        return "Score{" +
+        return "Score {\n" +
                 "stuId=" + stuId +
-                ", subId=" + subId +
-                ", subName='" + subName + '\'' +
-                ", subScore=" + subScore +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                '}';
+                ",\nsubId=" + subId +
+                ",\nsubName='" + subName + '\'' +
+                ",\nsubScore=" + subScore +
+                ",\ngmtCreate=" + gmtCreate +
+                ",\ngmtModify=" + gmtModify +
+                "\n}\n";
     }
 }
