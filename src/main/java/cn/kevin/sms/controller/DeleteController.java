@@ -1,5 +1,6 @@
 package cn.kevin.sms.controller;
 
+import cn.kevin.sms.Context;
 import cn.kevin.sms.entity.Score;
 import cn.kevin.sms.entity.Student;
 import cn.kevin.sms.entity.Subject;
@@ -14,7 +15,7 @@ import java.util.Scanner;
  * @author kevin
  */
 public class DeleteController implements BaseController {
-    private StudentService studentService = new StudentService();
+    private StudentService studentService = Context.getStudentService();
     private SubjectService subjectService = new SubjectService();
     private ScoreService scoreService = new ScoreService();
 

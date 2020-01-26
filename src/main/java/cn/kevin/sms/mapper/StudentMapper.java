@@ -1,12 +1,15 @@
 package cn.kevin.sms.mapper;
 
 import cn.kevin.sms.entity.Student;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * @author kevin
  */
+@Mapper
 public interface StudentMapper {
     //添加方法
     void insert(Student student);

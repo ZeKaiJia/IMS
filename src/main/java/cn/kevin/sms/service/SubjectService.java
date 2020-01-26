@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * @author kevin
  */
+
 public class SubjectService {
     //这个是SQL会话，通过他可以发出SQL语句
     SqlSession sqlSession;
@@ -24,7 +25,7 @@ public class SubjectService {
 
     public SubjectService() throws Exception {
         //得到mybatis-config文件，转换成InputStream流对象
-        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+        InputStream inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
 
         //这是个SQL会话工厂对象[表示通过会话发出SQL原生语言],通过SqlSessionFactoryBuilder得到SqlSessionFactory对象
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);

@@ -6,7 +6,12 @@ import cn.kevin.sms.entity.Subject;
 import cn.kevin.sms.service.ScoreService;
 import cn.kevin.sms.service.StudentService;
 import cn.kevin.sms.service.SubjectService;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -14,10 +19,15 @@ import java.util.Scanner;
 /**
  * @author kevin
  */
+
 public class InsertController implements BaseController{
-    private StudentService studentService = new StudentService();
-    private SubjectService subjectService = new SubjectService();
-    private ScoreService scoreService = new ScoreService();
+
+    @Resource
+    private StudentService studentService;
+    @Resource
+    private SubjectService subjectService;
+    @Resource
+    private ScoreService scoreService;
 
     private Scanner input = new Scanner(System.in);
 
@@ -93,6 +103,8 @@ public class InsertController implements BaseController{
     }
 
     public void insertScore() {
+
+
         System.out.println("--- Please input a new score's information(use ',' separated)");
         System.out.println("--- Including studentID subjectID score:");
         System.out.print("--- ");
