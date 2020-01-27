@@ -67,3 +67,7 @@ jar包已经可以通过Maven直接导入，数据库连接请修改jdbc.propert
 <li>更新了信息回显功能，现在运行添加删除和更新功能如果成功会显示出刚刚操作的数据(修改功能显示修改后的数据)。</li>
 <li>解决了添加date信息时时间不正确的问题，是因为mybatis将Java的date转换成数据库信息的时候采用了Calendar操作，这个操作会附带有时区信息，而本地系统内部是CTS(美国)时区，所以转换会产生误差，在MySQL中修改为东八区即可。</li>
 <li>修改了jdbc配置文件，采用 Unicode UTF-8。</li>
+
+### 2020.1.27 - Demo 2.2.0
+<li>已知问题:使用spring之后原来的mapper文件无法扫描到，导入的POJO包名也失效了。使用MapperScan注释没用，将mapper.xml中的对象改为具体路径没用，在yml文件中设置别名也没用。运行程序报NullPointerException错误。</li>
+<li>使用了Spring框架，将数据库工厂的创建和提交等封装在SqlBiz中</li>

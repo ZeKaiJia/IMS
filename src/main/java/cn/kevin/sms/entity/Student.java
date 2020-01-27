@@ -87,7 +87,7 @@ public class Student {
 
     @Override
     public String toString() {
-        String formatDate = null;
+        String formatDate;
         formatDate = DateFormat.getDateInstance().format(stuBirthday);
         return "Student {\n" +
                 "stuId=" + stuId +

@@ -30,7 +30,7 @@
         FROM Score
         WHERE stuId = #{stuId}
     </delete>
-    <update id="update" parameterType="Score">
+    <update id="update" parameterType="cn.kevin.sms.entity.Score">
         UPDATE Score
         SET subScore  = #{subScore},
             subName   = #{subName},
@@ -39,17 +39,17 @@
         WHERE stuId = #{stuId}
           AND subId = #{subId}
     </update>
-    <select id="select" parameterType="map" resultType="Score">
+    <select id="select" parameterType="map" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
           AND subId = #{subId}
     </select>
-    <select id="selectAll" resultType="Score">
+    <select id="selectAll" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
     </select>
-    <select id="selectByAllInfo" parameterType="Score" resultType="Score">
+    <select id="selectByAllInfo" parameterType="cn.kevin.sms.entity.Score" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
@@ -57,7 +57,7 @@
            OR subName = #{subName}
            OR subScore = #{subScore}
     </select>
-    <select id="selectPassScore" parameterType="Integer" resultType="Score">
+    <select id="selectPassScore" parameterType="Integer" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
         WHERE subScore >= #{subScore}

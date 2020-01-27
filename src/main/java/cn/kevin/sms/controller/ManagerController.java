@@ -15,7 +15,7 @@ public class ManagerController {
         System.out.println("--- Bye Bye!");
     }
 
-    public static void databaseMethods() throws Exception {
+    public static void databaseMethods() {
         while ( flag ) {
             switch (dataChoice) {
                 case 1:
@@ -41,7 +41,7 @@ public class ManagerController {
         }
     }
 
-    public static void methods(int c) throws Exception {
+    public static void methods(int c) {
         MenuController.functionMenu();
         functionChoice = MenuController.choice();
         switch (functionChoice) {

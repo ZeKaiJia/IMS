@@ -7,19 +7,19 @@ import cn.kevin.sms.service.StudentService;
 import cn.kevin.sms.entity.Subject;
 import cn.kevin.sms.service.SubjectService;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Scanner;
 
 public class SelectController implements BaseController {
+    @Resource(name = "studentService")
     private StudentService studentService = new StudentService();
+    @Resource(name = "subjectService")
     private SubjectService subjectService = new SubjectService();
+    @Resource(name = "scoreService")
     private ScoreService scoreService = new ScoreService();
 
     private Scanner input = new Scanner(System.in);
-
-
-    SelectController() throws Exception {
-    }
 
     @Override
     public void doBiz(int choice) {

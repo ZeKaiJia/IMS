@@ -1,0 +1,27 @@
+server:
+  port: 8514
+
+logging:
+  level:
+    org.springframework: INFO
+    com.xisha: INFO
+  file:
+    name: spider.log
+
+
+################### DataSource Configuration ##########################
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///SMS?useSSL=false&serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+
+mybatis:
+#  config-location: classpath:config/mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.kevin.sms.entity
+
+listCookies:
+
+detailCookies:

@@ -7,6 +7,7 @@ import cn.kevin.sms.service.ScoreService;
 import cn.kevin.sms.service.StudentService;
 import cn.kevin.sms.service.SubjectService;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -15,18 +16,17 @@ import java.util.Scanner;
  * @author kevin
  */
 public class InsertController implements BaseController{
+    @Resource(name = "studentService")
     private StudentService studentService = new StudentService();
+    @Resource(name = "subjectService")
     private SubjectService subjectService = new SubjectService();
+    @Resource(name = "scoreService")
     private ScoreService scoreService = new ScoreService();
 
     private Scanner input = new Scanner(System.in);
 
     private Student student;
     private Subject subject;
-
-
-    InsertController() throws Exception {
-    }
 
     @Override
     public void doBiz(int choice) {
