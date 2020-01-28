@@ -7,6 +7,7 @@ import org.assertj.core.util.Maps;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -33,6 +34,16 @@ public class WxwController {
         student.setStuId(new Random().nextInt(500000));
         studentService.insert(student);
         return student;
+    }
+
+
+    @RequestMapping(value = "/del",method = RequestMethod.GET)
+    @ResponseBody
+    public Object delUser(int sid)  {
+         studentService.delete(sid);
+        Map<String, Object> retMap = new HashMap<>();
+        retMap.put("messge", "删除成功");
+        return retMap;
     }
 
     public static void main(String[] args) {
