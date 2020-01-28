@@ -37,7 +37,7 @@ public class WxwController {
     }
 
 
-    @RequestMapping(value = "/del",method = RequestMethod.GET)
+    @RequestMapping(value = "/del",method = RequestMethod.POST)
     @ResponseBody
     public Object delUser(int sid)  {
          studentService.delete(sid);
