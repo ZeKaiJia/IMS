@@ -16,7 +16,7 @@ import java.util.Random;
  */
 @RestController()
 @RequestMapping("/hello/")
-public class WxwController {
+public class WxwController extends BaseController {
 
     @Resource
     private StudentService studentService;
@@ -27,17 +27,17 @@ public class WxwController {
         return "hello" + name;
     }
 
+    @Override
+    void doBiz(int choice) {
+        // do nothing!
+    }
 
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ResponseBody
     public Object insertUser(@RequestBody Student student)  {
         student.setStuId(new Random().nextInt(500000));
         studentService.insert(student);
-        Map<String, Object> retMap = new HashMap<>();
-        retMap.put("messge", "成功");
-        retMap.put("data", student);
-        retMap.put("code", 200);
-        return retMap;
+        return getSuccessResult(student);
     }
 
 
