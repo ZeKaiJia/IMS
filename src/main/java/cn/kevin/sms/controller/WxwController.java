@@ -46,6 +46,16 @@ public class WxwController {
         return retMap;
     }
 
+
+    @RequestMapping(value = "/delUserByName",method = RequestMethod.POST)
+    @ResponseBody
+    public Object delUserByName(String name)  {
+        // studentService.delete(sid);
+        Map<String, Object> retMap = new HashMap<>();
+        retMap.put("messge", "删除成功");
+        return retMap;
+    }
+
     public static void main(String[] args) {
         Student stu = new Student();
         stu.setStuId(34);
