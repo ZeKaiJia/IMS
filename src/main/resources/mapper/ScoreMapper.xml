@@ -15,9 +15,7 @@
 <mapper namespace="cn.kevin.sms.mapper.ScoreMapper">
     <insert id="insert" parameterType="Score">
         INSERT INTO Score (stuId, subId, subName, subScore, gmtCreate, gmtModify)
-        SELECT #{stuId}, #{subId}, #{subName}, #{subScore}, #{gmtCreate}, #{gmtModify}
-        WHERE NOT EXISTS(SELECT * FROM Score WHERE stuId = #{stuId} AND subId = #{subId})
-        LIMIT 1
+        VALUE (#{stuId}, #{subId}, #{subName}, #{subScore}, #{gmtCreate}, #{gmtModify})
     </insert>
     <delete id="delete" parameterType="map">
         DELETE
@@ -60,6 +58,10 @@
     <select id="selectPassScore" parameterType="Integer" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
-        WHERE subScore >= #{subScore}
+        <where>
+            <if test="subScore lte 100 and subScore gte 0">
+                AND subScore >= #{subScore}
+            </if>
+        </where>
     </select>
 </mapper>
