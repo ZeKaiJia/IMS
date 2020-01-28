@@ -2,11 +2,7 @@ server:
   port: 8514
 
 logging:
-  level:
-    org.springframework: INFO
-    com.xisha: INFO
-  file:
-    name: spider.log
+  level: ERROR
 
 
 ################### DataSource Configuration ##########################
@@ -18,10 +14,9 @@ spring:
     password: root
 
 mybatis:
-#  config-location: classpath:config/mybatis-config.xml
+  config-location: classpath:config/mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.kevin.sms.entity
 
-listCookies:
-
-detailCookies:
+#listCookies:
+#detailCookies:

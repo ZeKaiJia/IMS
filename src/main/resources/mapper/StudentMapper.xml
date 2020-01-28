@@ -13,18 +13,16 @@
     8.keyProperty:返回值SET属性
     -->
 <mapper namespace="cn.kevin.sms.mapper.StudentMapper">
-    <insert id="insert" parameterType="cn.kevin.sms.entity.Student">
+    <insert id="insert" parameterType="Student">
         INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName)
-        SELECT #{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}
-        WHERE NOT EXISTS(SELECT * FROM Student WHERE stuId = #{stuId})
-        LIMIT 1
+        VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName})
     </insert>
     <delete id="delete" parameterType="Integer">
         DELETE
         FROM Student
         WHERE stuId = #{stuId}
     </delete>
-    <update id="update" parameterType="cn.kevin.sms.entity.Student">
+    <update id="update" parameterType="Student">
         UPDATE Student
         SET stuAge      = #{stuAge},
             stuBirthday = #{stuBirthday},
@@ -33,16 +31,16 @@
             stuName     = #{stuName}
         WHERE stuId = #{stuId}
     </update>
-    <select id="select" parameterType="Integer" resultType="cn.kevin.sms.entity.Student">
+    <select id="select" parameterType="Integer" resultType="Student">
         SELECT *
         FROM Student
         WHERE stuId = #{stuId}
     </select>
-    <select id="selectAll" resultType="cn.kevin.sms.entity.Student">
+    <select id="selectAll" resultType="Student">
         SELECT *
         FROM Student
     </select>
-    <select id="selectByAllInfo" parameterType="cn.kevin.sms.entity.Student" resultType="cn.kevin.sms.entity.Student">
+    <select id="selectByAllInfo" parameterType="Student" resultType="Student">
         SELECT *
         FROM Student
         WHERE stuId = #{stuId}
@@ -51,7 +49,7 @@
            OR stuGender = #{stuGender}
            OR stuName = #{stuName}
     </select>
-    <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.sms.entity.Student">
+    <select id="selectSimilarName" parameterType="String" resultType="Student">
         SELECT *
         FROM Student
         WHERE stuName LIKE '%${value}%'

@@ -15,15 +15,15 @@
     </appender>
     <!--日志记录 java.sql 包下的类产生的debug级别的错误信息-->
     <logger name="java.sql">
-        <level value="debug"/>
+        <level value="error"/>
     </logger>
     <!--日志记录 org.apache.ibatis 包下的类产生的debug级别的错误信息-->
     <logger name="org.apache.ibatis">
-        <level value="debug"/>
+        <level value="error"/>
     </logger>
     <!--从根开始就使用这样的配置，直接饮用 STDOUT-->
     <root>
-        <level value="debug"/>
+        <level value="error"/>
         <appender-ref ref="STDOUT"/>
     </root>
 </log4j:configuration>

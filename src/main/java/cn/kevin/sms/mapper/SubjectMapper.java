@@ -1,12 +1,14 @@
 package cn.kevin.sms.mapper;
 
 import cn.kevin.sms.entity.Subject;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 /**
  * @author kevin
  */
+@Mapper
 public interface SubjectMapper {
     //添加方法
     void insert(Subject subject);
