@@ -30,10 +30,14 @@ public class WxwController {
 
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ResponseBody
-    public Student insertUser(@RequestBody Student student)  {
+    public Object insertUser(@RequestBody Student student)  {
         student.setStuId(new Random().nextInt(500000));
         studentService.insert(student);
-        return student;
+        Map<String, Object> retMap = new HashMap<>();
+        retMap.put("messge", "成功");
+        retMap.put("data", student);
+        retMap.put("code", 200);
+        return retMap;
     }
 
 
