@@ -69,10 +69,13 @@ jar包已经可以通过Maven直接导入，数据库连接请修改jdbc.propert
 <li>修改了jdbc配置文件，采用 Unicode UTF-8。</li>
 
 ### 2020.1.27 - Demo 2.2.0
-<li>已知问题:使用spring之后原来的mapper文件无法扫描到，导入的POJO包名也失效了。使用MapperScan注释没用，将mapper.xml中的对象改为具体路径没用，在yml文件中设置别名也没用。运行程序报NullPointerException错误。</li>
+<li>已知问题(√):使用spring之后原来的mapper文件无法扫描到，导入的POJO包名也失效了。使用MapperScan注释没用，将mapper.xml中的对象改为具体路径没用，在yml文件中设置别名也没用。运行程序报NullPointerException错误。</li>
 <li>使用了Spring框架，将数据库工厂的创建和提交等封装在SqlBiz中</li>
 
-###2020.1.28 - Demo 2.2.2
+###2020.1.28 - Demo 2.2.4
 <li>已知问题:在mapper的xml文件中可以使用where和if等标签，筛选合理的输入内容，可以解决用户输入错误信息后造成的程序奔溃现象。先记一笔，内容较多有空再改。</li>
+<li>已知问题:全是问题。前端网页该如何布置，功能如何与后端关联？Controller层如何改写(事实是模板类基本没用过不知道怎么操作)？多亏了大佬教现在也才初步了解了如何用postman测试web API请求以及简单增删改查的步骤</li>
 <li>最近两天都在尝试如何使用一个模板类完成Sqlsession的获取以及commit操作，可以减少很多重复的代码，但是目前还没成功。因为表格分三个，每个表的操作又不止增删改查的基础步骤，想要统一较为困难。</li>
 <li>修复了几个小问题。</li>
+<li>借鉴了一个对Date数据进行相关操作的Util类，增加了Response类处理HTTP请求</li>
+<li>一气之下删除了mybatis的配置文件，mapper.xml的POJO类名全体报错，一运行居然成功了。瞬间解决了2.2.0的问题，而且还很玄。</li>

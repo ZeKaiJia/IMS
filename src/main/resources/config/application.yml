@@ -1,8 +1,7 @@
 server:
-  port: 8514
+  port: 8080
 
-logging:
-  level: ERROR
+logging.level.root: INFO
 
 
 ################### DataSource Configuration ##########################
@@ -14,9 +13,5 @@ spring:
     password: root
 
 mybatis:
-  config-location: classpath:config/mybatis-config.xml
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: cn.kevin.sms.entity
-
-#listCookies:
-#detailCookies:

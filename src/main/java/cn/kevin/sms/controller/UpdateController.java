@@ -14,13 +14,13 @@ import java.util.Scanner;
 /**
  * @author kevin
  */
-public class UpdateController implements BaseController {
+public class UpdateController extends BaseController {
     @Resource(name = "studentService")
-    private StudentService studentService = new StudentService();
+    private StudentService studentService;
     @Resource(name = "subjectService")
-    private SubjectService subjectService = new SubjectService();
+    private SubjectService subjectService;
     @Resource(name = "scoreService")
-    private ScoreService scoreService = new ScoreService();
+    private ScoreService scoreService;
 
     private Scanner input = new Scanner(System.in);
 

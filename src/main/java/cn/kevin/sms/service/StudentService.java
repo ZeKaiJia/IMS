@@ -2,6 +2,7 @@ package cn.kevin.sms.service;
 
 import cn.kevin.sms.entity.Student;
 import cn.kevin.sms.mapper.StudentMapper;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * @author kevin
  */
+@Service
 public class StudentService {
     @Resource
     private StudentMapper studentMapper;

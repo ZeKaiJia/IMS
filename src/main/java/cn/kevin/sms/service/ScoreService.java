@@ -2,6 +2,7 @@ package cn.kevin.sms.service;
 
 import cn.kevin.sms.entity.Score;
 import cn.kevin.sms.mapper.ScoreMapper;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -9,6 +10,7 @@ import java.util.*;
 /**
  * @author kevin
  */
+@Service
 public class ScoreService {
     @Resource
     private ScoreMapper scoreMapper;

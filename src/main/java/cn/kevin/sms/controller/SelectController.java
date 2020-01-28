@@ -11,13 +11,16 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Scanner;
 
-public class SelectController implements BaseController {
+/**
+ * @author kevin
+ */
+public class SelectController extends BaseController {
     @Resource(name = "studentService")
-    private StudentService studentService = new StudentService();
+    private StudentService studentService;
     @Resource(name = "subjectService")
-    private SubjectService subjectService = new SubjectService();
+    private SubjectService subjectService;
     @Resource(name = "scoreService")
-    private ScoreService scoreService = new ScoreService();
+    private ScoreService scoreService;
 
     private Scanner input = new Scanner(System.in);
 
