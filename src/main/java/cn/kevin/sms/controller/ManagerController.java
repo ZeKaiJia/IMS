@@ -19,7 +19,7 @@ public class ManagerController {
         while ( flag ) {
             switch (dataChoice) {
                 case 1:
-                    //进入学生数据库操作q2w
+                    //进入学生数据库操作
                     methods(1);
                     break;
                 case 2:

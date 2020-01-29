@@ -27,7 +27,7 @@ public class SubjectTest {
     @Before
     public void init() throws Exception {
         //得到mybatis-config文件，转换成InputStream流对象
-        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+        InputStream inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
 
         //通过SqlSessionFactoryBuilder得到SqlSessionFactory对象
         //这是个SQL会话工厂对象[表示通过会话发出SQL原生语言]
