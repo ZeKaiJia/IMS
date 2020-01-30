@@ -13,7 +13,17 @@
     8.keyProperty:返回值SET属性
     -->
 <mapper namespace="cn.kevin.sms.mapper.ScoreMapper">
-    <insert id="insert" parameterType="Score">
+    <resultMap id="scoreResultMap" type="cn.kevin.sms.entity.Score">
+        <id column="subName" property="subName"/>
+        <id column="subScore" property="subScore"/>
+        <id column="gmtCreate" property="gmtCreate"/>
+        <id column="gmtModify" property="gmtModify"/>
+        <association property="student" column="stuId"
+                     select="cn.kevin.sms.mapper.StudentMapper.select"/>
+        <association property="subject" column="subId"
+                     select="cn.kevin.sms.mapper.SubjectMapper.select"/>
+    </resultMap>
+    <insert id="insert" parameterType="cn.kevin.sms.entity.Score">
         INSERT INTO Score (stuId, subId, subName, subScore, gmtCreate, gmtModify)
         VALUE (#{stuId}, #{subId}, #{subName}, #{subScore}, #{gmtCreate}, #{gmtModify})
     </insert>
@@ -28,7 +38,7 @@
         FROM Score
         WHERE stuId = #{stuId}
     </delete>
-    <update id="update" parameterType="Score">
+    <update id="update" parameterType="cn.kevin.sms.entity.Score">
         UPDATE Score
         SET subScore  = #{subScore},
             subName   = #{subName},
@@ -37,17 +47,17 @@
         WHERE stuId = #{stuId}
           AND subId = #{subId}
     </update>
-    <select id="select" parameterType="map" resultType="Score">
+    <select id="select" parameterType="map" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
           AND subId = #{subId}
     </select>
-    <select id="selectAll" resultType="Score">
+    <select id="selectAll" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
     </select>
-    <select id="selectByAllInfo" parameterType="Score" resultType="Score">
+    <select id="selectByAllInfo" parameterType="cn.kevin.sms.entity.Score" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
@@ -55,7 +65,7 @@
            OR subName = #{subName}
            OR subScore = #{subScore}
     </select>
-    <select id="selectPassScore" parameterType="Integer" resultType="Score">
+    <select id="selectPassScore" parameterType="Integer" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
         <where>
@@ -63,5 +73,9 @@
                 AND subScore >= #{subScore}
             </if>
         </where>
+    </select>
+    <select id="getByStudentId" parameterType="Integer" resultMap="scoreResultMap">
+        SELECT * FROM Score
+        WHERE stuId = #{stuId}
     </select>
 </mapper>

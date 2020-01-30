@@ -10,6 +10,8 @@ public class Score {
     private Integer subScore;   //this
     private long gmtCreate;     //this
     private long gmtModify;     //this
+    private Student student;    //映射
+    private Subject subject;    //映射
 
     public Score() {
         super();

@@ -34,4 +34,7 @@ public interface ScoreMapper {
 
     //查找方法 及格
     List<Score> selectPassScore(Integer subScore);
+
+    //通过学生ID获取 双向一对多映射
+    List<Score> getByStudentId(Integer stuId);
 }

@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author kevin
@@ -31,9 +29,9 @@ public abstract class BaseController {
     protected HttpSession session;
 
 
-    protected <T> Response<T> getFailResult(String code, String msg) {
+    protected <T> Response<T> getFailResult(Integer code, String msg) {
         return new Response<T>()
-                .setCode(520)
+                .setCode(code)
                 .setMessage(msg)
                 .setSuccess(false)
                 .setData(null)
@@ -44,7 +42,7 @@ public abstract class BaseController {
     protected <T> Response<T> getSuccessResult(T data) {
         return new Response<T>()
                 .setCode(200)
-                .setMessage("success")
+                .setMessage("Success!")
                 .setSuccess(true)
                 .setData(data)
                 .setTimestamp(DateUtils.currentSecond());
