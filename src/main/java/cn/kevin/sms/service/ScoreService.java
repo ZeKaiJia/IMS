@@ -2,6 +2,7 @@ package cn.kevin.sms.service;
 
 import cn.kevin.sms.entity.Score;
 import cn.kevin.sms.mapper.ScoreMapper;
+import cn.kevin.sms.util.DateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,6 +28,8 @@ public class ScoreService {
         map.put("subId",sco.getSubId());
         score = scoreMapper.select(map);
         if ( score == null ) {
+            sco.setGmtCreate(DateUtils.currentSecond());
+            sco.setGmtModify(DateUtils.currentSecond());
             scoreMapper.insert(sco);
             return sco;
         }
@@ -39,6 +42,7 @@ public class ScoreService {
         map.put("subId",subId);
         score = scoreMapper.select(map);
         if ( score != null ) {
+            score.setGmtModify(DateUtils.currentSecond());
             scoreMapper.delete(map);
         }
         return score;
@@ -49,6 +53,9 @@ public class ScoreService {
         score.setStuId(stuId);
         scores = scoreMapper.selectByAllInfo(score);
         if ( scores.size() != 0 ) {
+            for (Score sco: scores) {
+                sco.setGmtModify(DateUtils.currentSecond());
+            }
             scoreMapper.deleteAll(stuId);
         }
         return scores;
@@ -59,9 +66,10 @@ public class ScoreService {
         map.put("stuId",sco.getStuId());
         map.put("subId",sco.getSubId());
         score = scoreMapper.select(map);
-        sco.setSubName(score.getSubName());
-        sco.setGmtCreate(score.getGmtCreate());
         if (score != null) {
+            sco.setSubName(score.getSubName());
+            sco.setGmtCreate(score.getGmtCreate());
+            sco.setGmtModify(DateUtils.currentSecond());
             scoreMapper.update(sco);
             return sco;
         }

@@ -11,7 +11,6 @@ public class Subject {
     private String subName;
     private Integer subTeacherId;
     private Integer subCredit;
-    private List<Score> scores;
 
     public Subject() {
         super();
@@ -22,14 +21,6 @@ public class Subject {
         this.subName = subName;
         this.subTeacherId = subTeacherId;
         this.subCredit = subCredit;
-    }
-
-    public List<Score> getScores() {
-        return scores;
-    }
-
-    public void setScores(List<Score> scores) {
-        this.scores = scores;
     }
 
     public Integer getSubId() {

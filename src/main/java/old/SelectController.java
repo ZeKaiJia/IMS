@@ -1,5 +1,6 @@
-package cn.kevin.sms.controller;
+package old;
 
+import cn.kevin.sms.controller.BaseController;
 import cn.kevin.sms.entity.Score;
 import cn.kevin.sms.entity.Student;
 import cn.kevin.sms.service.ScoreService;
@@ -24,7 +25,7 @@ public class SelectController extends BaseController {
 
     private Scanner input = new Scanner(System.in);
 
-    @Override
+//    @Override
     public void doBiz(int choice) {
         switch (choice) {
             case 1:

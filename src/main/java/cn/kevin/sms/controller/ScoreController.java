@@ -1,7 +1,10 @@
 package cn.kevin.sms.controller;
 
+import cn.kevin.sms.entity.Score;
 import cn.kevin.sms.entity.Student;
+import cn.kevin.sms.service.ScoreService;
 import cn.kevin.sms.service.StudentService;
+import cn.kevin.sms.util.DateUtils;
 import cn.kevin.sms.vo.Response;
 import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +17,10 @@ import java.util.Random;
  * @author kevin
  */
 @RestController()
-@RequestMapping("/student/")
-public class StudentController extends BaseController {
-    @Resource(name = "studentService")
-    private StudentService studentService;
+@RequestMapping("/score/")
+public class ScoreController extends BaseController {
+    @Resource(name = "scoreService")
+    private ScoreService scoreService;
 
     @RequestMapping(value = "/{name}",method = RequestMethod.GET)
     @ResponseBody
@@ -28,51 +31,59 @@ public class StudentController extends BaseController {
     /** insert */
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ResponseBody
-    public Response<Student> insert(@RequestBody Student student)  {
-        student.setStuId(new Random().nextInt(5000));
-        Student result = studentService.insert(student);
+    public Response<Score> insert(@RequestBody Score score)  {
+        Score result = scoreService.insert(score);
         if (result!=null) {
             return getSuccessResult(result);
         }
-        return getFailResult(405,"ID already exist!");
+        return getFailResult(405,"Message already exist!");
     }
 
     /** delete */
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
-    public Response<Student> delete(int id)  {
-        Student result = studentService.delete(id);
+    public Response<Score> delete(int id1, int id2)  {
+        Score result = scoreService.delete(id1, id2);
         if (result!=null) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"ID not find!");
+        return getFailResult(404,"Message not find!");
+    }
+    @RequestMapping(value = "/deleteAll",method = RequestMethod.POST)
+    @ResponseBody
+    public Response<List<Score>> deleteAll(int id)  {
+        List<Score> result = scoreService.deleteAll(id);
+        if (result!=null) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404,"Message not find!");
     }
 
     /** update */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
-    public Response<Student> update(@RequestBody Student student)  {
-        Student result = studentService.update(student);
+    public Response<Score> update(@RequestBody Score score)  {
+        Score result = scoreService.update(score);
         if (result!=null) {
             return  getSuccessResult(result);
         }
-        return getFailResult(404,"ID not find!");
+        return getFailResult(404,"Message not find!");
     }
 
     /** select */
     @RequestMapping(value = "/selectById",method = RequestMethod.GET)
     @ResponseBody
-    public Response<Student> selectById(int id)  {
-        Student result = studentService.select(id);
+    public Response<Score> selectById(int id1, int id2)  {
+        Score result = scoreService.select(id1, id2);
         if (result!=null) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"ID not find!");
+        return getFailResult(404,"Message not find!");
     }
     @RequestMapping(value = "/selectAll",method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<Student>> selectAll()  {
-        List<Student> result = studentService.selectAll();
+    public Response<List<Score>> selectAll()  {
+        List<Score> result = scoreService.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -80,17 +91,17 @@ public class StudentController extends BaseController {
     }
     @RequestMapping(value = "/selectByAllInfo",method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<Student>> selectByAllInfo(@RequestBody Student student)  {
-        List<Student> result = studentService.selectByAllInfo(student);
+    public Response<List<Score>> selectByAllInfo(@RequestBody Score score)  {
+        List<Score> result = scoreService.selectByAllInfo(score);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
         return getFailResult(404,"Message not find!");
     }
-    @RequestMapping(value = "/selectSimilarName",method = RequestMethod.GET)
+    @RequestMapping(value = "/selectPassScore",method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<Student>> selectSimilarName(String name)  {
-        List<Student> result = studentService.selectSimilarName(name);
+    public Response<List<Score>> selectPassScore(int score)  {
+        List<Score> result = scoreService.selectPassScore(score);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -99,13 +110,11 @@ public class StudentController extends BaseController {
 
 
     public static void main(String[] args) {
-        Student stu = new Student();
-//        stu.setStuId(3);
-//        stu.setStuGender(1);
-//        stu.setStuBirthday(new Date());
-//        stu.setStuAge(21);
-//        stu.setStuEmail("jiazekai@gmail.com");
-        stu.setStuName("wulala");
-        System.out.println(JSON.toJSONString(stu));
+        Score score = new Score();
+        score.setStuId(1);
+        score.setSubId(1);
+        score.setSubName("a");
+        score.setSubScore(98);
+        System.out.println(JSON.toJSONString(score));
     }
 }

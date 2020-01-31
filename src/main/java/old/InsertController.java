@@ -1,5 +1,6 @@
-package cn.kevin.sms.controller;
+package old;
 
+import cn.kevin.sms.controller.BaseController;
 import cn.kevin.sms.entity.Score;
 import cn.kevin.sms.entity.Student;
 import cn.kevin.sms.entity.Subject;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 /**
  * @author kevin
  */
-public class InsertController extends BaseController{
+public class InsertController extends BaseController {
     @Resource(name = "studentService")
     private StudentService studentService;
     @Resource(name = "subjectService")
@@ -28,7 +29,7 @@ public class InsertController extends BaseController{
     private Student student;
     private Subject subject;
 
-    @Override
+//    @Override
     public void doBiz(int choice) {
         switch (choice) {
             case 1:
