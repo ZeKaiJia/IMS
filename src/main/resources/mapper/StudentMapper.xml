@@ -13,55 +13,66 @@
     8.keyProperty:返回值SET属性
     -->
 <mapper namespace="cn.kevin.sms.mapper.StudentMapper">
-    <resultMap id="studentResultMap" type="cn.kevin.sms.entity.Student">
-        <id column="stuId" property="stuId"/>
-        <id column="stuAge" property="stuAge"/>
-        <id column="stuBirthday" property="stuBirthday"/>
-        <id column="stuEmail" property="stuEmail"/>
-        <id column="stuGender" property="stuGender"/>
-        <id column="stuName" property="stuName"/>
-<!--        <collection column="subScore" property="scores" ofType="cn.kevin.sms.entity.Score"-->
-<!--                    select="cn.kevin.sms.mapper.ScoreMapper.getByStudentId"/>-->
-    </resultMap>
     <insert id="insert" parameterType="cn.kevin.sms.entity.Student">
-        INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName)
-        VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName})
+        INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName, gmtCreate, gmtModify, isReal)
+            VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{gmtCreate},
+                   #{gmtModify}, #{isReal})
     </insert>
-    <delete id="delete" parameterType="Integer">
+    <delete id="save">
         DELETE
         FROM Student
-        WHERE stuId = #{stuId}
+        WHERE isReal = 0
     </delete>
+    <update id="delete" parameterType="map">
+        UPDATE Student
+        SET isReal = 0,
+        gmtModify = #{gmtModify}
+        WHERE stuId = #{stuId}
+    </update>
     <update id="update" parameterType="cn.kevin.sms.entity.Student">
         UPDATE Student
         SET stuAge      = #{stuAge},
             stuBirthday = #{stuBirthday},
             stuEmail    = #{stuEmail},
             stuGender   = #{stuGender},
-            stuName     = #{stuName}
+            stuName     = #{stuName},
+            gmtCreate   = #{gmtCreate},
+            gmtModify   = #{gmtModify},
+            isReal      = #{isReal}
         WHERE stuId = #{stuId}
     </update>
     <select id="select" parameterType="Integer" resultType="cn.kevin.sms.entity.Student">
         SELECT *
         FROM Student
         WHERE stuId = #{stuId}
+          AND isReal = 1
     </select>
     <select id="selectAll" resultType="cn.kevin.sms.entity.Student">
         SELECT *
         FROM Student
+        WHERE isReal = 1
     </select>
     <select id="selectByAllInfo" parameterType="cn.kevin.sms.entity.Student" resultType="cn.kevin.sms.entity.Student">
         SELECT *
         FROM Student
-        WHERE stuId = #{stuId}
+        WHERE (stuId = #{stuId}
            OR stuAge = #{stuAge}
            OR stuEmail = #{stuEmail}
            OR stuGender = #{stuGender}
            OR stuName = #{stuName}
+           OR gmtCreate = #{gmtCreate}
+           OR gmtModify = #{gmtModify})
+           AND isReal = 1
     </select>
     <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.sms.entity.Student">
         SELECT *
         FROM Student
         WHERE stuName LIKE '%${value}%'
+          AND isReal = 1
+    </select>
+    <select id="selectGarbage" resultType="cn.kevin.sms.entity.Student">
+        SELECT *
+        FROM Student
+        WHERE isReal = 0
     </select>
 </mapper>

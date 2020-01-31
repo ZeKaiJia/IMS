@@ -1,6 +1,5 @@
 package cn.kevin.sms.entity;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,16 +10,23 @@ public class Subject {
     private String subName;
     private Integer subTeacherId;
     private Integer subCredit;
+    private long gmtCreate;
+    private long gmtModify;
+    private Boolean isReal;
 
     public Subject() {
         super();
+        this.isReal = true;
     }
 
-    public Subject(Integer subId, String subName, Integer subTeacherId, Integer subCredit) {
+    public Subject(Integer subId, String subName, Integer subTeacherId, Integer subCredit, long gmtCreate, long gmtModify) {
         this.subId = subId;
         this.subName = subName;
         this.subTeacherId = subTeacherId;
         this.subCredit = subCredit;
+        this.gmtCreate = gmtCreate;
+        this.gmtModify = gmtModify;
+        this.isReal = true;
     }
 
     public Integer getSubId() {
@@ -55,14 +61,41 @@ public class Subject {
         this.subCredit = subCredit;
     }
 
+    public long getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(long gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public long getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(long gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+    public Boolean getReal() {
+        return isReal;
+    }
+
+    public void setReal(Boolean real) {
+        isReal = real;
+    }
+
     @Override
     public String toString() {
-        return "Subject {\n" +
+        return "Subject{" +
                 "subId=" + subId +
-                ",\nsubName='" + subName + '\'' +
-                ",\nsubTeacherId=" + subTeacherId +
-                ",\nsubCredit=" + subCredit +
-                "\n}\n";
+                ", subName='" + subName + '\'' +
+                ", subTeacherId=" + subTeacherId +
+                ", subCredit=" + subCredit +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", isReal=" + isReal +
+                '}';
     }
 
     @Override
@@ -75,13 +108,11 @@ public class Subject {
         }
         Subject subject = (Subject) o;
         return subId.equals(subject.subId) &&
-                subName.equals(subject.subName) &&
-                subTeacherId.equals(subject.subTeacherId) &&
-                subCredit.equals(subject.subCredit);
+                isReal.equals(subject.isReal);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subId, subName, subTeacherId, subCredit);
+        return Objects.hash(subId, isReal);
     }
 }

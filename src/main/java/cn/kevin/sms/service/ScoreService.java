@@ -36,27 +36,43 @@ public class ScoreService {
         return null;
     }
 
+    public List<Score> save() {
+        scores = scoreMapper.selectGarbage();
+        if ( scores.size() != 0 ) {
+            for (Score sco : scores) {
+                sco.setGmtModify(DateUtils.currentSecond());
+            }
+            scoreMapper.save();
+        }
+        return scores;
+    }
+
     public Score delete(Integer stuId, Integer subId) {
         map = new HashMap<>(4);
         map.put("stuId",stuId);
         map.put("subId",subId);
         score = scoreMapper.select(map);
         if ( score != null ) {
-            score.setGmtModify(DateUtils.currentSecond());
+            map.put("gmtModify", DateUtils.currentSecond());
             scoreMapper.delete(map);
+            score.setReal(false);
         }
         return score;
     }
 
     public List<Score> deleteAll(Integer stuId) {
+        map = new HashMap<>(4);
+        map.put("stuId",stuId);
         score = new Score();
         score.setStuId(stuId);
         scores = scoreMapper.selectByAllInfo(score);
         if ( scores.size() != 0 ) {
             for (Score sco: scores) {
                 sco.setGmtModify(DateUtils.currentSecond());
+                sco.setReal(false);
             }
-            scoreMapper.deleteAll(stuId);
+            map.put("gmtModify", DateUtils.currentSecond());
+            scoreMapper.deleteAll(map);
         }
         return scores;
     }
@@ -67,7 +83,6 @@ public class ScoreService {
         map.put("subId",sco.getSubId());
         score = scoreMapper.select(map);
         if (score != null) {
-            sco.setSubName(score.getSubName());
             sco.setGmtCreate(score.getGmtCreate());
             sco.setGmtModify(DateUtils.currentSecond());
             scoreMapper.update(sco);
@@ -77,7 +92,7 @@ public class ScoreService {
     }
 
     public Score select(Integer stuId, Integer subId) {
-        map = new HashMap<>();
+        map = new HashMap<>(4);
         map.put("stuId",stuId);
         map.put("subId",subId);
         score = scoreMapper.select(map);

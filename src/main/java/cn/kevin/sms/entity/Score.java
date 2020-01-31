@@ -1,29 +1,30 @@
 package cn.kevin.sms.entity;
 
+import java.util.Objects;
+
 /**
  * @author kevin
  */
 public class Score {
     private Integer stuId;      //Student
     private Integer subId;      //Subject
-    private String subName;     //Subject
     private Integer subScore;   //this
     private long gmtCreate;     //this
     private long gmtModify;     //this
-    private Student student;    //映射
-    private Subject subject;    //映射
+    private Boolean isReal;     //this
 
     public Score() {
         super();
+        this.isReal = true;
     }
 
-    public Score(Integer stuId, Integer subId, String subName, Integer subScore, long gmtCreate, long gmtModify) {
+    public Score(Integer stuId, Integer subId, Integer subScore, long gmtCreate, long gmtModify) {
         this.stuId = stuId;
         this.subId = subId;
-        this.subName = subName;
         this.subScore = subScore;
         this.gmtCreate = gmtCreate;
         this.gmtModify = gmtModify;
+        this.isReal = true;
     }
 
     public Integer getStuId() {
@@ -40,14 +41,6 @@ public class Score {
 
     public void setSubId(Integer subId) {
         this.subId = subId;
-    }
-
-    public String getSubName() {
-        return subName;
-    }
-
-    public void setSubName(String subName) {
-        this.subName = subName;
     }
 
     public Integer getSubScore() {
@@ -74,15 +67,42 @@ public class Score {
         this.gmtModify = gmtModify;
     }
 
+    public Boolean getReal() {
+        return isReal;
+    }
+
+    public void setReal(Boolean real) {
+        isReal = real;
+    }
+
     @Override
     public String toString() {
-        return "Score {\n" +
+        return "Score{" +
                 "stuId=" + stuId +
-                ",\nsubId=" + subId +
-                ",\nsubName='" + subName + '\'' +
-                ",\nsubScore=" + subScore +
-                ",\ngmtCreate=" + gmtCreate +
-                ",\ngmtModify=" + gmtModify +
-                "\n}\n";
+                ", subId=" + subId +
+                ", subScore=" + subScore +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", isReal=" + isReal +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Score)) {
+            return false;
+        }
+        Score score = (Score) o;
+        return stuId.equals(score.stuId) &&
+                subId.equals(score.subId) &&
+                isReal.equals(score.isReal);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stuId, subId, isReal);
     }
 }

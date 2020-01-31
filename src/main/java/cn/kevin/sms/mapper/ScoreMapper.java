@@ -1,6 +1,7 @@
 package cn.kevin.sms.mapper;
 
 import cn.kevin.sms.entity.Score;
+import cn.kevin.sms.entity.Student;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,11 +15,14 @@ public interface ScoreMapper {
     //添加方法
     void insert(Score score);
 
+    //保存功能 删除不存在数据
+    void save();
+
     //删除方法 单科 hashmap
     void delete(Map<String, Object> map);
 
     //删除方法 学生
-    void deleteAll(Integer stuId);
+    void deleteAll(Map<String, Object> map);
 
     //修改方法 id不可被修改
     void update(Score score);
@@ -37,4 +41,7 @@ public interface ScoreMapper {
 
     //通过学生ID获取 双向一对多映射
     List<Score> getByStudentId(Integer stuId);
+
+    //管理员专用
+    List<Score> selectGarbage();
 }

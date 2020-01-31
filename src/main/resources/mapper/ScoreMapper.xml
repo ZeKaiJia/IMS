@@ -13,37 +13,34 @@
     8.keyProperty:返回值SET属性
     -->
 <mapper namespace="cn.kevin.sms.mapper.ScoreMapper">
-    <resultMap id="scoreResultMap" type="cn.kevin.sms.entity.Score">
-        <id column="subName" property="subName"/>
-        <id column="subScore" property="subScore"/>
-        <id column="gmtCreate" property="gmtCreate"/>
-        <id column="gmtModify" property="gmtModify"/>
-        <association property="student" column="stuId"
-                     select="cn.kevin.sms.mapper.StudentMapper.select"/>
-        <association property="subject" column="subId"
-                     select="cn.kevin.sms.mapper.SubjectMapper.select"/>
-    </resultMap>
     <insert id="insert" parameterType="cn.kevin.sms.entity.Score">
-        INSERT INTO Score (stuId, subId, subName, subScore, gmtCreate, gmtModify)
-        VALUE (#{stuId}, #{subId}, #{subName}, #{subScore}, #{gmtCreate}, #{gmtModify})
+        INSERT INTO Score (stuId, subId, subScore, gmtCreate, gmtModify, isReal)
+            VALUE (#{stuId}, #{subId}, #{subScore}, #{gmtCreate}, #{gmtModify}, #{isReal})
     </insert>
-    <delete id="delete" parameterType="map">
+    <delete id="save">
         DELETE
         FROM Score
+        WHERE isReal = 0
+    </delete>
+    <update id="delete" parameterType="map">
+        UPDATE Score
+        SET isReal = 0,
+            gmtModify = #{gmtModify}
         WHERE stuId = #{stuId}
           AND subId = #{subId}
-    </delete>
-    <delete id="deleteAll" parameterType="Integer">
-        DELETE
-        FROM Score
+    </update>
+    <update id="deleteAll" parameterType="map">
+        UPDATE Score
+        SET isReal = 0,
+            gmtModify = #{gmtModify}
         WHERE stuId = #{stuId}
-    </delete>
+    </update>
     <update id="update" parameterType="cn.kevin.sms.entity.Score">
         UPDATE Score
         SET subScore  = #{subScore},
-            subName   = #{subName},
             gmtCreate = #{gmtCreate},
-            gmtModify = #{gmtModify}
+            gmtModify = #{gmtModify},
+            isReal    = #{isReal}
         WHERE stuId = #{stuId}
           AND subId = #{subId}
     </update>
@@ -52,30 +49,42 @@
         FROM Score
         WHERE stuId = #{stuId}
           AND subId = #{subId}
+          AND isReal = 1
     </select>
     <select id="selectAll" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
+        WHERE isReal = 1
     </select>
     <select id="selectByAllInfo" parameterType="cn.kevin.sms.entity.Score" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
-        WHERE stuId = #{stuId}
+        WHERE (stuId = #{stuId}
            OR subId = #{subId}
-           OR subName = #{subName}
            OR subScore = #{subScore}
+           OR gmtCreate = #{gmtCreate}
+           OR gmtModify = #{gmtModify})
+           AND isReal = #{isReal}
     </select>
     <select id="selectPassScore" parameterType="Integer" resultType="cn.kevin.sms.entity.Score">
         SELECT *
         FROM Score
         <where>
+            1 = 0
             <if test="subScore lte 100 and subScore gte 0">
-                AND subScore >= #{subScore}
+                OR (subScore >= #{subScore} AND isReal = 1)
             </if>
         </where>
     </select>
-    <select id="getByStudentId" parameterType="Integer" resultMap="scoreResultMap">
-        SELECT * FROM Score
+    <select id="getByStudentId" parameterType="Integer" resultType="cn.kevin.sms.entity.Score">
+        SELECT *
+        FROM Score
         WHERE stuId = #{stuId}
+          AND isReal = 1
+    </select>
+    <select id="selectGarbage" resultType="cn.kevin.sms.entity.Score">
+        SELECT *
+        FROM Score
+        WHERE isReal = 0
     </select>
 </mapper>

@@ -15,18 +15,25 @@ public class Student {
     private String stuEmail;
     private Integer stuGender;
     private String stuName;
+    private long gmtCreate;
+    private long gmtModify;
+    private Boolean isReal;
 
     public Student() {
         super();
+        this.isReal = true;
     }
 
-    public Student(Integer stuId, Integer stuAge, Date stuBirthday, String stuEmail, Integer stuGender, String stuName) {
+    public Student(Integer stuId, Integer stuAge, Date stuBirthday, String stuEmail, Integer stuGender, String stuName, long gmtCreate, long gmtModify) {
         this.stuId = stuId;
         this.stuAge = stuAge;
         this.stuBirthday = stuBirthday;
         this.stuEmail = stuEmail;
         this.stuGender = stuGender;
         this.stuName = stuName;
+        this.gmtCreate = gmtCreate;
+        this.gmtModify = gmtModify;
+        this.isReal = true;
     }
 
     public Student(Student student) {
@@ -36,6 +43,9 @@ public class Student {
         this.stuEmail = student.stuEmail;
         this.stuGender = student.stuGender;
         this.stuName = student.stuName;
+        this.gmtCreate = student.gmtCreate;
+        this.gmtModify = student.gmtModify;
+        this.isReal = student.isReal;
     }
 
     public Integer getStuId() {
@@ -86,18 +96,43 @@ public class Student {
         this.stuName = stuName;
     }
 
+    public long getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(long gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public long getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(long gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+    public Boolean getReal() {
+        return isReal;
+    }
+
+    public void setReal(Boolean real) {
+        isReal = real;
+    }
+
     @Override
     public String toString() {
-        String formatDate;
-        formatDate = DateFormat.getDateInstance().format(stuBirthday);
-        return "Student {\n" +
+        return "Student{" +
                 "stuId=" + stuId +
-                ",\nstuAge=" + stuAge +
-                ",\nstuBirthday=" + formatDate +
-                ",\nstuEmail='" + stuEmail + '\'' +
-                ",\nstuGender=" + stuGender +
-                ",\nstuName='" + stuName + '\'' +
-                " \n}\n";
+                ", stuAge=" + stuAge +
+                ", stuBirthday=" + stuBirthday +
+                ", stuEmail='" + stuEmail + '\'' +
+                ", stuGender=" + stuGender +
+                ", stuName='" + stuName + '\'' +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", isReal=" + isReal +
+                '}';
     }
 
     @Override
@@ -109,11 +144,12 @@ public class Student {
             return false;
         }
         Student student = (Student) o;
-        return stuId.equals(student.stuId);
+        return stuId.equals(student.stuId) &&
+                isReal.equals(student.isReal);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stuId);
+        return Objects.hash(stuId, isReal);
     }
 }

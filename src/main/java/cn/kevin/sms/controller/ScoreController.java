@@ -39,7 +39,18 @@ public class ScoreController extends BaseController {
         return getFailResult(405,"Message already exist!");
     }
 
-    /** delete */
+    /** save(in fact it's delete) */
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @ResponseBody
+    public Response<List<Score>> save()  {
+        List<Score> result = scoreService.save();
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404,"Message not find!");
+    }
+
+    /** delete(in fact it's an update) */
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
     public Response<Score> delete(int id1, int id2)  {
@@ -113,7 +124,6 @@ public class ScoreController extends BaseController {
         Score score = new Score();
         score.setStuId(1);
         score.setSubId(1);
-        score.setSubName("a");
         score.setSubScore(98);
         System.out.println(JSON.toJSONString(score));
     }

@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -37,7 +38,18 @@ public class StudentController extends BaseController {
         return getFailResult(405,"ID already exist!");
     }
 
-    /** delete */
+    /** save(in fact it's delete) */
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @ResponseBody
+    public Response<List<Student>> save()  {
+        List<Student> result = studentService.save();
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404,"Message not find!");
+    }
+
+    /** delete(in fact it's an update) */
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
     public Response<Student> delete(int id)  {
@@ -100,11 +112,11 @@ public class StudentController extends BaseController {
 
     public static void main(String[] args) {
         Student stu = new Student();
-//        stu.setStuId(3);
-//        stu.setStuGender(1);
-//        stu.setStuBirthday(new Date());
-//        stu.setStuAge(21);
-//        stu.setStuEmail("jiazekai@gmail.com");
+        stu.setStuId(3);
+        stu.setStuAge(21);
+        stu.setStuBirthday(new Date());
+        stu.setStuEmail("jiazekai@gmail.com");
+        stu.setStuGender(1);
         stu.setStuName("wulala");
         System.out.println(JSON.toJSONString(stu));
     }

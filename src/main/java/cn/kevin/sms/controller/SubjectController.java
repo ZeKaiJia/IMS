@@ -1,5 +1,6 @@
 package cn.kevin.sms.controller;
 
+import cn.kevin.sms.entity.Student;
 import cn.kevin.sms.entity.Subject;
 import cn.kevin.sms.service.SubjectService;
 import cn.kevin.sms.vo.Response;
@@ -37,7 +38,18 @@ public class SubjectController extends BaseController {
         return getFailResult(405,"ID already exist!");
     }
 
-    /** delete */
+    /** save(in fact it's delete) */
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    @ResponseBody
+    public Response<List<Subject>> save()  {
+        List<Subject> result = subjectService.save();
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404,"Massage not find!");
+    }
+
+    /** delete(in fact it's an update) */
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
     public Response<Subject> delete(int id)  {

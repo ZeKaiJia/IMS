@@ -4,6 +4,7 @@ import cn.kevin.sms.entity.Student;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author kevin
@@ -13,8 +14,11 @@ public interface StudentMapper {
     //添加方法
     void insert(Student student);
 
+    //保存功能 删除不存在数据
+    void save();
+
     //删除方法 id
-    void delete(Integer stuId);
+    void delete(Map<String, Object> map);
 
     //修改方法
     void update(Student student);
@@ -30,4 +34,7 @@ public interface StudentMapper {
 
     //模糊查找
     List<Student> selectSimilarName(String stuName);
+
+    //管理员专用
+    List<Student> selectGarbage();
 }
