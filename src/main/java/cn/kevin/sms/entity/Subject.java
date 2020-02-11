@@ -1,11 +1,12 @@
 package cn.kevin.sms.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author kevin
  */
-public class Subject {
+public class Subject implements Serializable {
     private Integer subId;
     private String subName;
     private Integer subTeacherId;

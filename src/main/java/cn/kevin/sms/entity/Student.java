@@ -1,5 +1,6 @@
 package cn.kevin.sms.entity;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Objects;
 /**
  * @author kevin
  */
-public class Student {
+public class Student implements Serializable {
     private Integer stuId;
     private Integer stuAge;
     private Date stuBirthday;

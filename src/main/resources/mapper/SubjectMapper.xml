@@ -11,6 +11,7 @@
     6.insert: 表示添加。
     -->
 <mapper namespace="cn.kevin.sms.mapper.SubjectMapper">
+    <cache eviction="FIFO" readOnly="true" size="512" flushInterval="30000"/>
     <insert id="insert" parameterType="cn.kevin.sms.entity.Subject">
         INSERT INTO Subject (subId, subName, subTeacherId, subCredit, gmtCreate, gmtModify, isReal)
             VALUE (#{subId}, #{subName}, #{subTeacherId}, #{subCredit}, #{gmtCreate},
@@ -23,18 +24,26 @@
     </delete>
     <update id="delete" parameterType="map">
         UPDATE Subject
-        SET isReal = 0,
-        gmtModify = #{gmtModify}
+        SET isReal    = 0,
+            gmtModify = #{gmtModify}
         WHERE subId = #{subId}
     </update>
     <update id="update" parameterType="cn.kevin.sms.entity.Subject">
         UPDATE Subject
-        SET subName      = #{subName},
-            subTeacherId = #{subTeacherId},
-            subCredit    = #{subCredit},
-            gmtCreate    = #{gmtCreate},
-            gmtModify    = #{gmtModify},
-            isReal       = #{isReal}
+        <set>
+            <if test="subName != null and subName != ''">
+                subName = #{subName},
+            </if>
+            <if test="subTeacherId != null and subTeacherId != ''">
+                subTeacherId = #{subTeacherId},
+            </if>
+            <if test="subCredit != null and subCredit != ''">
+                subCredit = #{subCredit},
+            </if>
+            <if test="gmtModify != null and gmtModify != ''">
+                gmtModify = #{gmtModify},
+            </if>
+        </set>
         WHERE subId = #{subId}
     </update>
     <select id="select" parameterType="Integer" resultType="cn.kevin.sms.entity.Subject">
@@ -52,12 +61,12 @@
         SELECT *
         FROM Subject
         WHERE (subId = #{subId}
-           OR subName = #{subName}
-           OR subTeacherId = #{subTeacherId}
-           OR subCredit = #{subCredit}
-           OR gmtCreate = #{gmtCreate}
-           OR gmtModify = #{gmtModify})
-           AND isReal = 1
+            OR subName = #{subName}
+            OR subTeacherId = #{subTeacherId}
+            OR subCredit = #{subCredit}
+            OR gmtCreate = #{gmtCreate}
+            OR gmtModify = #{gmtModify})
+          AND isReal = 1
     </select>
     <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.sms.entity.Subject">
         SELECT *

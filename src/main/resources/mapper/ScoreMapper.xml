@@ -13,6 +13,7 @@
     8.keyProperty:返回值SET属性
     -->
 <mapper namespace="cn.kevin.sms.mapper.ScoreMapper">
+    <cache eviction="FIFO" readOnly="true" size="512" flushInterval="30000"/>
     <insert id="insert" parameterType="cn.kevin.sms.entity.Score">
         INSERT INTO Score (stuId, subId, subScore, gmtCreate, gmtModify, isReal)
             VALUE (#{stuId}, #{subId}, #{subScore}, #{gmtCreate}, #{gmtModify}, #{isReal})
@@ -24,25 +25,29 @@
     </delete>
     <update id="delete" parameterType="map">
         UPDATE Score
-        SET isReal = 0,
+        SET isReal    = 0,
             gmtModify = #{gmtModify}
         WHERE stuId = #{stuId}
           AND subId = #{subId}
     </update>
     <update id="deleteAll" parameterType="map">
         UPDATE Score
-        SET isReal = 0,
+        SET isReal    = 0,
             gmtModify = #{gmtModify}
         WHERE stuId = #{stuId}
     </update>
     <update id="update" parameterType="cn.kevin.sms.entity.Score">
         UPDATE Score
-        SET subScore  = #{subScore},
-            gmtCreate = #{gmtCreate},
-            gmtModify = #{gmtModify},
-            isReal    = #{isReal}
+        <set>
+            <if test="subScore != null and subScore != ''">
+                subScore = #{subScore},
+            </if>
+            <if test="gmtModify != null and gmtModify != ''">
+                gmtModify = #{gmtModify},
+            </if>
+        </set>
         WHERE stuId = #{stuId}
-          AND subId = #{subId}
+        AND subId = #{subId}
     </update>
     <select id="select" parameterType="map" resultType="cn.kevin.sms.entity.Score">
         SELECT *
@@ -60,11 +65,11 @@
         SELECT *
         FROM Score
         WHERE (stuId = #{stuId}
-           OR subId = #{subId}
-           OR subScore = #{subScore}
-           OR gmtCreate = #{gmtCreate}
-           OR gmtModify = #{gmtModify})
-           AND isReal = #{isReal}
+            OR subId = #{subId}
+            OR subScore = #{subScore}
+            OR gmtCreate = #{gmtCreate}
+            OR gmtModify = #{gmtModify})
+          AND isReal = #{isReal}
     </select>
     <select id="selectPassScore" parameterType="Integer" resultType="cn.kevin.sms.entity.Score">
         SELECT *

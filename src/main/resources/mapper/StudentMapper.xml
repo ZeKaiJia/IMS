@@ -13,6 +13,7 @@
     8.keyProperty:返回值SET属性
     -->
 <mapper namespace="cn.kevin.sms.mapper.StudentMapper">
+    <cache eviction="FIFO" readOnly="true" size="512" flushInterval="30000"/>
     <insert id="insert" parameterType="cn.kevin.sms.entity.Student">
         INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName, gmtCreate, gmtModify, isReal)
             VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{gmtCreate},
@@ -31,14 +32,26 @@
     </update>
     <update id="update" parameterType="cn.kevin.sms.entity.Student">
         UPDATE Student
-        SET stuAge      = #{stuAge},
-            stuBirthday = #{stuBirthday},
-            stuEmail    = #{stuEmail},
-            stuGender   = #{stuGender},
-            stuName     = #{stuName},
-            gmtCreate   = #{gmtCreate},
-            gmtModify   = #{gmtModify},
-            isReal      = #{isReal}
+        <set>
+            <if test="stuAge != null and stuAge != ''">
+                stuAge      = #{stuAge},
+            </if>
+            <if test="stuBirthday != null">
+                stuBirthday      = #{stuBirthday},
+            </if>
+            <if test="stuEmail != null and stuEmail != ''">
+                stuEmail      = #{stuEmail},
+            </if>
+            <if test="stuGender != null and stuGender != ''">
+                stuGender      = #{stuGender},
+            </if>
+            <if test="stuName != null and stuName != ''">
+                stuName      = #{stuName},
+            </if>
+            <if test="gmtModify != null and gmtModify != ''">
+                gmtModify      = #{gmtModify},
+            </if>
+        </set>
         WHERE stuId = #{stuId}
     </update>
     <select id="select" parameterType="Integer" resultType="cn.kevin.sms.entity.Student">
