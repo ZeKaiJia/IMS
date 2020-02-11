@@ -8,12 +8,12 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 ## 层次结构
 5层 Application -> 程序运行的入口 <br>
 4层 Util & VO -> 提供使用工具类和 HTTP Response 的协助层 <br>
-4层  Controller  -> 业务逻辑层，提供前端接口，获取数据给 Service <br>
-3层  Service  -> 将  Mapper  中一个或多个功能组合成实际需要的功能 <br>
-2层  Mapper  -> 与 XML 文件唯一对应，提供最基本的数据库功能 <br>
-1层 XML -> 使用  Mybatis  语法编写的  Mapper  配置文件供上层调用 <br>
-0层 Entity ->  POJO 对象(纯粹的JavaBean)，不提供业务和服务 <br>
-配置层 application.yml ->  Spring  配置 pom.xml -> Maven配置
+4层 Controller -> 业务逻辑层，提供前端接口，获取数据给 Service <br>
+3层 Service -> 将 Mapper 中一个或多个功能组合成实际需要的功能 <br>
+2层 Mapper -> 与 XML 文件唯一对应，提供最基本的数据库功能 <br>
+1层 XML -> 使用 Mybatis 语法编写的 Mapper 配置文件供上层调用 <br>
+0层 Entity -> POJO 对象(纯粹的JavaBean)，不提供业务和服务 <br>
+配置层 application.yml -> Spring 配置 pom.xml -> Maven配置
 
 ## 开发日志
 ### 2020.1.16 - Demo 1.2.5
@@ -114,7 +114,10 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 <li>删除了 ResultMap 的双向一对多映射，没有必要将成绩和学生、课程连接起来，因为成绩中已经包含学生和课程的 ID ，如果需要可以调用学生表和课程表的接口读取数据。。</li>
 
 ### 2020.2.11 - Demo 2.3.5
+<li>已知问题:在实际生活中学生成绩肯定是介于0-100分之间的，而 MySQL 中没有作出判断，又或许应该在 POJO 对象在构建的时候判断，又或许是在前端接收到参数的时候判断？</li>
+<li>已知问题:加入了 Mybatis 的二级缓存配置，但是似乎并没有什么用，二级缓存适合作用于 Redis 而不是 MySQL，因此等学了 Redis 之后再考虑完善。</li>
+<li>已知问题:项目开发中与数据库之间传输的对象应该是 map 还是 Javabean ，两者各有优缺点，但是此项目中两者都用到了，我觉得还是统一比较好。</li>
 <li>更新了 Mybatis 语句，使用 set 标签替代 MySQL 中的原始 set ，再与 if 标签结合，可以判断传入的参数是否为 null 或者为空字符串等情况，处于上述情况将不会执行该属性的 update 操作。</li>
-<li>限定了 gmtCreate 、 gmtModify 、 isReal 这三个性质的位置，现在 gmtCreate 只能在 insert 中被修改， gmtModify 只能在 delete 、 update 中被修改， isReal 只能在 delete 中被修改。</li>
+<li>限定了 gmtCreate 、 gmtModify 、 isReal 这三个性质的位置，现在 gmtCreate 只能在 insert 中被创建， gmtModify 只能在 delete 、 update 中被修改， isReal 只能在 delete 中被赋值为 false ，在 insert 中被赋值为 true 。</li>
 <li>加入了 Mybatis 二级缓存的配置，采用 FIFO 规则，每30秒刷新一次，容量为512，只读。</li>
 <li>完成了前端页面的一份原型图，搭好了登录框的结构。</li>

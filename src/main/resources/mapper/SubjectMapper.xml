@@ -15,7 +15,7 @@
     <insert id="insert" parameterType="cn.kevin.sms.entity.Subject">
         INSERT INTO Subject (subId, subName, subTeacherId, subCredit, gmtCreate, gmtModify, isReal)
             VALUE (#{subId}, #{subName}, #{subTeacherId}, #{subCredit}, #{gmtCreate},
-                   #{gmtModify}, #{isReal})
+                   #{gmtModify}, 1)
     </insert>
     <delete id="save">
         DELETE
@@ -40,7 +40,7 @@
             <if test="subCredit != null and subCredit != ''">
                 subCredit = #{subCredit},
             </if>
-            <if test="gmtModify != null and gmtModify != ''">
+            <if test="true">
                 gmtModify = #{gmtModify},
             </if>
         </set>

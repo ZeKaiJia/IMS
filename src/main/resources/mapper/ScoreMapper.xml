@@ -16,7 +16,7 @@
     <cache eviction="FIFO" readOnly="true" size="512" flushInterval="30000"/>
     <insert id="insert" parameterType="cn.kevin.sms.entity.Score">
         INSERT INTO Score (stuId, subId, subScore, gmtCreate, gmtModify, isReal)
-            VALUE (#{stuId}, #{subId}, #{subScore}, #{gmtCreate}, #{gmtModify}, #{isReal})
+            VALUE (#{stuId}, #{subId}, #{subScore}, #{gmtCreate}, #{gmtModify}, 1)
     </insert>
     <delete id="save">
         DELETE
@@ -42,7 +42,7 @@
             <if test="subScore != null and subScore != ''">
                 subScore = #{subScore},
             </if>
-            <if test="gmtModify != null and gmtModify != ''">
+            <if test="true">
                 gmtModify = #{gmtModify},
             </if>
         </set>
@@ -69,7 +69,7 @@
             OR subScore = #{subScore}
             OR gmtCreate = #{gmtCreate}
             OR gmtModify = #{gmtModify})
-          AND isReal = #{isReal}
+          AND isReal = 1
     </select>
     <select id="selectPassScore" parameterType="Integer" resultType="cn.kevin.sms.entity.Score">
         SELECT *

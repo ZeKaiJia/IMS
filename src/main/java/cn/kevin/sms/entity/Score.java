@@ -7,12 +7,13 @@ import java.util.Objects;
  * @author kevin
  */
 public class Score implements Serializable {
-    private Integer stuId;      //Student
-    private Integer subId;      //Subject
-    private Integer subScore;   //this
-    private long gmtCreate;     //this
-    private long gmtModify;     //this
-    private Boolean isReal;     //this
+    private static final long serialVersionUID = 1L;
+    private Integer stuId;
+    private Integer subId;
+    private Integer subScore;
+    private long gmtCreate;
+    private long gmtModify;
+    private Boolean isReal;
 
     public Score() {
         super();

@@ -17,7 +17,7 @@
     <insert id="insert" parameterType="cn.kevin.sms.entity.Student">
         INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName, gmtCreate, gmtModify, isReal)
             VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{gmtCreate},
-                   #{gmtModify}, #{isReal})
+                   #{gmtModify}, 1)
     </insert>
     <delete id="save">
         DELETE
@@ -26,30 +26,30 @@
     </delete>
     <update id="delete" parameterType="map">
         UPDATE Student
-        SET isReal = 0,
-        gmtModify = #{gmtModify}
+        SET isReal    = 0,
+            gmtModify = #{gmtModify}
         WHERE stuId = #{stuId}
     </update>
     <update id="update" parameterType="cn.kevin.sms.entity.Student">
         UPDATE Student
         <set>
             <if test="stuAge != null and stuAge != ''">
-                stuAge      = #{stuAge},
+                stuAge = #{stuAge},
             </if>
             <if test="stuBirthday != null">
-                stuBirthday      = #{stuBirthday},
+                stuBirthday = #{stuBirthday},
             </if>
             <if test="stuEmail != null and stuEmail != ''">
-                stuEmail      = #{stuEmail},
+                stuEmail = #{stuEmail},
             </if>
             <if test="stuGender != null and stuGender != ''">
-                stuGender      = #{stuGender},
+                stuGender = #{stuGender},
             </if>
             <if test="stuName != null and stuName != ''">
-                stuName      = #{stuName},
+                stuName = #{stuName},
             </if>
-            <if test="gmtModify != null and gmtModify != ''">
-                gmtModify      = #{gmtModify},
+            <if test="true">
+                gmtModify = #{gmtModify},
             </if>
         </set>
         WHERE stuId = #{stuId}
@@ -69,13 +69,13 @@
         SELECT *
         FROM Student
         WHERE (stuId = #{stuId}
-           OR stuAge = #{stuAge}
-           OR stuEmail = #{stuEmail}
-           OR stuGender = #{stuGender}
-           OR stuName = #{stuName}
-           OR gmtCreate = #{gmtCreate}
-           OR gmtModify = #{gmtModify})
-           AND isReal = 1
+            OR stuAge = #{stuAge}
+            OR stuEmail = #{stuEmail}
+            OR stuGender = #{stuGender}
+            OR stuName = #{stuName}
+            OR gmtCreate = #{gmtCreate}
+            OR gmtModify = #{gmtModify})
+          AND isReal = 1
     </select>
     <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.sms.entity.Student">
         SELECT *

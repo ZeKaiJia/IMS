@@ -10,6 +10,7 @@ import java.util.Objects;
  * @author kevin
  */
 public class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer stuId;
     private Integer stuAge;
     private Date stuBirthday;

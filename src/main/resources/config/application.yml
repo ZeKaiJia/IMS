@@ -13,5 +13,8 @@ spring:
     password: root
 
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: true
+  mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: cn.kevin.sms.entity
