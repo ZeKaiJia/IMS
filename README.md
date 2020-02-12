@@ -1,7 +1,7 @@
 # 学生信息管理系统
 ## 说明
 本人能力有限，第一次接触 Java 、MySQL 和 GIT ，有点手忙脚乱，之前的版本更新说明没有写。2020年1月16号开始更新1.2.5版本。<br>
-~~需要导入 Java jdbc 的包( MySQL -connector-java-8.0.19),请在社区自行下载( https://dev. MySQL .com/downloads/ )~~。<br>
+~~需要导入 Java jdbc 的包( MySQL -connector-java-8.0.19),请在社区自行下载( https://dev.mysql.com/downloads/ )~~。<br>
 ~~需要修改数据库 IP 、账号和密码，见 DbUtil 类中 Connection 对象 conn 。~~ <br>
 jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.properties 文件。
 
