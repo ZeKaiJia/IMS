@@ -53,7 +53,7 @@ public class StudentService {
             student.setGmtModify(DateUtils.currentSecond());
             map.put("gmtModify", student.getGmtModify());
             studentMapper.delete(map);
-            student.setReal(false);
+            student.setIsReal(false);
         }
         return student;
     }

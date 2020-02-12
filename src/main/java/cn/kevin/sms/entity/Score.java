@@ -1,11 +1,16 @@
 package cn.kevin.sms.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author kevin
  */
+@Getter
+@Setter
 public class Score implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer stuId;
@@ -27,54 +32,6 @@ public class Score implements Serializable {
         this.gmtCreate = gmtCreate;
         this.gmtModify = gmtModify;
         this.isReal = true;
-    }
-
-    public Integer getStuId() {
-        return stuId;
-    }
-
-    public void setStuId(Integer stuId) {
-        this.stuId = stuId;
-    }
-
-    public Integer getSubId() {
-        return subId;
-    }
-
-    public void setSubId(Integer subId) {
-        this.subId = subId;
-    }
-
-    public Integer getSubScore() {
-        return subScore;
-    }
-
-    public void setSubScore(Integer subScore) {
-        this.subScore = subScore;
-    }
-
-    public long getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(long gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public long getGmtModify() {
-        return gmtModify;
-    }
-
-    public void setGmtModify(long gmtModify) {
-        this.gmtModify = gmtModify;
-    }
-
-    public Boolean getReal() {
-        return isReal;
-    }
-
-    public void setReal(Boolean real) {
-        isReal = real;
     }
 
     @Override

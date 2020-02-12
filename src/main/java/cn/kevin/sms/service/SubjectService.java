@@ -53,7 +53,7 @@ public class SubjectService {
             subject.setGmtModify(DateUtils.currentSecond());
             map.put("gmtModify", subject.getGmtModify());
             subjectMapper.delete(map);
-            subject.setReal(false);
+            subject.setIsReal(false);
         }
         return subject;
     }

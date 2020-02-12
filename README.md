@@ -121,3 +121,7 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 <li>限定了 gmtCreate 、 gmtModify 、 isReal 这三个性质的位置，现在 gmtCreate 只能在 insert 中被创建， gmtModify 只能在 delete 、 update 中被修改， isReal 只能在 delete 中被赋值为 false ，在 insert 中被赋值为 true 。</li>
 <li>加入了 Mybatis 二级缓存的配置，采用 FIFO 规则，每30秒刷新一次，容量为512，只读。</li>
 <li>完成了前端页面的一份原型图，搭好了登录框的结构。</li>
+
+### 2020.2.12 - Demo 2.3.6
+<li>代码新增 lombok 插件的注释功能，现在所有的 get 和 set 都可以在编译的时候自动生成，提高的代码的简洁性。当然由于 hashcode 的比较特殊以及构造函数中 isReal 必须设置为 true ，所以没有使用 @DATA 注解。</li>
+<li>加了几个 Spring 的 core 包。</li>

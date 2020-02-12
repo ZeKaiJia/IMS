@@ -1,5 +1,9 @@
 package cn.kevin.sms.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
@@ -9,10 +13,13 @@ import java.util.Objects;
 /**
  * @author kevin
  */
+@Getter
+@Setter
 public class Student implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer stuId;
     private Integer stuAge;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd", timezone = "GMT+8")
     private Date stuBirthday;
     private String stuEmail;
     private Integer stuGender;
@@ -48,78 +55,6 @@ public class Student implements Serializable {
         this.gmtCreate = student.gmtCreate;
         this.gmtModify = student.gmtModify;
         this.isReal = student.isReal;
-    }
-
-    public Integer getStuId() {
-        return stuId;
-    }
-
-    public void setStuId(Integer stuId) {
-        this.stuId = stuId;
-    }
-
-    public Integer getStuAge() {
-        return stuAge;
-    }
-
-    public void setStuAge(Integer stuAge) {
-        this.stuAge = stuAge;
-    }
-
-    public Date getStuBirthday() {
-        return stuBirthday;
-    }
-
-    public void setStuBirthday(Date stuBirthday) {
-        this.stuBirthday = stuBirthday;
-    }
-
-    public String getStuEmail() {
-        return stuEmail;
-    }
-
-    public void setStuEmail(String stuEmail) {
-        this.stuEmail = stuEmail;
-    }
-
-    public Integer getStuGender() {
-        return stuGender;
-    }
-
-    public void setStuGender(Integer stuGender) {
-        this.stuGender = stuGender;
-    }
-
-    public String getStuName() {
-        return stuName;
-    }
-
-    public void setStuName(String stuName) {
-        this.stuName = stuName;
-    }
-
-    public long getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(long gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public long getGmtModify() {
-        return gmtModify;
-    }
-
-    public void setGmtModify(long gmtModify) {
-        this.gmtModify = gmtModify;
-    }
-
-    public Boolean getReal() {
-        return isReal;
-    }
-
-    public void setReal(Boolean real) {
-        isReal = real;
     }
 
     @Override

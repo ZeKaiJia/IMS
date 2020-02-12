@@ -55,7 +55,7 @@ public class ScoreService {
         if ( score != null ) {
             map.put("gmtModify", DateUtils.currentSecond());
             scoreMapper.delete(map);
-            score.setReal(false);
+            score.setIsReal(false);
         }
         return score;
     }
@@ -69,7 +69,7 @@ public class ScoreService {
         if ( scores.size() != 0 ) {
             for (Score sco: scores) {
                 sco.setGmtModify(DateUtils.currentSecond());
-                sco.setReal(false);
+                sco.setIsReal(false);
             }
             map.put("gmtModify", DateUtils.currentSecond());
             scoreMapper.deleteAll(map);

@@ -1,11 +1,16 @@
 package cn.kevin.sms.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author kevin
  */
+@Getter
+@Setter
 public class Subject implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer subId;
@@ -29,62 +34,6 @@ public class Subject implements Serializable {
         this.gmtCreate = gmtCreate;
         this.gmtModify = gmtModify;
         this.isReal = true;
-    }
-
-    public Integer getSubId() {
-        return subId;
-    }
-
-    public void setSubId(Integer subId) {
-        this.subId = subId;
-    }
-
-    public String getSubName() {
-        return subName;
-    }
-
-    public void setSubName(String subName) {
-        this.subName = subName;
-    }
-
-    public Integer getSubTeacherId() {
-        return subTeacherId;
-    }
-
-    public void setSubTeacherId(Integer subTeacherId) {
-        this.subTeacherId = subTeacherId;
-    }
-
-    public Integer getSubCredit() {
-        return subCredit;
-    }
-
-    public void setSubCredit(Integer subCredit) {
-        this.subCredit = subCredit;
-    }
-
-    public long getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(long gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    public long getGmtModify() {
-        return gmtModify;
-    }
-
-    public void setGmtModify(long gmtModify) {
-        this.gmtModify = gmtModify;
-    }
-
-    public Boolean getReal() {
-        return isReal;
-    }
-
-    public void setReal(Boolean real) {
-        isReal = real;
     }
 
     @Override
