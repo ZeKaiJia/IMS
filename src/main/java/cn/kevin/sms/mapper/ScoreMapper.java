@@ -12,36 +12,58 @@ import java.util.Map;
  */
 @Mapper
 public interface ScoreMapper {
-    //添加方法
+    /**
+     * 添加方法
+     */
     void insert(Score score);
 
-    //保存功能 删除不存在数据
+    /**
+     * 保存功能 删除不存在数据
+     */
     void save();
 
-    //删除方法 单科 hashmap
-    void delete(Map<String, Object> map);
+    /**
+     * 删除方法 单科 hashmap
+     */
+    void delete(Score score);
 
-    //删除方法 学生
-    void deleteAll(Map<String, Object> map);
+    /**
+     * 删除方法 学生
+     */
+    void deleteAll(Score score);
 
-    //修改方法 id不可被修改
+    /**
+     * 修改方法 id不可被修改
+     */
     void update(Score score);
 
-    //查找方法 单科 hashmap 精确查找 and
-    Score select(Map<String, Object> map);
+    /**
+     * 查找方法 单科 hashmap 精确查找 and
+     */
+    Score select(Score score);
 
-    //全体查找方法
+    /**
+     * 全体查找方法
+     */
     List<Score> selectAll();
 
-    //查找方法 多参数多返回 精确查找 or
+    /**
+     * 查找方法 多参数多返回 精确查找 or
+     */
     List<Score> selectByAllInfo(Score score);
 
-    //查找方法 及格
+    /**
+     * 查找方法 及格
+     */
     List<Score> selectPassScore(Integer subScore);
 
-    //通过学生ID获取 双向一对多映射
+    /**
+     * 通过学生ID获取 双向一对多映射
+     */
     List<Score> getByStudentId(Integer stuId);
 
-    //管理员专用
+    /**
+     * 管理员专用
+     */
     List<Score> selectGarbage();
 }

@@ -20,16 +20,12 @@ public class ScoreService {
 
     private Score score;
 
-    private Map<String, Object> map;
-
     public Score insert(Score sco) {
-        map = new HashMap<>(4);
-        map.put("stuId",sco.getStuId());
-        map.put("subId",sco.getSubId());
-        score = scoreMapper.select(map);
+        score = scoreMapper.select(sco);
         if ( score == null ) {
-            sco.setGmtCreate(DateUtils.currentSecond());
-            sco.setGmtModify(DateUtils.currentSecond());
+            long currentSecond = DateUtils.currentSecond();
+            sco.setGmtCreate(currentSecond);
+            sco.setGmtModify(currentSecond);
             scoreMapper.insert(sco);
             return sco;
         }
@@ -39,30 +35,23 @@ public class ScoreService {
     public List<Score> save() {
         scores = scoreMapper.selectGarbage();
         if ( scores.size() != 0 ) {
-            for (Score sco : scores) {
-                sco.setGmtModify(DateUtils.currentSecond());
-            }
             scoreMapper.save();
         }
         return scores;
     }
 
     public Score delete(Integer stuId, Integer subId) {
-        map = new HashMap<>(4);
-        map.put("stuId",stuId);
-        map.put("subId",subId);
-        score = scoreMapper.select(map);
+        score = new Score(stuId, subId);
+        score = scoreMapper.select(score);
         if ( score != null ) {
-            map.put("gmtModify", DateUtils.currentSecond());
-            scoreMapper.delete(map);
+            score.setGmtModify(DateUtils.currentSecond());
             score.setIsReal(false);
+            scoreMapper.delete(score);
         }
         return score;
     }
 
     public List<Score> deleteAll(Integer stuId) {
-        map = new HashMap<>(4);
-        map.put("stuId",stuId);
         score = new Score();
         score.setStuId(stuId);
         scores = scoreMapper.selectByAllInfo(score);
@@ -71,17 +60,14 @@ public class ScoreService {
                 sco.setGmtModify(DateUtils.currentSecond());
                 sco.setIsReal(false);
             }
-            map.put("gmtModify", DateUtils.currentSecond());
-            scoreMapper.deleteAll(map);
+            score.setGmtModify(DateUtils.currentSecond());
+            scoreMapper.deleteAll(score);
         }
         return scores;
     }
 
     public Score update(Score sco) {
-        map = new HashMap<>(4);
-        map.put("stuId",sco.getStuId());
-        map.put("subId",sco.getSubId());
-        score = scoreMapper.select(map);
+        score = scoreMapper.select(sco);
         if (score != null) {
             sco.setGmtCreate(score.getGmtCreate());
             sco.setGmtModify(DateUtils.currentSecond());
@@ -92,10 +78,8 @@ public class ScoreService {
     }
 
     public Score select(Integer stuId, Integer subId) {
-        map = new HashMap<>(4);
-        map.put("stuId",stuId);
-        map.put("subId",subId);
-        score = scoreMapper.select(map);
+        score = new Score(stuId, subId);
+        score = scoreMapper.select(score);
         return score;
     }
 

@@ -19,7 +19,6 @@ public class Student implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer stuId;
     private Integer stuAge;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-mm-dd", timezone = "GMT+8")
     private Date stuBirthday;
     private String stuEmail;
     private Integer stuGender;
@@ -30,18 +29,6 @@ public class Student implements Serializable {
 
     public Student() {
         super();
-        this.isReal = true;
-    }
-
-    public Student(Integer stuId, Integer stuAge, Date stuBirthday, String stuEmail, Integer stuGender, String stuName, long gmtCreate, long gmtModify) {
-        this.stuId = stuId;
-        this.stuAge = stuAge;
-        this.stuBirthday = stuBirthday;
-        this.stuEmail = stuEmail;
-        this.stuGender = stuGender;
-        this.stuName = stuName;
-        this.gmtCreate = gmtCreate;
-        this.gmtModify = gmtModify;
         this.isReal = true;
     }
 

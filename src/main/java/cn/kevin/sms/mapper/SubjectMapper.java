@@ -12,30 +12,48 @@ import java.util.Map;
  */
 @Mapper
 public interface SubjectMapper {
-    //添加方法
+    /**
+     * 添加方法
+     */
     void insert(Subject subject);
 
-    //保存功能 删除不存在数据
+    /**
+     * 保存功能 删除不存在数据
+     */
     void save();
 
-    //删除方法 id
-    void delete(Map<String, Object> map);
+    /**
+     * 删除方法 id
+     */
+    void delete(Subject subject);
 
-    //修改方法
+    /**
+     * 修改方法
+     */
     void update(Subject subject);
 
-    //单个查找方法 id
+    /**
+     * 单个查找方法 id
+     */
     Subject select(Integer subId);
 
-    //全体查找方法
+    /**
+     * 全体查找方法
+     */
     List<Subject> selectAll();
 
-    //多参数多返回查找方法
+    /**
+     * 多参数多返回查找方法
+     */
     List<Subject> selectByAllInfo(Subject subject);
 
-    //模糊查找
+    /**
+     * 模糊查找
+     */
     List<Subject> selectSimilarName(String subName);
 
-    //管理员专用
+    /**
+     * 管理员专用
+     */
     List<Subject> selectGarbage();
 }

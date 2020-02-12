@@ -1,15 +1,12 @@
 package cn.kevin.sms.service;
 
-import cn.kevin.sms.entity.Student;
 import cn.kevin.sms.entity.Subject;
 import cn.kevin.sms.mapper.SubjectMapper;
 import cn.kevin.sms.util.DateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author kevin
@@ -37,23 +34,17 @@ public class SubjectService {
     public List<Subject> save() {
         subjects = subjectMapper.selectGarbage();
         if ( subjects.size() != 0 ) {
-            for (Subject sub : subjects) {
-                sub.setGmtModify(DateUtils.currentSecond());
-            }
             subjectMapper.save();
         }
         return subjects;
     }
 
     public Subject delete(Integer subId) {
-        Map<String, Object> map = new HashMap<>(4);
-        map.put("subId", subId);
         subject = subjectMapper.select(subId);
         if ( subject != null ) {
             subject.setGmtModify(DateUtils.currentSecond());
-            map.put("gmtModify", subject.getGmtModify());
-            subjectMapper.delete(map);
             subject.setIsReal(false);
+            subjectMapper.delete(subject);
         }
         return subject;
     }

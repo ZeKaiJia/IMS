@@ -25,6 +25,11 @@ public class Score implements Serializable {
         this.isReal = true;
     }
 
+    public Score(Integer stuId, Integer subId) {
+        this.stuId = stuId;
+        this.subId = subId;
+    }
+
     public Score(Integer stuId, Integer subId, Integer subScore, long gmtCreate, long gmtModify) {
         this.stuId = stuId;
         this.subId = subId;

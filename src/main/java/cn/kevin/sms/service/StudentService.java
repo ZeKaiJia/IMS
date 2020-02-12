@@ -6,9 +6,7 @@ import cn.kevin.sms.util.DateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author kevin
@@ -37,23 +35,17 @@ public class StudentService {
     public List<Student> save() {
         students = studentMapper.selectGarbage();
         if ( students.size() != 0 ) {
-            for (Student stu : students) {
-                stu.setGmtModify(DateUtils.currentSecond());
-            }
             studentMapper.save();
         }
         return students;
     }
 
     public Student delete(Integer stuId) {
-        Map<String, Object> map = new HashMap<>(4);
-        map.put("stuId", stuId);
         student = studentMapper.select(stuId);
         if ( student != null ) {
             student.setGmtModify(DateUtils.currentSecond());
-            map.put("gmtModify", student.getGmtModify());
-            studentMapper.delete(map);
             student.setIsReal(false);
+            studentMapper.delete(student);
         }
         return student;
     }
