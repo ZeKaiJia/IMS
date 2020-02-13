@@ -1,17 +1,13 @@
 package cn.kevin.sms.controller;
 
 import cn.kevin.sms.entity.Score;
-import cn.kevin.sms.entity.Student;
 import cn.kevin.sms.service.ScoreService;
-import cn.kevin.sms.service.StudentService;
-import cn.kevin.sms.util.DateUtils;
 import cn.kevin.sms.vo.Response;
 import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author kevin
@@ -32,6 +28,9 @@ public class ScoreController extends BaseController {
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ResponseBody
     public Response<Score> insert(@RequestBody Score score)  {
+        if (checkIllegalityScore(score.getSubScore())) {
+            return getFailResult(405,"Score must be in the range [0,100]!");
+        }
         Score result = scoreService.insert(score);
         if (result!=null) {
             return getSuccessResult(result);
@@ -74,6 +73,9 @@ public class ScoreController extends BaseController {
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
     public Response<Score> update(@RequestBody Score score)  {
+        if (checkIllegalityScore(score.getSubScore())) {
+            return getFailResult(405,"Score must be in the range [0,100]!");
+        }
         Score result = scoreService.update(score);
         if (result!=null) {
             return  getSuccessResult(result);

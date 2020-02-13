@@ -1,11 +1,9 @@
 package cn.kevin.sms.mapper;
 
 import cn.kevin.sms.entity.Score;
-import cn.kevin.sms.entity.Student;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author kevin
@@ -13,7 +11,7 @@ import java.util.Map;
 @Mapper
 public interface ScoreMapper {
     /**
-     * 添加方法
+     * 添加功能
      */
     void insert(Score score);
 

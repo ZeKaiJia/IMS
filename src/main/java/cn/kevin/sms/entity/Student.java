@@ -1,13 +1,10 @@
 package cn.kevin.sms.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**

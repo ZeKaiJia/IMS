@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -22,8 +21,8 @@ public abstract class BaseController {
     @Autowired
     protected HttpServletRequest request;
 
-    @Autowired
-    protected HttpServletResponse response;
+//    @Autowired
+//    protected HttpServletResponse response;
 
     @Autowired
     protected HttpSession session;
@@ -51,4 +50,17 @@ public abstract class BaseController {
     protected long getCurrentUserId() {
         return 1L;
     }
+
+    protected boolean checkIllegalityScore(Integer number) {
+        return number < 0 || number > 100;
+    }
+
+    protected boolean checkLegalityId(Integer number) {
+        return number >= 0;
+    }
+
+    protected boolean checkLegalityEmail(String string) {
+        return string.contains("@");
+    }
+
 }
