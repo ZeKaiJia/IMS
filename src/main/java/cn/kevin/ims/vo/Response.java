@@ -1,4 +1,4 @@
-package cn.kevin.sms.vo;
+package cn.kevin.ims.vo;
 
 /**
  * @author kevin

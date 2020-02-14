@@ -1,13 +1,13 @@
-package cn.kevin.sms.controller;
+package cn.kevin.ims.controller;
 
-import cn.kevin.sms.entity.Student;
-import cn.kevin.sms.entity.Subject;
-import cn.kevin.sms.service.SubjectService;
-import cn.kevin.sms.vo.Response;
+import cn.kevin.ims.entity.Student;
+import cn.kevin.ims.service.StudentService;
+import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -15,10 +15,10 @@ import java.util.Random;
  * @author kevin
  */
 @RestController()
-@RequestMapping("/subject/")
-public class SubjectController extends BaseController {
-    @Resource(name = "subjectService")
-    private SubjectService subjectService;
+@RequestMapping("/student/")
+public class StudentController extends BaseController {
+    @Resource(name = "studentService")
+    private StudentService studentService;
 
     @RequestMapping(value = "/{name}",method = RequestMethod.GET)
     @ResponseBody
@@ -29,9 +29,9 @@ public class SubjectController extends BaseController {
     /** insert */
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ResponseBody
-    public Response<Subject> insert(@RequestBody Subject subject)  {
-        subject.setSubId(new Random().nextInt(5000));
-        Subject result = subjectService.insert(subject);
+    public Response<Student> insert(@RequestBody Student student)  {
+        student.setStuId(new Random().nextInt(5000));
+        Student result = studentService.insert(student);
         if (result!=null) {
             return getSuccessResult(result);
         }
@@ -41,19 +41,19 @@ public class SubjectController extends BaseController {
     /** save(in fact it's delete) */
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     @ResponseBody
-    public Response<List<Subject>> save()  {
-        List<Subject> result = subjectService.save();
+    public Response<List<Student>> save()  {
+        List<Student> result = studentService.save();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"Massage not find!");
+        return getFailResult(404,"Message not find!");
     }
 
     /** delete(in fact it's an update) */
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
-    public Response<Subject> delete(int id)  {
-        Subject result = subjectService.delete(id);
+    public Response<Student> delete(int id)  {
+        Student result = studentService.delete(id);
         if (result!=null) {
             return getSuccessResult(result);
         }
@@ -63,8 +63,8 @@ public class SubjectController extends BaseController {
     /** update */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
     @ResponseBody
-    public Response<Subject> update(@RequestBody Subject subject)  {
-        Subject result = subjectService.update(subject);
+    public Response<Student> update(@RequestBody Student student)  {
+        Student result = studentService.update(student);
         if (result!=null) {
             return  getSuccessResult(result);
         }
@@ -74,8 +74,8 @@ public class SubjectController extends BaseController {
     /** select */
     @RequestMapping(value = "/selectById",method = RequestMethod.GET)
     @ResponseBody
-    public Response<Subject> selectById(int id)  {
-        Subject result = subjectService.select(id);
+    public Response<Student> selectById(int id)  {
+        Student result = studentService.select(id);
         if (result!=null) {
             return getSuccessResult(result);
         }
@@ -83,8 +83,8 @@ public class SubjectController extends BaseController {
     }
     @RequestMapping(value = "/selectAll",method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<Subject>> selectAll()  {
-        List<Subject> result = subjectService.selectAll();
+    public Response<List<Student>> selectAll()  {
+        List<Student> result = studentService.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -92,8 +92,8 @@ public class SubjectController extends BaseController {
     }
     @RequestMapping(value = "/selectByAllInfo",method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<Subject>> selectByAllInfo(@RequestBody Subject subject)  {
-        List<Subject> result = subjectService.selectByAllInfo(subject);
+    public Response<List<Student>> selectByAllInfo(@RequestBody Student student)  {
+        List<Student> result = studentService.selectByAllInfo(student);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -101,8 +101,8 @@ public class SubjectController extends BaseController {
     }
     @RequestMapping(value = "/selectSimilarName",method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<Subject>> selectSimilarName(String name)  {
-        List<Subject> result = subjectService.selectSimilarName(name);
+    public Response<List<Student>> selectSimilarName(String name)  {
+        List<Student> result = studentService.selectSimilarName(name);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -111,11 +111,13 @@ public class SubjectController extends BaseController {
 
 
     public static void main(String[] args) {
-        Subject subject = new Subject();
-        subject.setSubId(1);
-        subject.setSubName("高数");
-        subject.setSubTeacherId(2);
-        subject.setSubCredit(5);
-        System.out.println(JSON.toJSONString(subject));
+        Student stu = new Student();
+        stu.setStuId(3);
+        stu.setStuAge(21);
+        stu.setStuBirthday(new Date());
+        stu.setStuEmail("jiazekai@gmail.com");
+        stu.setStuGender(1);
+        stu.setStuName("wulala");
+        System.out.println(JSON.toJSONString(stu));
     }
 }

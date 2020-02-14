@@ -8,7 +8,7 @@ logging.level.root: INFO
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///SMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
 
@@ -17,4 +17,4 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: cn.kevin.sms.entity
+  type-aliases-package: cn.kevin.ims.entity

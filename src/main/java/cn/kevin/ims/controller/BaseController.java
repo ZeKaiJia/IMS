@@ -1,7 +1,7 @@
-package cn.kevin.sms.controller;
+package cn.kevin.ims.controller;
 
-import cn.kevin.sms.util.DateUtils;
-import cn.kevin.sms.vo.Response;
+import cn.kevin.ims.util.DateUtils;
+import cn.kevin.ims.vo.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

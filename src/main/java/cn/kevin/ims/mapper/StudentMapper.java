@@ -1,6 +1,6 @@
-package cn.kevin.sms.mapper;
+package cn.kevin.ims.mapper;
 
-import cn.kevin.sms.entity.Student;
+import cn.kevin.ims.entity.Student;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

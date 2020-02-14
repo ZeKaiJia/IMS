@@ -1,11 +1,9 @@
-package cn.kevin.sms.mapper;
+package cn.kevin.ims.mapper;
 
-import cn.kevin.sms.entity.Student;
-import cn.kevin.sms.entity.Subject;
+import cn.kevin.ims.entity.Subject;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author kevin

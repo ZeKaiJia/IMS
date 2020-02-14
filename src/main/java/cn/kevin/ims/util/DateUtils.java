@@ -1,4 +1,4 @@
-package cn.kevin.sms.util;
+package cn.kevin.ims.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.sqlite.date.DateFormatUtils;
@@ -24,8 +24,6 @@ public class DateUtils {
     /**
      * Timestamp时间类型转换String
      *
-     * @param time
-     * @param pattern
      * @return String
      */
     public static String timestamp2string(Timestamp time, String pattern) {
@@ -41,8 +39,6 @@ public class DateUtils {
      * Date时间类型转换String
      * 时间格式yyyy-MM-dd HH:mm
      *
-     * @param date
-     * @param pattern
      * @return String
      */
     public static String formatDate(Date date, String pattern) {
@@ -60,7 +56,6 @@ public class DateUtils {
      * date传null获取当前时间
      * 时间格式yyyy-MM-dd HH:mm
      *
-     * @param date
      * @return String
      */
     public static String defaultFormat(Date date) {
@@ -88,7 +83,6 @@ public class DateUtils {
     /**
      * 根据Timestamp类型返回
      *
-     * @param time
      * @return String
      */
     public static String parseTimestampFormat(Timestamp time) {
@@ -103,7 +97,6 @@ public class DateUtils {
     /**
      * 根据Date转换String格式yyyy-MM-dd
      *
-     * @param date
      * @return String
      */
     public static String parseDateFormat(Date date) {
@@ -122,7 +115,6 @@ public class DateUtils {
     /**
      * 根据String返回Timestamp
      *
-     * @param value
      * @return Timestamp
      */
     public static Timestamp formatFromYYYYMMDD(String value) {
@@ -169,8 +161,6 @@ public class DateUtils {
     /**
      * 根据传入时间在追加一天
      *
-     * @param date
-     * @return
      */
     public static Date getDayEnd(Date date) {
         return string2Date(divideDateForDay(date, "yyyy-MM-dd", 1));
@@ -180,10 +170,8 @@ public class DateUtils {
     /**
      * 给指定时间 追加天数
      *
-     * @param date
      * @param pattern 显示格式
      * @param num     需要加的天数
-     * @return
      */
     public static String divideDateForDay(Date date, String pattern, int num) {
         if (date == null) {
@@ -281,7 +269,6 @@ public class DateUtils {
     /**
      * 查看昨天的日期  还需要调用transCalendarToTimestamp方法
      *
-     * @return
      */
     public static Calendar getYesterDayEnd() {
         Calendar after = Calendar.getInstance();
@@ -296,8 +283,6 @@ public class DateUtils {
     /**
      * Calendar和Timestamp转换
      *
-     * @param cal
-     * @return
      */
     public static Timestamp transCalendarToTimestamp(Calendar cal) {
         return new Timestamp(cal.getTimeInMillis());
@@ -306,7 +291,6 @@ public class DateUtils {
     /**
      * 根据Timestamp类型参数  返回年后两位月日(例如:140606)
      *
-     * @param time
      * @return String
      */
     public static String transTimestamptostr(Timestamp time) {
@@ -333,8 +317,6 @@ public class DateUtils {
     /**
      * 根据Calendar日历返回String
      *
-     * @param cal
-     * @return
      */
     public static String getDataString(Calendar cal) {
         return cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DAY_OF_MONTH) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
@@ -377,8 +359,6 @@ public class DateUtils {
     /**
      * 日期比较是否相等
      *
-     * @param d1
-     * @param d2
      * @param type 比较方式，complete,date,
      * @return boolean
      */

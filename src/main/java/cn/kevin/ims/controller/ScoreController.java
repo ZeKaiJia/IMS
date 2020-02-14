@@ -1,8 +1,8 @@
-package cn.kevin.sms.controller;
+package cn.kevin.ims.controller;
 
-import cn.kevin.sms.entity.Score;
-import cn.kevin.sms.service.ScoreService;
-import cn.kevin.sms.vo.Response;
+import cn.kevin.ims.entity.Score;
+import cn.kevin.ims.service.ScoreService;
+import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.*;
 

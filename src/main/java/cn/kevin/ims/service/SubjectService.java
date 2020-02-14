@@ -1,8 +1,8 @@
-package cn.kevin.sms.service;
+package cn.kevin.ims.service;
 
-import cn.kevin.sms.entity.Subject;
-import cn.kevin.sms.mapper.SubjectMapper;
-import cn.kevin.sms.util.DateUtils;
+import cn.kevin.ims.entity.Subject;
+import cn.kevin.ims.mapper.SubjectMapper;
+import cn.kevin.ims.util.DateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
