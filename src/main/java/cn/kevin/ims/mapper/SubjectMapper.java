@@ -2,6 +2,7 @@ package cn.kevin.ims.mapper;
 
 import cn.kevin.ims.entity.Subject;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * @author kevin
  */
 @Mapper
+@Repository
 public interface SubjectMapper {
     /**
      * 添加方法

@@ -137,3 +137,7 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 ### 2020.2.14 - Demo 3.0.0
 <li>学生信息管理系统正式更名为信息管理系统( Information Management System )</li>
 <li>做到验证码那块不会，百度上的做法都是前后端结合运用 servlet 和 JavaScript 等技术，然而我都没学，所以又要耽误几天了。</li>
+
+### 2020.2.15 - Demo 3.0.1
+<li>优化了几个极小的问题。</li>
+<li>resources 文件夹中加入了 MySQL 的建表语句方便使用。</li>
