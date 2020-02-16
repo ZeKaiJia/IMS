@@ -140,4 +140,4 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 
 ### 2020.2.15 - Demo 3.0.1
 <li>优化了几个极小的问题。</li>
-<li>resources 文件夹中加入了 MySQL 的建表语句方便使用。</li>
+<li>resources 文件夹中加入了 MySQL 的建表语句方便使用</li>
