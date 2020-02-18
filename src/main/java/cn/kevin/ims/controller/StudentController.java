@@ -1,5 +1,6 @@
 package cn.kevin.ims.controller;
 
+import cn.kevin.ims.aop.LoginAction;
 import cn.kevin.ims.entity.Student;
 import cn.kevin.ims.service.StudentService;
 import cn.kevin.ims.vo.Response;
@@ -83,6 +84,7 @@ public class StudentController extends BaseController {
     }
     @RequestMapping(value = "/selectAll",method = RequestMethod.GET)
     @ResponseBody
+    @LoginAction(value = "false")
     public Response<List<Student>> selectAll()  {
         List<Student> result = studentService.selectAll();
         if (result.size() != 0) {

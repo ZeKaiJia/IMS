@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.kevin.ims.mapper.SubjectMapper">
-    <cache eviction="FIFO" readOnly="true" size="512" flushInterval="30000"/>
+    <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
     <insert id="insert" parameterType="cn.kevin.ims.entity.Subject">
         INSERT INTO Subject (subId, subName, subTeacherId, subCredit, gmtCreate, gmtModify, isReal)
             VALUE (#{subId}, #{subName}, #{subTeacherId}, #{subCredit}, #{gmtCreate},

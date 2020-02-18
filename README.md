@@ -144,3 +144,8 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 
 ### 2020.2.15 - Demo 3.0.1
 <li>测试项目同步 Coding 和 GitHub 。</li>
+
+### 2020.2.18 - Demo 3.0.4
+<li>由于使用 Spring Boot 自动配置，所以删除了 log4j 的 XML 文件。</li>
+<li>添加了一个 AOP 注解接口用来判断 Controller 接口登录权限，并且在 UserAspect 类中进行了 HTTP 请求的读取，如果没有登录会自动回到登录界面，最后在每个 Controller 的方法中加入了这个注解。</li>
+<li>因为涉及到用户登录，所以要建储存用户账号密码的表，并且从底层 Mapper 到顶层逐步增加新功能。</li>
