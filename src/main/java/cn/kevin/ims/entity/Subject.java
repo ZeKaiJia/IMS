@@ -2,6 +2,7 @@ package cn.kevin.ims.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,14 +12,15 @@ import java.util.Objects;
  */
 @Getter
 @Setter
+@ToString
 public class Subject implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer subId;
     private String subName;
     private Integer subTeacherId;
     private Integer subCredit;
-    private long gmtCreate;
-    private long gmtModify;
+    private long utcCreate;
+    private long utcModify;
     private Boolean isReal;
 
     public Subject() {
@@ -26,27 +28,14 @@ public class Subject implements Serializable {
         this.isReal = true;
     }
 
-    public Subject(Integer subId, String subName, Integer subTeacherId, Integer subCredit, long gmtCreate, long gmtModify) {
+    public Subject(Integer subId, String subName, Integer subTeacherId, Integer subCredit, long utcCreate, long utcModify) {
         this.subId = subId;
         this.subName = subName;
         this.subTeacherId = subTeacherId;
         this.subCredit = subCredit;
-        this.gmtCreate = gmtCreate;
-        this.gmtModify = gmtModify;
+        this.utcCreate = utcCreate;
+        this.utcModify = utcModify;
         this.isReal = true;
-    }
-
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "subId=" + subId +
-                ", subName='" + subName + '\'' +
-                ", subTeacherId=" + subTeacherId +
-                ", subCredit=" + subCredit +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", isReal=" + isReal +
-                '}';
     }
 
     @Override

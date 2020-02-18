@@ -6,8 +6,8 @@
 <mapper namespace="cn.kevin.ims.mapper.ScoreMapper">
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
     <insert id="insert" parameterType="cn.kevin.ims.entity.Score">
-        INSERT INTO Score (stuId, subId, subScore, gmtCreate, gmtModify, isReal)
-            VALUE (#{stuId}, #{subId}, #{subScore}, #{gmtCreate}, #{gmtModify}, 1)
+        INSERT INTO Score (stuId, subId, subScore, utcCreate, utcModify, isReal)
+            VALUE (#{stuId}, #{subId}, #{subScore}, #{utcCreate}, #{utcModify}, 1)
     </insert>
     <delete id="save">
         DELETE
@@ -17,14 +17,14 @@
     <update id="delete" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
         SET isReal    = 0,
-            gmtModify = #{gmtModify}
+            utcModify = #{utcModify}
         WHERE stuId = #{stuId}
           AND subId = #{subId}
     </update>
     <update id="deleteAll" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
         SET isReal    = 0,
-            gmtModify = #{gmtModify}
+            utcModify = #{utcModify}
         WHERE stuId = #{stuId}
     </update>
     <update id="update" parameterType="cn.kevin.ims.entity.Score">
@@ -34,7 +34,7 @@
                 subScore = #{subScore},
             </if>
             <if test="true">
-                gmtModify = #{gmtModify},
+                utcModify = #{utcModify},
             </if>
         </set>
         WHERE stuId = #{stuId}
@@ -58,8 +58,8 @@
         WHERE (stuId = #{stuId}
             OR subId = #{subId}
             OR subScore = #{subScore}
-            OR gmtCreate = #{gmtCreate}
-            OR gmtModify = #{gmtModify})
+            OR utcCreate = #{utcCreate}
+            OR utcModify = #{utcModify})
           AND isReal = 1
     </select>
     <select id="selectPassScore" parameterType="Integer" resultType="cn.kevin.ims.entity.Score">

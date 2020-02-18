@@ -108,7 +108,7 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 <li>抛弃第三版中不需要的内容然后存档，注意 Demo 版本和实际版本并不对应。Demo 2 应该是第二版和第三版的结合。</li>
 
 ### 2020.2.1 - Demo 2.3.2
-<li>为学生和成绩表也添加了创建时间( gmtCreate )和修改时间( gmtModify )以及是否存在( isReal )的字段， isReal 在对象被创建时即赋值为 true 。。</li>
+<li>为学生和成绩表也添加了创建时间( utcCreate )和修改时间( utcModify )以及是否存在( isReal )的字段， isReal 在对象被创建时即赋值为 true 。。</li>
 <li>现在的删除功能不会真的删除数据，而是把 isReal 设置为0，如果使用 save 功能就会把所有 isReal 为0的数据真正的删除(而 save 功能只有管理员才能使用，并且里面使用了特有的 select 方法)。所以学生和老师端在操作的时候都只会显示 isReal 为1的数据，只有管理员端才能查看已被删除的数据并将其真正删除。</li>
 <li>删除了增删改查的 Controller 和 Test 类，因为数据库表格的修改这些已经不再适用，并且用户界面也将由前端页面代替。</li>
 <li>删除了 ResultMap 的双向一对多映射，没有必要将成绩和学生、课程连接起来，因为成绩中已经包含学生和课程的 ID ，如果需要可以调用学生表和课程表的接口读取数据。。</li>
@@ -118,7 +118,7 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 <li>已知问题:加入了 Mybatis 的二级缓存配置，但是似乎并没有什么用，二级缓存适合作用于 Redis 而不是 MySQL，因此等学了 Redis 之后再考虑完善。</li>
 <li>已知问题(√):项目开发中与数据库之间传输的对象应该是 map 还是 Javabean ，两者各有优缺点，但是此项目中两者都用到了，我觉得还是统一比较好。</li>
 <li>更新了 Mybatis 语句，使用 set 标签替代 MySQL 中的原始 set ，再与 if 标签结合，可以判断传入的参数是否为 null 或者为空字符串等情况，处于上述情况将不会执行该属性的 update 操作。</li>
-<li>限定了 gmtCreate 、 gmtModify 、 isReal 这三个性质的位置，现在 gmtCreate 只能在 insert 中被创建， gmtModify 只能在 delete 、 update 中被修改， isReal 只能在 delete 中被赋值为 false ，在 insert 中被赋值为 true 。</li>
+<li>限定了 utcCreate 、 utcModify 、 isReal 这三个性质的位置，现在 utcCreate 只能在 insert 中被创建， utcModify 只能在 delete 、 update 中被修改， isReal 只能在 delete 中被赋值为 false ，在 insert 中被赋值为 true 。</li>
 <li>加入了 Mybatis 二级缓存的配置，采用 FIFO 规则，每30秒刷新一次，容量为512，只读。</li>
 <li>完成了前端页面的一份原型图，搭好了登录框的结构。</li>
 
@@ -142,10 +142,18 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 <li>优化了几个极小的问题。</li>
 <li>resources 文件夹中加入了 MySQL 的建表语句方便使用。</li>
 
-### 2020.2.15 - Demo 3.0.1
+### 2020.2.16 - Demo 3.0.1
 <li>测试项目同步 Coding 和 GitHub 。</li>
 
 ### 2020.2.18 - Demo 3.0.4
 <li>由于使用 Spring Boot 自动配置，所以删除了 log4j 的 XML 文件。</li>
 <li>添加了一个 AOP 注解接口用来判断 Controller 接口登录权限，并且在 UserAspect 类中进行了 HTTP 请求的读取，如果没有登录会自动回到登录界面，最后在每个 Controller 的方法中加入了这个注解。</li>
 <li>因为涉及到用户登录，所以要建储存用户账号密码的表，并且从底层 Mapper 到顶层逐步增加新功能。</li>
+
+### 2020.2.19 - Demo 3.0.6
+<li>已知问题: IDEA 提示我缺少了 JetBrains 的 annotation 包，等有空看看先，好像还少了一些 dylib 库，在 Windows 中后缀是 dll，找了一下官网好像还没有 Mac 的。</li>
+<li>已知问题: 还有一个问题就是，虽然可以在接受 HTTP 请求的时候判断这个接口是否需要管理员权限，但是怎么才能让用户拥有权限，换句话说就是如果用户直接跳过登录界面访问内部接口怎么避免权限问题，所以想通过优化之前写的 LoginAspect 改进 AOP 的方式来实现这一功能。</li>
+<li>重构了一部分代码，现在代码更加简洁了。</li>
+<li>由于现在使用的时区为 UTC ，所以更改了所有 GMT 为 UTC。</li>
+<li>User 已经构建到了 Controller 层，凌晨了等明天再更新，先记一笔，等 User 全部 OK 就可以做简则用户登录的方法了。</li>
+<li>前天 GitHub 仓库 URL 搞错了，怪不得没有同步成功，现在 Coding 和 GitHub 已经同步更新了。</li>

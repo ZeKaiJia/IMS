@@ -23,8 +23,8 @@ public class SubjectService {
     public Subject insert(Subject sub) {
         subject = subjectMapper.select(sub.getSubId());
         if ( subject == null ) {
-            sub.setGmtCreate(DateUtils.currentSecond());
-            sub.setGmtModify(DateUtils.currentSecond());
+            sub.setUtcCreate(DateUtils.currentSecond());
+            sub.setUtcModify(DateUtils.currentSecond());
             subjectMapper.insert(sub);
             return sub;
         }
@@ -42,7 +42,7 @@ public class SubjectService {
     public Subject delete(Integer subId) {
         subject = subjectMapper.select(subId);
         if ( subject != null ) {
-            subject.setGmtModify(DateUtils.currentSecond());
+            subject.setUtcModify(DateUtils.currentSecond());
             subject.setIsReal(false);
             subjectMapper.delete(subject);
         }
@@ -52,8 +52,8 @@ public class SubjectService {
     public Subject update(Subject sub) {
         subject = subjectMapper.select(sub.getSubId());
         if ( subject != null ) {
-            sub.setGmtCreate(subject.getGmtCreate());
-            sub.setGmtModify(DateUtils.currentSecond());
+            sub.setUtcCreate(subject.getUtcCreate());
+            sub.setUtcModify(DateUtils.currentSecond());
             subjectMapper.update(sub);
             return sub;
         }
@@ -61,22 +61,22 @@ public class SubjectService {
     }
 
     public Subject select(Integer subId) {
-        subject = subjectMapper.select(subId);
-        return subject;
+        return subjectMapper.select(subId);
     }
 
     public List<Subject> selectAll() {
-        subjects = subjectMapper.selectAll();
-        return subjects;
+        return subjectMapper.selectAll();
     }
 
     public List<Subject> selectByAllInfo(Subject subject) {
-        subjects = subjectMapper.selectByAllInfo(subject);
-        return subjects;
+        return subjectMapper.selectByAllInfo(subject);
     }
 
     public List<Subject> selectSimilarName(String subName) {
-        subjects = subjectMapper.selectSimilarName(subName);
-        return subjects;
+        return subjectMapper.selectSimilarName(subName);
+    }
+
+    public List<Subject> selectGarbage() {
+        return subjectMapper.selectGarbage();
     }
 }

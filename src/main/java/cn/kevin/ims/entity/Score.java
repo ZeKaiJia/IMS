@@ -2,6 +2,7 @@ package cn.kevin.ims.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,13 +12,14 @@ import java.util.Objects;
  */
 @Getter
 @Setter
+@ToString
 public class Score implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer stuId;
     private Integer subId;
     private Integer subScore;
-    private long gmtCreate;
-    private long gmtModify;
+    private long utcCreate;
+    private long utcModify;
     private Boolean isReal;
 
     public Score() {
@@ -30,25 +32,13 @@ public class Score implements Serializable {
         this.subId = subId;
     }
 
-    public Score(Integer stuId, Integer subId, Integer subScore, long gmtCreate, long gmtModify) {
+    public Score(Integer stuId, Integer subId, Integer subScore, long utcCreate, long utcModify) {
         this.stuId = stuId;
         this.subId = subId;
         this.subScore = subScore;
-        this.gmtCreate = gmtCreate;
-        this.gmtModify = gmtModify;
+        this.utcCreate = utcCreate;
+        this.utcModify = utcModify;
         this.isReal = true;
-    }
-
-    @Override
-    public String toString() {
-        return "Score{" +
-                "stuId=" + stuId +
-                ", subId=" + subId +
-                ", subScore=" + subScore +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", isReal=" + isReal +
-                '}';
     }
 
     @Override

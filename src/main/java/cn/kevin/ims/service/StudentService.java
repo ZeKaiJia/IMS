@@ -23,8 +23,8 @@ public class StudentService {
     public Student insert(Student stu) {
         student = studentMapper.select(stu.getStuId());
         if ( student == null ) {
-            stu.setGmtCreate(DateUtils.currentSecond());
-            stu.setGmtModify(DateUtils.currentSecond());
+            stu.setUtcCreate(DateUtils.currentSecond());
+            stu.setUtcModify(DateUtils.currentSecond());
             studentMapper.insert(stu);
             return stu;
         }
@@ -43,7 +43,7 @@ public class StudentService {
     public Student delete(Integer stuId) {
         student = studentMapper.select(stuId);
         if ( student != null ) {
-            student.setGmtModify(DateUtils.currentSecond());
+            student.setUtcModify(DateUtils.currentSecond());
             student.setIsReal(false);
             studentMapper.delete(student);
         }
@@ -53,8 +53,8 @@ public class StudentService {
     public Student update(Student stu) {
         student = studentMapper.select(stu.getStuId());
         if (student != null) {
-            stu.setGmtCreate(student.getGmtCreate());
-            stu.setGmtModify(DateUtils.currentSecond());
+            stu.setUtcCreate(student.getUtcCreate());
+            stu.setUtcModify(DateUtils.currentSecond());
             studentMapper.update(stu);
             return stu;
         }
@@ -62,22 +62,22 @@ public class StudentService {
     }
 
     public Student select(Integer stuId) {
-        student = studentMapper.select(stuId);
-        return student;
+        return studentMapper.select(stuId);
     }
 
     public List<Student> selectAll() {
-        students = studentMapper.selectAll();
-        return students;
+        return studentMapper.selectAll();
     }
 
     public List<Student> selectByAllInfo(Student student) {
-        students = studentMapper.selectByAllInfo(student);
-        return students;
+        return studentMapper.selectByAllInfo(student);
     }
 
     public List<Student> selectSimilarName(String stuName) {
-        students = studentMapper.selectSimilarName(stuName);
-        return students;
+        return studentMapper.selectSimilarName(stuName);
+    }
+
+    public List<Student> selectGarbage() {
+        return studentMapper.selectGarbage();
     }
 }

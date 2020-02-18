@@ -24,8 +24,8 @@ public class ScoreService {
         score = scoreMapper.select(sco);
         if ( score == null ) {
             long currentSecond = DateUtils.currentSecond();
-            sco.setGmtCreate(currentSecond);
-            sco.setGmtModify(currentSecond);
+            sco.setUtcCreate(currentSecond);
+            sco.setUtcModify(currentSecond);
             scoreMapper.insert(sco);
             return sco;
         }
@@ -44,7 +44,7 @@ public class ScoreService {
         score = new Score(stuId, subId);
         score = scoreMapper.select(score);
         if ( score != null ) {
-            score.setGmtModify(DateUtils.currentSecond());
+            score.setUtcModify(DateUtils.currentSecond());
             score.setIsReal(false);
             scoreMapper.delete(score);
         }
@@ -57,10 +57,10 @@ public class ScoreService {
         scores = scoreMapper.selectByAllInfo(score);
         if ( scores.size() != 0 ) {
             for (Score sco: scores) {
-                sco.setGmtModify(DateUtils.currentSecond());
+                sco.setUtcModify(DateUtils.currentSecond());
                 sco.setIsReal(false);
             }
-            score.setGmtModify(DateUtils.currentSecond());
+            score.setUtcModify(DateUtils.currentSecond());
             scoreMapper.deleteAll(score);
         }
         return scores;
@@ -69,8 +69,8 @@ public class ScoreService {
     public Score update(Score sco) {
         score = scoreMapper.select(sco);
         if (score != null) {
-            sco.setGmtCreate(score.getGmtCreate());
-            sco.setGmtModify(DateUtils.currentSecond());
+            sco.setUtcCreate(score.getUtcCreate());
+            sco.setUtcModify(DateUtils.currentSecond());
             scoreMapper.update(sco);
             return sco;
         }
@@ -79,22 +79,22 @@ public class ScoreService {
 
     public Score select(Integer stuId, Integer subId) {
         score = new Score(stuId, subId);
-        score = scoreMapper.select(score);
-        return score;
+        return scoreMapper.select(score);
     }
 
     public List<Score> selectAll() {
-        scores = scoreMapper.selectAll();
-        return scores;
+        return scoreMapper.selectAll();
     }
 
     public List<Score> selectByAllInfo(Score sco) {
-        scores = scoreMapper.selectByAllInfo(sco);
-        return scores;
+        return scoreMapper.selectByAllInfo(sco);
     }
 
     public List<Score> selectPassScore(Integer subScore) {
-        scores = scoreMapper.selectPassScore(subScore);
-        return scores;
+        return scoreMapper.selectPassScore(subScore);
+    }
+
+    public List<Score> selectGarbage() {
+        return scoreMapper.selectGarbage();
     }
 }

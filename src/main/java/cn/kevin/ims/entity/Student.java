@@ -2,6 +2,7 @@ package cn.kevin.ims.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Objects;
  */
 @Getter
 @Setter
+@ToString
 public class Student implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer stuId;
@@ -20,8 +22,8 @@ public class Student implements Serializable {
     private String stuEmail;
     private Integer stuGender;
     private String stuName;
-    private long gmtCreate;
-    private long gmtModify;
+    private long utcCreate;
+    private long utcModify;
     private Boolean isReal;
 
     public Student() {
@@ -36,24 +38,21 @@ public class Student implements Serializable {
         this.stuEmail = student.stuEmail;
         this.stuGender = student.stuGender;
         this.stuName = student.stuName;
-        this.gmtCreate = student.gmtCreate;
-        this.gmtModify = student.gmtModify;
+        this.utcCreate = student.utcCreate;
+        this.utcModify = student.utcModify;
         this.isReal = student.isReal;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "stuId=" + stuId +
-                ", stuAge=" + stuAge +
-                ", stuBirthday=" + stuBirthday +
-                ", stuEmail='" + stuEmail + '\'' +
-                ", stuGender=" + stuGender +
-                ", stuName='" + stuName + '\'' +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", isReal=" + isReal +
-                '}';
+    public Student(Integer stuId, Integer stuAge, Date stuBirthday, String stuEmail, Integer stuGender, String stuName, long utcCreate, long utcModify) {
+        this.stuId = stuId;
+        this.stuAge = stuAge;
+        this.stuBirthday = stuBirthday;
+        this.stuEmail = stuEmail;
+        this.stuGender = stuGender;
+        this.stuName = stuName;
+        this.utcCreate = utcCreate;
+        this.utcModify = utcModify;
+        this.isReal = true;
     }
 
     @Override

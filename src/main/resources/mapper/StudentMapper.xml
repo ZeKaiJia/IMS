@@ -6,9 +6,9 @@
 <mapper namespace="cn.kevin.ims.mapper.StudentMapper">
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
     <insert id="insert" parameterType="cn.kevin.ims.entity.Student">
-        INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName, gmtCreate, gmtModify, isReal)
-            VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{gmtCreate},
-                   #{gmtModify}, 1)
+        INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName, utcCreate, utcModify, isReal)
+            VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{utcCreate},
+                   #{utcModify}, 1)
     </insert>
     <delete id="save">
         DELETE
@@ -18,7 +18,7 @@
     <update id="delete" parameterType="cn.kevin.ims.entity.Student">
         UPDATE Student
         SET isReal    = 0,
-            gmtModify = #{gmtModify}
+            utcModify = #{utcModify}
         WHERE stuId = #{stuId}
     </update>
     <update id="update" parameterType="cn.kevin.ims.entity.Student">
@@ -40,7 +40,7 @@
                 stuName = #{stuName},
             </if>
             <if test="true">
-                gmtModify = #{gmtModify},
+                utcModify = #{utcModify},
             </if>
         </set>
         WHERE stuId = #{stuId}
@@ -64,8 +64,8 @@
             OR stuEmail = #{stuEmail}
             OR stuGender = #{stuGender}
             OR stuName = #{stuName}
-            OR gmtCreate = #{gmtCreate}
-            OR gmtModify = #{gmtModify})
+            OR utcCreate = #{utcCreate}
+            OR utcModify = #{utcModify})
           AND isReal = 1
     </select>
     <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.ims.entity.Student">

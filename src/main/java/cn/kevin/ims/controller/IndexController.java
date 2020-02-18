@@ -1,5 +1,6 @@
 package cn.kevin.ims.controller;
 
+import cn.kevin.ims.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;

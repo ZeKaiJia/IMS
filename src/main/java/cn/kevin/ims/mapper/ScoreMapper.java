@@ -58,7 +58,7 @@ public interface ScoreMapper {
     List<Score> selectPassScore(Integer subScore);
 
     /**
-     * 通过学生ID获取 双向一对多映射
+     * 通过学生ID获取
      */
     List<Score> getByStudentId(Integer stuId);
 
