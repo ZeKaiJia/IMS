@@ -14,7 +14,7 @@
         FROM User
         WHERE isReal = 0
     </delete>
-    <update id="delete" parameterType="String">
+    <update id="delete" parameterType="cn.kevin.ims.entity.User">
         UPDATE User
         SET isReal    = 0,
             utcModify = #{utcModify}

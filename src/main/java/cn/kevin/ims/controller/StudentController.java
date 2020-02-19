@@ -5,6 +5,7 @@ import cn.kevin.ims.entity.Student;
 import cn.kevin.ims.service.StudentService;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -30,7 +31,7 @@ public class StudentController extends BaseController {
     /** insert */
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     @ResponseBody
-    public Response<Student> insert(@RequestBody Student student)  {
+    public Response<Student> insert(@NotNull @RequestBody Student student)  {
         student.setStuId(new Random().nextInt(5000));
         Student result = studentService.insert(student);
         if (result!=null) {

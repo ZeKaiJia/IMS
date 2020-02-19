@@ -16,9 +16,9 @@ public class UserService {
     @Resource
     private UserMapper userMapper;
 
-    private List<User> users;
-
     private User user;
+
+    private List<User> users;
 
     public User insert(User usr) {
         user = userMapper.select(usr.getUsrId());
@@ -45,7 +45,7 @@ public class UserService {
         if ( user != null ) {
             user.setUtcModify(DateUtils.currentSecond());
             user.setIsReal(false);
-            userMapper.delete(user.getUsrId());
+            userMapper.delete(user);
         }
         return user;
     }
@@ -53,20 +53,23 @@ public class UserService {
     public User update(User usr) {
         user = userMapper.select(usr.getUsrId());
         if (user != null) {
-            usr.setUtcCreate(user.getUtcCreate());
-            usr.setUtcModify(DateUtils.currentSecond());
-            userMapper.update(usr);
-            return usr;
+            user.setUtcModify(DateUtils.currentSecond());
+            user.setUsrPassword(usr.getUsrPassword());
+            userMapper.update(user);
+            return user;
         }
         return null;
     }
 
-    public void login(User usr) {
-        user = userMapper.select(usr.getUsrId());
-        if (user != null) {
+    public User login(User usr) {
+        users = userMapper.selectByAllInfo(usr);
+        if (users.size() != 0) {
+            user = select(usr.getUsrId());
             user.setLastLogin(DateUtils.currentSecond());
             userMapper.login(user);
+            return user;
         }
+        return null;
     }
 
     public User select(String usrId) {

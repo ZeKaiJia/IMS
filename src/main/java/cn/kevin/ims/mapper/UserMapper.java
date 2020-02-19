@@ -25,7 +25,7 @@ public interface UserMapper {
     /**
      * 删除方法
      */
-    void delete(String usrId);
+    void delete(User user);
 
     /**
      * 修改方法 修改密码
