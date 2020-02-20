@@ -160,3 +160,7 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 <li>前天 GitHub 仓库 URL 搞错了，怪不得没有同步成功，现在 Coding 和 GitHub 已经同步更新了。</li>
 <li>User 已经构建到了 Controller 层，凌晨了等明天再更新，先记一笔，等 User 全部 OK 就可以做简则用户登录的方法了。</li>
 <li>发现之前 selectGarbage 的管理员功能没写完整，完成了 User 全部的基础功能，目前可以存在检测接口是否需要管理员权限以及登录功能，但是两个还没有关联在一起，即需要管理员权限的接口需要用户使用登录功能之后变为开启。</li>
+
+### 2020.2.20 - Demo 3.0.8
+<li>增加了 LICENCE 文件。</li>
+<li>测试项目同步 Gitee 、 Coding 和 GitHub 。</li>
