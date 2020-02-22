@@ -164,3 +164,6 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 ### 2020.2.20 - Demo 3.0.8
 <li>增加了 LICENCE 文件。</li>
 <li>测试项目同步 Gitee 、 Coding 和 GitHub 。</li>
+
+### 2020.2.22 - Demo 3.0.9
+<li>格式化代码。</li>

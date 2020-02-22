@@ -22,7 +22,7 @@ public class UserService {
 
     public User insert(User usr) {
         user = userMapper.select(usr.getUsrId());
-        if ( user == null ) {
+        if (user == null) {
             usr.setUtcCreate(DateUtils.currentSecond());
             usr.setUtcModify(DateUtils.currentSecond());
             userMapper.insert(usr);
@@ -34,7 +34,7 @@ public class UserService {
 
     public List<User> save() {
         users = userMapper.selectGarbage();
-        if ( users.size() != 0 ) {
+        if (users.size() != 0) {
             userMapper.save();
         }
         return users;
@@ -42,7 +42,7 @@ public class UserService {
 
     public User delete(String usrId) {
         user = userMapper.select(usrId);
-        if ( user != null ) {
+        if (user != null) {
             user.setUtcModify(DateUtils.currentSecond());
             user.setIsReal(false);
             userMapper.delete(user);

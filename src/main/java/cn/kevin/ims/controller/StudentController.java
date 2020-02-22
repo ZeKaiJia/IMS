@@ -22,94 +22,107 @@ public class StudentController extends BaseController {
     @Resource(name = "studentService")
     private StudentService studentService;
 
-    @RequestMapping(value = "/{name}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     @ResponseBody
-    public String helloWorld(@PathVariable(name = "name") String name)  {
+    public String helloWorld(@PathVariable(name = "name") String name) {
         return "Hello " + name;
     }
 
-    /** insert */
-    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    /**
+     * insert
+     */
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Response<Student> insert(@NotNull @RequestBody Student student)  {
+    public Response<Student> insert(@NotNull @RequestBody Student student) {
         student.setStuId(new Random().nextInt(5000));
         Student result = studentService.insert(student);
-        if (result!=null) {
+        if (result != null) {
             return getSuccessResult(result);
         }
-        return getFailResult(405,"ID already exist!");
+        return getFailResult(405, "ID already exist!");
     }
 
-    /** save(in fact it's delete) */
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    /**
+     * save(in fact it's delete)
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public Response<List<Student>> save()  {
+    public Response<List<Student>> save() {
         List<Student> result = studentService.save();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"Message not find!");
+        return getFailResult(404, "Message not find!");
     }
 
-    /** delete(in fact it's an update) */
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    /**
+     * delete(in fact it's an update)
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Response<Student> delete(int id)  {
+    public Response<Student> delete(int id) {
         Student result = studentService.delete(id);
-        if (result!=null) {
+        if (result != null) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"ID not find!");
+        return getFailResult(404, "ID not find!");
     }
 
-    /** update */
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    /**
+     * update
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Response<Student> update(@RequestBody Student student)  {
+    public Response<Student> update(@RequestBody Student student) {
         Student result = studentService.update(student);
-        if (result!=null) {
-            return  getSuccessResult(result);
-        }
-        return getFailResult(404,"ID not find!");
-    }
-
-    /** select */
-    @RequestMapping(value = "/selectById",method = RequestMethod.GET)
-    @ResponseBody
-    public Response<Student> selectById(int id)  {
-        Student result = studentService.select(id);
-        if (result!=null) {
+        if (result != null) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"ID not find!");
+        return getFailResult(404, "ID not find!");
     }
-    @RequestMapping(value = "/selectAll",method = RequestMethod.GET)
+
+    /**
+     * select
+     */
+    @RequestMapping(value = "/selectById", method = RequestMethod.GET)
+    @ResponseBody
+    public Response<Student> selectById(int id) {
+        Student result = studentService.select(id);
+        if (result != null) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "ID not find!");
+    }
+
+    @RequestMapping(value = "/selectAll", method = RequestMethod.GET)
     @ResponseBody
     @LoginAction(value = "false")
-    public Response<List<Student>> selectAll()  {
+    public Response<List<Student>> selectAll() {
         List<Student> result = studentService.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"Message not find!");
+        return getFailResult(404, "Message not find!");
     }
-    @RequestMapping(value = "/selectByAllInfo",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/selectByAllInfo", method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<Student>> selectByAllInfo(@RequestBody Student student)  {
+    public Response<List<Student>> selectByAllInfo(@RequestBody Student student) {
         List<Student> result = studentService.selectByAllInfo(student);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"Message not find!");
+        return getFailResult(404, "Message not find!");
     }
-    @RequestMapping(value = "/selectSimilarName",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/selectSimilarName", method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<Student>> selectSimilarName(String name)  {
+    public Response<List<Student>> selectSimilarName(String name) {
         List<Student> result = studentService.selectSimilarName(name);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"Message not find!");
+        return getFailResult(404, "Message not find!");
     }
 
 

@@ -22,7 +22,7 @@ public class StudentService {
 
     public Student insert(Student stu) {
         student = studentMapper.select(stu.getStuId());
-        if ( student == null ) {
+        if (student == null) {
             stu.setUtcCreate(DateUtils.currentSecond());
             stu.setUtcModify(DateUtils.currentSecond());
             studentMapper.insert(stu);
@@ -34,7 +34,7 @@ public class StudentService {
 
     public List<Student> save() {
         students = studentMapper.selectGarbage();
-        if ( students.size() != 0 ) {
+        if (students.size() != 0) {
             studentMapper.save();
         }
         return students;
@@ -42,7 +42,7 @@ public class StudentService {
 
     public Student delete(Integer stuId) {
         student = studentMapper.select(stuId);
-        if ( student != null ) {
+        if (student != null) {
             student.setUtcModify(DateUtils.currentSecond());
             student.setIsReal(false);
             studentMapper.delete(student);

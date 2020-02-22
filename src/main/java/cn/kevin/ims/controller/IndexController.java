@@ -26,9 +26,9 @@ public class IndexController extends BaseController {
     @Resource(name = "userService")
     private UserService userService;
 
-    @RequestMapping(value = "/{name}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     @ResponseBody
-    public String helloWorld(@PathVariable(name = "name") String name)  {
+    public String helloWorld(@PathVariable(name = "name") String name) {
         return "Hello " + name;
     }
 
@@ -37,48 +37,56 @@ public class IndexController extends BaseController {
         return "login";
     }
 
-    /** insert */
-    @RequestMapping(value = "/insert",method = RequestMethod.POST)
+    /**
+     * insert
+     */
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseBody
-    public Response<User> insert(@NotNull @RequestBody User user)  {
+    public Response<User> insert(@NotNull @RequestBody User user) {
         User result = userService.insert(user);
-        if (result!=null) {
+        if (result != null) {
             return getSuccessResult(result);
         }
-        return getFailResult(405,"ID already exist!");
+        return getFailResult(405, "ID already exist!");
     }
 
-    /** save(in fact it's delete) */
-    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    /**
+     * save(in fact it's delete)
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public Response<List<User>> save()  {
+    public Response<List<User>> save() {
         List<User> result = userService.save();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"Message not find!");
+        return getFailResult(404, "Message not find!");
     }
 
-    /** delete(in fact it's an update) */
-    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    /**
+     * delete(in fact it's an update)
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Response<User> delete(String usrId)  {
+    public Response<User> delete(String usrId) {
         User result = userService.delete(usrId);
-        if (result!=null) {
+        if (result != null) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"ID not find!");
+        return getFailResult(404, "ID not find!");
     }
 
-    /** update */
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    /**
+     * update
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Response<User> update(@RequestBody User user)  {
+    public Response<User> update(@RequestBody User user) {
         User result = userService.update(user);
-        if (result!=null) {
-            return  getSuccessResult(result);
+        if (result != null) {
+            return getSuccessResult(result);
         }
-        return getFailResult(404,"ID not find!");
+        return getFailResult(404, "ID not find!");
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -107,33 +115,37 @@ public class IndexController extends BaseController {
         return "Admin";
     }
 
-    /** select */
-    @RequestMapping(value = "/selectById",method = RequestMethod.GET)
+    /**
+     * select
+     */
+    @RequestMapping(value = "/selectById", method = RequestMethod.GET)
     @ResponseBody
-    public Response<User> select(String usrId)  {
+    public Response<User> select(String usrId) {
         User result = userService.select(usrId);
-        if (result!=null) {
+        if (result != null) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"ID not find!");
+        return getFailResult(404, "ID not find!");
     }
-    @RequestMapping(value = "/selectAll",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/selectAll", method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<User>> selectAll()  {
+    public Response<List<User>> selectAll() {
         List<User> result = userService.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"Message not find!");
+        return getFailResult(404, "Message not find!");
     }
-    @RequestMapping(value = "/selectByAllInfo",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/selectByAllInfo", method = RequestMethod.GET)
     @ResponseBody
-    public Response<List<User>> selectByAllInfo(@RequestBody User user)  {
+    public Response<List<User>> selectByAllInfo(@RequestBody User user) {
         List<User> result = userService.selectByAllInfo(user);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
-        return getFailResult(404,"Message not find!");
+        return getFailResult(404, "Message not find!");
     }
 
     public static void main(String[] args) {

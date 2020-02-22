@@ -22,7 +22,7 @@ public class SubjectService {
 
     public Subject insert(Subject sub) {
         subject = subjectMapper.select(sub.getSubId());
-        if ( subject == null ) {
+        if (subject == null) {
             sub.setUtcCreate(DateUtils.currentSecond());
             sub.setUtcModify(DateUtils.currentSecond());
             subjectMapper.insert(sub);
@@ -33,7 +33,7 @@ public class SubjectService {
 
     public List<Subject> save() {
         subjects = subjectMapper.selectGarbage();
-        if ( subjects.size() != 0 ) {
+        if (subjects.size() != 0) {
             subjectMapper.save();
         }
         return subjects;
@@ -41,7 +41,7 @@ public class SubjectService {
 
     public Subject delete(Integer subId) {
         subject = subjectMapper.select(subId);
-        if ( subject != null ) {
+        if (subject != null) {
             subject.setUtcModify(DateUtils.currentSecond());
             subject.setIsReal(false);
             subjectMapper.delete(subject);
@@ -51,7 +51,7 @@ public class SubjectService {
 
     public Subject update(Subject sub) {
         subject = subjectMapper.select(sub.getSubId());
-        if ( subject != null ) {
+        if (subject != null) {
             sub.setUtcCreate(subject.getUtcCreate());
             sub.setUtcModify(DateUtils.currentSecond());
             subjectMapper.update(sub);

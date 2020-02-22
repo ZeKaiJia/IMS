@@ -22,7 +22,7 @@ public class ScoreService {
 
     public Score insert(Score sco) {
         score = scoreMapper.select(sco);
-        if ( score == null ) {
+        if (score == null) {
             long currentSecond = DateUtils.currentSecond();
             sco.setUtcCreate(currentSecond);
             sco.setUtcModify(currentSecond);
@@ -34,7 +34,7 @@ public class ScoreService {
 
     public List<Score> save() {
         scores = scoreMapper.selectGarbage();
-        if ( scores.size() != 0 ) {
+        if (scores.size() != 0) {
             scoreMapper.save();
         }
         return scores;
@@ -43,7 +43,7 @@ public class ScoreService {
     public Score delete(Integer stuId, Integer subId) {
         score = new Score(stuId, subId);
         score = scoreMapper.select(score);
-        if ( score != null ) {
+        if (score != null) {
             score.setUtcModify(DateUtils.currentSecond());
             score.setIsReal(false);
             scoreMapper.delete(score);
@@ -55,8 +55,8 @@ public class ScoreService {
         score = new Score();
         score.setStuId(stuId);
         scores = scoreMapper.selectByAllInfo(score);
-        if ( scores.size() != 0 ) {
-            for (Score sco: scores) {
+        if (scores.size() != 0) {
+            for (Score sco : scores) {
                 sco.setUtcModify(DateUtils.currentSecond());
                 sco.setIsReal(false);
             }

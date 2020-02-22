@@ -7,7 +7,7 @@
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
     <insert id="insert" parameterType="cn.kevin.ims.entity.Score">
         INSERT INTO Score (stuId, subId, subScore, utcCreate, utcModify, isReal)
-            VALUE (#{stuId}, #{subId}, #{subScore}, #{utcCreate}, #{utcModify}, 1)
+        VALUE (#{stuId}, #{subId}, #{subScore}, #{utcCreate}, #{utcModify}, 1)
     </insert>
     <delete id="save">
         DELETE
@@ -16,15 +16,15 @@
     </delete>
     <update id="delete" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
-        SET isReal    = 0,
-            utcModify = #{utcModify}
+        SET isReal = 0,
+        utcModify = #{utcModify}
         WHERE stuId = #{stuId}
-          AND subId = #{subId}
+        AND subId = #{subId}
     </update>
     <update id="deleteAll" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
-        SET isReal    = 0,
-            utcModify = #{utcModify}
+        SET isReal = 0,
+        utcModify = #{utcModify}
         WHERE stuId = #{stuId}
     </update>
     <update id="update" parameterType="cn.kevin.ims.entity.Score">
@@ -44,8 +44,8 @@
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
-          AND subId = #{subId}
-          AND isReal = 1
+        AND subId = #{subId}
+        AND isReal = 1
     </select>
     <select id="selectAll" resultType="cn.kevin.ims.entity.Score">
         SELECT *
@@ -56,11 +56,11 @@
         SELECT *
         FROM Score
         WHERE (stuId = #{stuId}
-            OR subId = #{subId}
-            OR subScore = #{subScore}
-            OR utcCreate = #{utcCreate}
-            OR utcModify = #{utcModify})
-          AND isReal = 1
+        OR subId = #{subId}
+        OR subScore = #{subScore}
+        OR utcCreate = #{utcCreate}
+        OR utcModify = #{utcModify})
+        AND isReal = 1
     </select>
     <select id="selectPassScore" parameterType="Integer" resultType="cn.kevin.ims.entity.Score">
         SELECT *
@@ -76,7 +76,7 @@
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
-          AND isReal = 1
+        AND isReal = 1
     </select>
     <select id="selectGarbage" resultType="cn.kevin.ims.entity.Score">
         SELECT *

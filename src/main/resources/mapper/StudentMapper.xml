@@ -7,8 +7,8 @@
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
     <insert id="insert" parameterType="cn.kevin.ims.entity.Student">
         INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName, utcCreate, utcModify, isReal)
-            VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{utcCreate},
-                   #{utcModify}, 1)
+        VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{utcCreate},
+        #{utcModify}, 1)
     </insert>
     <delete id="save">
         DELETE
@@ -17,8 +17,8 @@
     </delete>
     <update id="delete" parameterType="cn.kevin.ims.entity.Student">
         UPDATE Student
-        SET isReal    = 0,
-            utcModify = #{utcModify}
+        SET isReal = 0,
+        utcModify = #{utcModify}
         WHERE stuId = #{stuId}
     </update>
     <update id="update" parameterType="cn.kevin.ims.entity.Student">
@@ -49,7 +49,7 @@
         SELECT *
         FROM Student
         WHERE stuId = #{stuId}
-          AND isReal = 1
+        AND isReal = 1
     </select>
     <select id="selectAll" resultType="cn.kevin.ims.entity.Student">
         SELECT *
@@ -60,19 +60,19 @@
         SELECT *
         FROM Student
         WHERE (stuId = #{stuId}
-            OR stuAge = #{stuAge}
-            OR stuEmail = #{stuEmail}
-            OR stuGender = #{stuGender}
-            OR stuName = #{stuName}
-            OR utcCreate = #{utcCreate}
-            OR utcModify = #{utcModify})
-          AND isReal = 1
+        OR stuAge = #{stuAge}
+        OR stuEmail = #{stuEmail}
+        OR stuGender = #{stuGender}
+        OR stuName = #{stuName}
+        OR utcCreate = #{utcCreate}
+        OR utcModify = #{utcModify})
+        AND isReal = 1
     </select>
     <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
         WHERE stuName LIKE '%${value}%'
-          AND isReal = 1
+        AND isReal = 1
     </select>
     <select id="selectGarbage" resultType="cn.kevin.ims.entity.Student">
         SELECT *

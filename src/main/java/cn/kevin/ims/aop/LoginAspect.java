@@ -26,7 +26,8 @@ public class LoginAspect {
     static final String NEED_LOGIN_IN = "true";
 
     @Pointcut("@annotation(cn.kevin.ims.aop.LoginAction)")
-    public void loginAction(){}
+    public void loginAction() {
+    }
 
     @Around("loginAction()")
     public Object toLogin(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
@@ -38,7 +39,7 @@ public class LoginAspect {
         String requestUri = request.getRequestURI();
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         LoginAction annotation = signature.getMethod().getAnnotation(LoginAction.class);
-        if (NEED_LOGIN_IN.equals(annotation.value())){
+        if (NEED_LOGIN_IN.equals(annotation.value())) {
             assert response != null;
             response.sendRedirect("/index.html");
             System.out.println("Login needed");

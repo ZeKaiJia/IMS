@@ -160,7 +160,6 @@ public class DateUtils {
 
     /**
      * 根据传入时间在追加一天
-     *
      */
     public static Date getDayEnd(Date date) {
         return string2Date(divideDateForDay(date, "yyyy-MM-dd", 1));
@@ -193,7 +192,9 @@ public class DateUtils {
         return fo.format(cal.getTime());
     }
 
-    /**当前日期前几天或者后几天的日期*/
+    /**
+     * 当前日期前几天或者后几天的日期
+     */
     public static Date afterNDay(int n) {
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
@@ -201,7 +202,9 @@ public class DateUtils {
         return c.getTime();
     }
 
-    /** 当前日期前几天或者后几天的日期*/
+    /**
+     * 当前日期前几天或者后几天的日期
+     */
     public static Date afterNDays(Timestamp time, int n) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(time.getTime());
@@ -225,7 +228,9 @@ public class DateUtils {
         return null;
     }
 
-    /** 时间段的第一个时间*/
+    /**
+     * 时间段的第一个时间
+     */
     public static java.sql.Timestamp stringToTime1(String d) {
         java.sql.Timestamp t = null;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -242,7 +247,9 @@ public class DateUtils {
         return t;
     }
 
-    /** 时间段的第二个时间*/
+    /**
+     * 时间段的第二个时间
+     */
     public static java.sql.Timestamp stringToTime2(String d) {
         java.sql.Timestamp t = null;
         //StringUtils
@@ -268,7 +275,6 @@ public class DateUtils {
 
     /**
      * 查看昨天的日期  还需要调用transCalendarToTimestamp方法
-     *
      */
     public static Calendar getYesterDayEnd() {
         Calendar after = Calendar.getInstance();
@@ -282,7 +288,6 @@ public class DateUtils {
 
     /**
      * Calendar和Timestamp转换
-     *
      */
     public static Timestamp transCalendarToTimestamp(Calendar cal) {
         return new Timestamp(cal.getTimeInMillis());
@@ -316,7 +321,6 @@ public class DateUtils {
 
     /**
      * 根据Calendar日历返回String
-     *
      */
     public static String getDataString(Calendar cal) {
         return cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DAY_OF_MONTH) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
