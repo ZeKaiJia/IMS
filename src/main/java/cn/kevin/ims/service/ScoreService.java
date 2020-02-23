@@ -14,7 +14,7 @@ import java.util.*;
  * @author kevin
  */
 @Service
-@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 public class ScoreService {
     @Resource
     private ScoreMapper scoreMapper;
