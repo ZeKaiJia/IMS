@@ -4,6 +4,8 @@ import cn.kevin.ims.entity.Score;
 import cn.kevin.ims.mapper.ScoreMapper;
 import cn.kevin.ims.util.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -12,6 +14,7 @@ import java.util.*;
  * @author kevin
  */
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 public class ScoreService {
     @Resource
     private ScoreMapper scoreMapper;

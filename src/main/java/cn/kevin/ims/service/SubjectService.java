@@ -4,6 +4,8 @@ import cn.kevin.ims.entity.Subject;
 import cn.kevin.ims.mapper.SubjectMapper;
 import cn.kevin.ims.util.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,11 +14,10 @@ import java.util.List;
  * @author kevin
  */
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 public class SubjectService {
     @Resource
     private SubjectMapper subjectMapper;
-
-    private List<Subject> subjects;
 
     private Subject subject;
 
@@ -32,7 +33,7 @@ public class SubjectService {
     }
 
     public List<Subject> save() {
-        subjects = subjectMapper.selectGarbage();
+        List<Subject> subjects = subjectMapper.selectGarbage();
         if (subjects.size() != 0) {
             subjectMapper.save();
         }

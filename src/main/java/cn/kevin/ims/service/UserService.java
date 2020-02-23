@@ -4,6 +4,8 @@ import cn.kevin.ims.entity.User;
 import cn.kevin.ims.mapper.UserMapper;
 import cn.kevin.ims.util.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
  * @author kevin
  */
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 public class UserService {
     @Resource
     private UserMapper userMapper;

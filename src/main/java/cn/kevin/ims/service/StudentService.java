@@ -4,6 +4,8 @@ import cn.kevin.ims.entity.Student;
 import cn.kevin.ims.mapper.StudentMapper;
 import cn.kevin.ims.util.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,11 +14,10 @@ import java.util.List;
  * @author kevin
  */
 @Service
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 public class StudentService {
     @Resource
     private StudentMapper studentMapper;
-
-    private List<Student> students;
 
     private Student student;
 
@@ -33,7 +34,7 @@ public class StudentService {
 
 
     public List<Student> save() {
-        students = studentMapper.selectGarbage();
+        List<Student> students = studentMapper.selectGarbage();
         if (students.size() != 0) {
             studentMapper.save();
         }
