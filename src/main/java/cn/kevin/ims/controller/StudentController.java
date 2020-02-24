@@ -22,7 +22,7 @@ public class StudentController extends BaseController {
     @Resource(name = "studentService")
     private StudentService studentService;
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
         return "Hello " + name;
@@ -31,7 +31,7 @@ public class StudentController extends BaseController {
     /**
      * insert
      */
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @PostMapping(value = "/insert")
     @ResponseBody
     public Response<Student> insert(@NotNull @RequestBody Student student) {
         student.setStuId(new Random().nextInt(5000));
@@ -45,7 +45,7 @@ public class StudentController extends BaseController {
     /**
      * save(in fact it's delete)
      */
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping(value = "/save")
     @ResponseBody
     public Response<List<Student>> save() {
         List<Student> result = studentService.save();
@@ -58,7 +58,7 @@ public class StudentController extends BaseController {
     /**
      * delete(in fact it's an update)
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @PostMapping(value = "/delete")
     @ResponseBody
     public Response<Student> delete(int id) {
         Student result = studentService.delete(id);
@@ -71,7 +71,7 @@ public class StudentController extends BaseController {
     /**
      * update
      */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     @ResponseBody
     public Response<Student> update(@RequestBody Student student) {
         Student result = studentService.update(student);
@@ -84,7 +84,7 @@ public class StudentController extends BaseController {
     /**
      * select
      */
-    @RequestMapping(value = "/selectById", method = RequestMethod.GET)
+    @GetMapping(value = "/selectById")
     @ResponseBody
     public Response<Student> selectById(int id) {
         Student result = studentService.select(id);
@@ -94,7 +94,7 @@ public class StudentController extends BaseController {
         return getFailResult(404, "ID not find!");
     }
 
-    @RequestMapping(value = "/selectAll", method = RequestMethod.GET)
+    @GetMapping(value = "/selectAll")
     @ResponseBody
     @LoginAction(value = "false")
     public Response<List<Student>> selectAll() {
@@ -105,7 +105,7 @@ public class StudentController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-    @RequestMapping(value = "/selectByAllInfo", method = RequestMethod.GET)
+    @GetMapping(value = "/selectByAllInfo")
     @ResponseBody
     public Response<List<Student>> selectByAllInfo(@RequestBody Student student) {
         List<Student> result = studentService.selectByAllInfo(student);
@@ -115,7 +115,7 @@ public class StudentController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-    @RequestMapping(value = "/selectSimilarName", method = RequestMethod.GET)
+    @GetMapping(value = "/selectSimilarName")
     @ResponseBody
     public Response<List<Student>> selectSimilarName(String name) {
         List<Student> result = studentService.selectSimilarName(name);

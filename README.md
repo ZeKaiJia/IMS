@@ -171,8 +171,9 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 ### 2020.2.23 - Demo 3.1.0
 <li>将四个 Service 升级了事务，采用 REQUIRED 修饰，即整体事务，一般的事物都会先使用 Select 操作，如果查询期间就出异常就不就行下面的数据库操作了，在遇到 Exception 和 Error 时程序和数据库都会 Rollback ，另外事务隔离级别设置为 RC 防止脏读。</li>
 
-### 2020.2.24 - Demo 3.1.3 
+### 2020.2.24 - Demo 3.1.5
 <li>已知问题: 目前在 yml 文件中写了相关配置，IndexController 中也加入了登录页面，但是启动程序后输入 localhost:8080/login/login 并不能进入该 jsp 文件(一度想要放弃)。</li>
 <li>越来越忙，学校也快开课，更新速度会大幅下降。</li>
+<li>使用 GetMapping 和 PostMapping 代替 RequestMapping ，省去 method 值。</li>
 <li>更新了项目的 Web 架构，今天才知道原来 JS 和 JSP 不是用一个东西，需要学习的技术又多了。</li>
 <li>更新了一下 pom ，加了注解。之前的太乱找都找不到依赖在哪儿，今天还发现 SpringBoot 的包里已经有 Spring-Core 的包了，重复导入后者会失效，项目会报错，所以删除了多余的依赖。</li>

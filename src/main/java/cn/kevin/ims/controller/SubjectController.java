@@ -19,7 +19,7 @@ public class SubjectController extends BaseController {
     @Resource(name = "subjectService")
     private SubjectService subjectService;
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
         return "Hello " + name;
@@ -28,7 +28,7 @@ public class SubjectController extends BaseController {
     /**
      * insert
      */
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @PostMapping(value = "/insert")
     @ResponseBody
     public Response<Subject> insert(@RequestBody Subject subject) {
         subject.setSubId(new Random().nextInt(5000));
@@ -42,7 +42,7 @@ public class SubjectController extends BaseController {
     /**
      * save(in fact it's delete)
      */
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping(value = "/save")
     @ResponseBody
     public Response<List<Subject>> save() {
         List<Subject> result = subjectService.save();
@@ -55,7 +55,7 @@ public class SubjectController extends BaseController {
     /**
      * delete(in fact it's an update)
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @PostMapping(value = "/delete")
     @ResponseBody
     public Response<Subject> delete(int id) {
         Subject result = subjectService.delete(id);
@@ -68,7 +68,7 @@ public class SubjectController extends BaseController {
     /**
      * update
      */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     @ResponseBody
     public Response<Subject> update(@RequestBody Subject subject) {
         Subject result = subjectService.update(subject);
@@ -81,7 +81,7 @@ public class SubjectController extends BaseController {
     /**
      * select
      */
-    @RequestMapping(value = "/selectById", method = RequestMethod.GET)
+    @GetMapping(value = "/selectById")
     @ResponseBody
     public Response<Subject> selectById(int id) {
         Subject result = subjectService.select(id);
@@ -91,7 +91,7 @@ public class SubjectController extends BaseController {
         return getFailResult(404, "ID not find!");
     }
 
-    @RequestMapping(value = "/selectAll", method = RequestMethod.GET)
+    @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<Subject>> selectAll() {
         List<Subject> result = subjectService.selectAll();
@@ -101,7 +101,7 @@ public class SubjectController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-    @RequestMapping(value = "/selectByAllInfo", method = RequestMethod.GET)
+    @GetMapping(value = "/selectByAllInfo")
     @ResponseBody
     public Response<List<Subject>> selectByAllInfo(@RequestBody Subject subject) {
         List<Subject> result = subjectService.selectByAllInfo(subject);
@@ -111,7 +111,7 @@ public class SubjectController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-    @RequestMapping(value = "/selectSimilarName", method = RequestMethod.GET)
+    @GetMapping(value = "/selectSimilarName")
     @ResponseBody
     public Response<List<Subject>> selectSimilarName(String name) {
         List<Subject> result = subjectService.selectSimilarName(name);

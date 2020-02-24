@@ -25,13 +25,13 @@ public class IndexController extends BaseController {
     @Resource(name = "userService")
     private UserService userService;
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
         return "Hello " + name;
     }
 
-    @RequestMapping(value = {"", "/index", "/login"}, method = RequestMethod.GET)
+    @GetMapping(value = {"", "/index", "/login"})
     public String getIndex() {
         return INDEX;
     }
@@ -39,7 +39,7 @@ public class IndexController extends BaseController {
     /**
      * insert
      */
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @PostMapping(value = "/insert")
     @ResponseBody
     public Response<User> insert(@NotNull @RequestBody User user) {
         User result = userService.insert(user);
@@ -52,7 +52,7 @@ public class IndexController extends BaseController {
     /**
      * save(in fact it's delete)
      */
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping(value = "/save")
     @ResponseBody
     public Response<List<User>> save() {
         List<User> result = userService.save();
@@ -65,7 +65,7 @@ public class IndexController extends BaseController {
     /**
      * delete(in fact it's an update)
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @PostMapping(value = "/delete")
     @ResponseBody
     public Response<User> delete(String usrId) {
         User result = userService.delete(usrId);
@@ -78,7 +78,7 @@ public class IndexController extends BaseController {
     /**
      * update
      */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     @ResponseBody
     public Response<User> update(@RequestBody User user) {
         User result = userService.update(user);
@@ -88,7 +88,7 @@ public class IndexController extends BaseController {
         return getFailResult(404, "ID not find!");
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     public ModelAndView login(HttpServletRequest request, @RequestBody User user) {
         User result;
         try {
@@ -109,7 +109,7 @@ public class IndexController extends BaseController {
                 .addObject("idReal", result.getIsReal());
     }
 
-    @RequestMapping(value = "home", method = RequestMethod.GET)
+    @GetMapping(value = "home")
     public String home() {
         return "Admin";
     }
@@ -117,7 +117,7 @@ public class IndexController extends BaseController {
     /**
      * select
      */
-    @RequestMapping(value = "/selectById", method = RequestMethod.GET)
+    @GetMapping(value = "/selectById")
     @ResponseBody
     public Response<User> select(String usrId) {
         User result = userService.select(usrId);
@@ -127,7 +127,7 @@ public class IndexController extends BaseController {
         return getFailResult(404, "ID not find!");
     }
 
-    @RequestMapping(value = "/selectAll", method = RequestMethod.GET)
+    @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<User>> selectAll() {
         List<User> result = userService.selectAll();
@@ -137,7 +137,7 @@ public class IndexController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-    @RequestMapping(value = "/selectByAllInfo", method = RequestMethod.GET)
+    @GetMapping(value = "/selectByAllInfo")
     @ResponseBody
     public Response<List<User>> selectByAllInfo(@RequestBody User user) {
         List<User> result = userService.selectByAllInfo(user);

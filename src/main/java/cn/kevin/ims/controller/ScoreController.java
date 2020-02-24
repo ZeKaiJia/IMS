@@ -18,7 +18,7 @@ public class ScoreController extends BaseController {
     @Resource(name = "scoreService")
     private ScoreService scoreService;
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
         return "Hello " + name;
@@ -27,7 +27,7 @@ public class ScoreController extends BaseController {
     /**
      * insert
      */
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    @PostMapping(value = "/insert")
     @ResponseBody
     public Response<Score> insert(@RequestBody Score score) {
         if (checkIllegalityScore(score.getSubScore())) {
@@ -43,7 +43,7 @@ public class ScoreController extends BaseController {
     /**
      * save(in fact it's delete)
      */
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping(value = "/save")
     @ResponseBody
     public Response<List<Score>> save() {
         List<Score> result = scoreService.save();
@@ -56,7 +56,7 @@ public class ScoreController extends BaseController {
     /**
      * delete(in fact it's an update)
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @PostMapping(value = "/delete")
     @ResponseBody
     public Response<Score> delete(int id1, int id2) {
         Score result = scoreService.delete(id1, id2);
@@ -66,7 +66,7 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-    @RequestMapping(value = "/deleteAll", method = RequestMethod.POST)
+    @PostMapping(value = "/deleteAll")
     @ResponseBody
     public Response<List<Score>> deleteAll(int id) {
         List<Score> result = scoreService.deleteAll(id);
@@ -79,7 +79,7 @@ public class ScoreController extends BaseController {
     /**
      * update
      */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @PostMapping(value = "/update")
     @ResponseBody
     public Response<Score> update(@RequestBody Score score) {
         if (checkIllegalityScore(score.getSubScore())) {
@@ -95,7 +95,7 @@ public class ScoreController extends BaseController {
     /**
      * select
      */
-    @RequestMapping(value = "/selectById", method = RequestMethod.GET)
+    @GetMapping(value = "/selectById")
     @ResponseBody
     public Response<Score> selectById(int id1, int id2) {
         Score result = scoreService.select(id1, id2);
@@ -105,7 +105,7 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-    @RequestMapping(value = "/selectAll", method = RequestMethod.GET)
+    @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<Score>> selectAll() {
         List<Score> result = scoreService.selectAll();
@@ -115,7 +115,7 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-    @RequestMapping(value = "/selectByAllInfo", method = RequestMethod.GET)
+    @GetMapping(value = "/selectByAllInfo")
     @ResponseBody
     public Response<List<Score>> selectByAllInfo(@RequestBody Score score) {
         List<Score> result = scoreService.selectByAllInfo(score);
@@ -125,7 +125,7 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-    @RequestMapping(value = "/selectPassScore", method = RequestMethod.GET)
+    @GetMapping(value = "/selectPassScore")
     @ResponseBody
     public Response<List<Score>> selectPassScore(int score) {
         List<Score> result = scoreService.selectPassScore(score);
