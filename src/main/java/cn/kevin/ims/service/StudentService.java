@@ -4,6 +4,7 @@ import cn.kevin.ims.entity.Student;
 import cn.kevin.ims.mapper.StudentMapper;
 import cn.kevin.ims.util.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @author kevin
  */
 @Service
-@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
 public class StudentService {
     @Resource
     private StudentMapper studentMapper;

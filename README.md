@@ -169,4 +169,4 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 <li>格式化代码。</li>
 
 ### 2020.2.23 - Demo 3.1.0
-<li>将四个 Service 升级了事务，采用 REQUIRED 修饰，即整体事务，一般的事物都会先使用 Select 操作，如果查询期间就出异常就不就行下面的数据库操作了，在遇到 Exception 和 Error 时程序和数据库都会 Rollback 。</li>
+<li>将四个 Service 升级了事务，采用 REQUIRED 修饰，即整体事务，一般的事物都会先使用 Select 操作，如果查询期间就出异常就不就行下面的数据库操作了，在遇到 Exception 和 Error 时程序和数据库都会 Rollback ，另外事务隔离级别设置为 RC 防止脏读。</li>
