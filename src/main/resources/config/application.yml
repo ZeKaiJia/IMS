@@ -7,14 +7,17 @@ logging.level.root: INFO
 ################### DataSource Configuration ##########################
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
   mvc:
     view:
-      prefix: /WEB-INF
+      prefix: /WEB-INF/
       suffix: .jsp
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/static/
 
 mybatis:
   configuration:

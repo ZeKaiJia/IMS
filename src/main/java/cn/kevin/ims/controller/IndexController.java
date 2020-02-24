@@ -1,7 +1,5 @@
 package cn.kevin.ims.controller;
 
-import cn.kevin.ims.aop.LoginAction;
-import cn.kevin.ims.entity.Student;
 import cn.kevin.ims.entity.User;
 import cn.kevin.ims.service.UserService;
 import cn.kevin.ims.util.DateUtils;
@@ -14,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @Author: Kevin
@@ -23,6 +20,8 @@ import java.util.Random;
 @RestController()
 @RequestMapping("/login/")
 public class IndexController extends BaseController {
+    private static final String INDEX = "index";
+
     @Resource(name = "userService")
     private UserService userService;
 
@@ -32,9 +31,9 @@ public class IndexController extends BaseController {
         return "Hello " + name;
     }
 
-    @RequestMapping(value = {"", "index", "login"}, method = RequestMethod.GET)
-    public String index() {
-        return "login";
+    @RequestMapping(value = {"", "/index", "/login"}, method = RequestMethod.GET)
+    public String getIndex() {
+        return INDEX;
     }
 
     /**
