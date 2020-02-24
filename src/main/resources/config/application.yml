@@ -11,6 +11,10 @@ spring:
     url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
+  mvc:
+    view:
+      prefix: /WEB-INF
+      suffix: .jsp
 
 mybatis:
   configuration:
