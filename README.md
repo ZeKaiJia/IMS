@@ -3,7 +3,7 @@
 本人能力有限，第一次接触 Java 、MySQL 和 GIT ，有点手忙脚乱，之前的版本更新说明没有写。2020年1月16号开始更新1.2.5版本。<br>
 ~~需要导入 Java jdbc 的包( MySQL -connector-java-8.0.19),请在社区自行下载( https://dev.mysql.com/downloads/ )~~。<br>
 ~~需要修改数据库 IP 、账号和密码，见 DbUtil 类中 Connection 对象 conn 。~~ <br>
-jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.properties 文件。
+~~jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.properties 文件。~~
 
 ## 层次结构
 5层 Application -> 程序运行的入口 <br>
@@ -177,3 +177,8 @@ jar 包已经可以通过 Maven 直接导入，数据库连接请修改 jdbc.pro
 <li>使用 GetMapping 和 PostMapping 代替 RequestMapping ，省去 method 值。</li>
 <li>更新了项目的 Web 架构，今天才知道原来 JS 和 JSP 不是用一个东西，需要学习的技术又多了。</li>
 <li>更新了一下 pom ，加了注解。之前的太乱找都找不到依赖在哪儿，今天还发现 SpringBoot 的包里已经有 Spring-Core 的包了，重复导入后者会失效，项目会报错，所以删除了多余的依赖。</li>
+
+### 2020.6.2 - Demo 3.1.6
+<li>好久没有更新这个项目了，过完六一我就不是孩子了，不能随便拖更。</li>
+<li>重构了一下，现在的 Entity 实体都继承自 AbstractEntity 类。</li>
+<li>加了一个类型处理器 typeHandlers 想处理日期类的数据，后来发现日期已经转换好了没必要再转换。</li>

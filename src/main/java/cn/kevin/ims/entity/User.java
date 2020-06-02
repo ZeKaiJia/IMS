@@ -14,29 +14,23 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class User implements Serializable {
+public class User extends AbstractEntity {
     private static final long serialVersionUID = 1L;
     private String usrId;
     private String usrPassword;
     private String usrType;
     private long lastLogin;
-    private long utcCreate;
-    private long utcModify;
-    private Boolean isReal;
 
     public User() {
         super();
-        isReal = true;
     }
 
     public User(String usrId, String usrPassword, String usrType, long lastLogin, long utcCreate, long utcModify) {
+        super(utcCreate, utcModify);
         this.usrId = usrId;
         this.usrPassword = usrPassword;
         this.usrType = usrType;
         this.lastLogin = lastLogin;
-        this.utcCreate = utcCreate;
-        this.utcModify = utcModify;
-        this.isReal = true;
     }
 
     @Override
@@ -48,12 +42,12 @@ public class User implements Serializable {
             return false;
         }
         User user = (User) o;
-        return isReal == user.isReal &&
-                usrId.equals(user.usrId);
+        return this.getIsReal().equals(user.getIsReal()) &&
+                this.usrId.equals(user.usrId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(usrId, isReal);
+        return Objects.hash(this.usrId, this.getIsReal());
     }
 }

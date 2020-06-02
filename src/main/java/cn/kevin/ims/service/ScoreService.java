@@ -2,7 +2,7 @@ package cn.kevin.ims.service;
 
 import cn.kevin.ims.entity.Score;
 import cn.kevin.ims.mapper.ScoreMapper;
-import cn.kevin.ims.util.DateUtils;
+import cn.kevin.ims.util.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,7 +27,7 @@ public class ScoreService {
     public Score insert(Score sco) {
         score = scoreMapper.select(sco);
         if (score == null) {
-            long currentSecond = DateUtils.currentSecond();
+            long currentSecond = DateUtil.currentSecond();
             sco.setUtcCreate(currentSecond);
             sco.setUtcModify(currentSecond);
             scoreMapper.insert(sco);
@@ -48,7 +48,7 @@ public class ScoreService {
         score = new Score(stuId, subId);
         score = scoreMapper.select(score);
         if (score != null) {
-            score.setUtcModify(DateUtils.currentSecond());
+            score.setUtcModify(DateUtil.currentSecond());
             score.setIsReal(false);
             scoreMapper.delete(score);
         }
@@ -61,10 +61,10 @@ public class ScoreService {
         scores = scoreMapper.selectByAllInfo(score);
         if (scores.size() != 0) {
             for (Score sco : scores) {
-                sco.setUtcModify(DateUtils.currentSecond());
+                sco.setUtcModify(DateUtil.currentSecond());
                 sco.setIsReal(false);
             }
-            score.setUtcModify(DateUtils.currentSecond());
+            score.setUtcModify(DateUtil.currentSecond());
             scoreMapper.deleteAll(score);
         }
         return scores;
@@ -74,7 +74,7 @@ public class ScoreService {
         score = scoreMapper.select(sco);
         if (score != null) {
             sco.setUtcCreate(score.getUtcCreate());
-            sco.setUtcModify(DateUtils.currentSecond());
+            sco.setUtcModify(DateUtil.currentSecond());
             scoreMapper.update(sco);
             return sco;
         }

@@ -1,6 +1,6 @@
 package cn.kevin.ims.controller;
 
-import cn.kevin.ims.util.DateUtils;
+import cn.kevin.ims.util.DateUtil;
 import cn.kevin.ims.vo.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +35,7 @@ public abstract class BaseController {
                 .setMessage(msg)
                 .setSuccess(false)
                 .setData(null)
-                .setTimestamp(DateUtils.currentSecond());
+                .setTimestamp(DateUtil.currentSecond());
     }
 
 
@@ -45,7 +45,7 @@ public abstract class BaseController {
                 .setMessage("Success!")
                 .setSuccess(true)
                 .setData(data)
-                .setTimestamp(DateUtils.currentSecond());
+                .setTimestamp(DateUtil.currentSecond());
     }
 
     protected long getCurrentUserId() {

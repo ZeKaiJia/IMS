@@ -14,7 +14,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class Student implements Serializable {
+public class Student extends AbstractEntity {
     private static final long serialVersionUID = 1L;
     private Integer stuId;
     private Integer stuAge;
@@ -22,37 +22,29 @@ public class Student implements Serializable {
     private String stuEmail;
     private Integer stuGender;
     private String stuName;
-    private long utcCreate;
-    private long utcModify;
-    private Boolean isReal;
 
     public Student() {
         super();
-        this.isReal = true;
     }
 
     public Student(Student student) {
+        super(student.getUtcCreate(), student.getUtcModify());
         this.stuId = student.stuId;
         this.stuAge = student.stuAge;
         this.stuBirthday = student.stuBirthday;
         this.stuEmail = student.stuEmail;
         this.stuGender = student.stuGender;
         this.stuName = student.stuName;
-        this.utcCreate = student.utcCreate;
-        this.utcModify = student.utcModify;
-        this.isReal = student.isReal;
     }
 
     public Student(Integer stuId, Integer stuAge, Date stuBirthday, String stuEmail, Integer stuGender, String stuName, long utcCreate, long utcModify) {
+        super(utcCreate, utcModify);
         this.stuId = stuId;
         this.stuAge = stuAge;
         this.stuBirthday = stuBirthday;
         this.stuEmail = stuEmail;
         this.stuGender = stuGender;
         this.stuName = stuName;
-        this.utcCreate = utcCreate;
-        this.utcModify = utcModify;
-        this.isReal = true;
     }
 
     @Override
@@ -64,12 +56,12 @@ public class Student implements Serializable {
             return false;
         }
         Student student = (Student) o;
-        return stuId.equals(student.stuId) &&
-                isReal.equals(student.isReal);
+        return this.stuId.equals(student.stuId) &&
+                this.getIsReal().equals(student.getIsReal());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stuId, isReal);
+        return Objects.hash(this.stuId, this.getIsReal());
     }
 }

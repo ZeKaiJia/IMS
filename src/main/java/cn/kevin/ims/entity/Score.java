@@ -13,18 +13,14 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class Score implements Serializable {
+public class Score extends AbstractEntity {
     private static final long serialVersionUID = 1L;
     private Integer stuId;
     private Integer subId;
     private Integer subScore;
-    private long utcCreate;
-    private long utcModify;
-    private Boolean isReal;
 
     public Score() {
         super();
-        this.isReal = true;
     }
 
     public Score(Integer stuId, Integer subId) {
@@ -33,12 +29,10 @@ public class Score implements Serializable {
     }
 
     public Score(Integer stuId, Integer subId, Integer subScore, long utcCreate, long utcModify) {
+        super(utcCreate, utcModify);
         this.stuId = stuId;
         this.subId = subId;
         this.subScore = subScore;
-        this.utcCreate = utcCreate;
-        this.utcModify = utcModify;
-        this.isReal = true;
     }
 
     @Override
@@ -50,13 +44,13 @@ public class Score implements Serializable {
             return false;
         }
         Score score = (Score) o;
-        return stuId.equals(score.stuId) &&
-                subId.equals(score.subId) &&
-                isReal.equals(score.isReal);
+        return this.stuId.equals(score.stuId) &&
+                this.subId.equals(score.subId) &&
+                this.getIsReal().equals(score.getIsReal());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stuId, subId, isReal);
+        return Objects.hash(this.stuId, this.subId, this.getIsReal());
     }
 }

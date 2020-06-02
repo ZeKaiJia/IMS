@@ -13,29 +13,23 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class Subject implements Serializable {
+public class Subject extends AbstractEntity {
     private static final long serialVersionUID = 1L;
     private Integer subId;
     private String subName;
     private Integer subTeacherId;
     private Integer subCredit;
-    private long utcCreate;
-    private long utcModify;
-    private Boolean isReal;
 
     public Subject() {
         super();
-        this.isReal = true;
     }
 
     public Subject(Integer subId, String subName, Integer subTeacherId, Integer subCredit, long utcCreate, long utcModify) {
+        super(utcCreate, utcModify);
         this.subId = subId;
         this.subName = subName;
         this.subTeacherId = subTeacherId;
         this.subCredit = subCredit;
-        this.utcCreate = utcCreate;
-        this.utcModify = utcModify;
-        this.isReal = true;
     }
 
     @Override
@@ -47,12 +41,12 @@ public class Subject implements Serializable {
             return false;
         }
         Subject subject = (Subject) o;
-        return subId.equals(subject.subId) &&
-                isReal.equals(subject.isReal);
+        return this.subId.equals(subject.subId) &&
+                this.getIsReal().equals(subject.getIsReal());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subId, isReal);
+        return Objects.hash(this.subId, this.getIsReal());
     }
 }

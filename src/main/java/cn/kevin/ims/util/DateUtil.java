@@ -13,9 +13,9 @@ import java.util.GregorianCalendar;
 /**
  * @author kevin
  */
-public class DateUtils {
+public class DateUtil {
     public static final long ONE_DAY_LONG = 86400000;
-    private static DateUtils classInstance = new DateUtils();
+    private static DateUtil classInstance = new DateUtil();
 
     public static Long currentSecond() {
         return System.currentTimeMillis();

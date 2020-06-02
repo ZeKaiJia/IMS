@@ -2,7 +2,7 @@ package cn.kevin.ims.service;
 
 import cn.kevin.ims.entity.User;
 import cn.kevin.ims.mapper.UserMapper;
-import cn.kevin.ims.util.DateUtils;
+import cn.kevin.ims.util.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,8 +27,8 @@ public class UserService {
     public User insert(User usr) {
         user = userMapper.select(usr.getUsrId());
         if (user == null) {
-            usr.setUtcCreate(DateUtils.currentSecond());
-            usr.setUtcModify(DateUtils.currentSecond());
+            usr.setUtcCreate(DateUtil.currentSecond());
+            usr.setUtcModify(DateUtil.currentSecond());
             userMapper.insert(usr);
             return usr;
         }
@@ -47,7 +47,7 @@ public class UserService {
     public User delete(String usrId) {
         user = userMapper.select(usrId);
         if (user != null) {
-            user.setUtcModify(DateUtils.currentSecond());
+            user.setUtcModify(DateUtil.currentSecond());
             user.setIsReal(false);
             userMapper.delete(user);
         }
@@ -57,7 +57,7 @@ public class UserService {
     public User update(User usr) {
         user = userMapper.select(usr.getUsrId());
         if (user != null) {
-            user.setUtcModify(DateUtils.currentSecond());
+            user.setUtcModify(DateUtil.currentSecond());
             user.setUsrPassword(usr.getUsrPassword());
             userMapper.update(user);
             return user;
@@ -69,7 +69,7 @@ public class UserService {
         users = userMapper.selectByAllInfo(usr);
         if (users.size() != 0) {
             user = select(usr.getUsrId());
-            user.setLastLogin(DateUtils.currentSecond());
+            user.setLastLogin(DateUtil.currentSecond());
             userMapper.login(user);
             return user;
         }

@@ -2,7 +2,7 @@ package cn.kevin.ims.controller;
 
 import cn.kevin.ims.entity.User;
 import cn.kevin.ims.service.UserService;
-import cn.kevin.ims.util.DateUtils;
+import cn.kevin.ims.util.DateUtil;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
 import org.jetbrains.annotations.NotNull;
@@ -152,7 +152,7 @@ public class IndexController extends BaseController {
         user.setUsrId("12345");
         user.setUsrPassword("12345");
         user.setUsrType("管理员");
-        user.setLastLogin(DateUtils.currentSecond());
+        user.setLastLogin(DateUtil.currentSecond());
         System.out.println(JSON.toJSONString(user));
     }
 }

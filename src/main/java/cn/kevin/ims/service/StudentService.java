@@ -2,7 +2,7 @@ package cn.kevin.ims.service;
 
 import cn.kevin.ims.entity.Student;
 import cn.kevin.ims.mapper.StudentMapper;
-import cn.kevin.ims.util.DateUtils;
+import cn.kevin.ims.util.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,8 +25,8 @@ public class StudentService {
     public Student insert(Student stu) {
         student = studentMapper.select(stu.getStuId());
         if (student == null) {
-            stu.setUtcCreate(DateUtils.currentSecond());
-            stu.setUtcModify(DateUtils.currentSecond());
+            stu.setUtcCreate(DateUtil.currentSecond());
+            stu.setUtcModify(DateUtil.currentSecond());
             studentMapper.insert(stu);
             return stu;
         }
@@ -45,7 +45,7 @@ public class StudentService {
     public Student delete(Integer stuId) {
         student = studentMapper.select(stuId);
         if (student != null) {
-            student.setUtcModify(DateUtils.currentSecond());
+            student.setUtcModify(DateUtil.currentSecond());
             student.setIsReal(false);
             studentMapper.delete(student);
         }
@@ -56,7 +56,7 @@ public class StudentService {
         student = studentMapper.select(stu.getStuId());
         if (student != null) {
             stu.setUtcCreate(student.getUtcCreate());
-            stu.setUtcModify(DateUtils.currentSecond());
+            stu.setUtcModify(DateUtil.currentSecond());
             studentMapper.update(stu);
             return stu;
         }
