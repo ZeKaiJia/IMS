@@ -6,6 +6,7 @@ import cn.kevin.ims.util.DateUtil;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,7 +18,8 @@ import java.util.List;
  * @Author: Kevin
  * @Date: 2020/2/18 10:30 下午
  */
-@RestController()
+//@RestController()
+@Controller
 @RequestMapping("/login/")
 public class IndexController extends BaseController {
     private static final String INDEX = "index";
@@ -96,13 +98,17 @@ public class IndexController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ModelAndView("login")
-                    .addObject("msg", "Try again");
+                    .addObject("msg", "出错啦，请再试一次");
+        }
+        if (result == null) {
+            return new ModelAndView("login")
+                    .addObject("msg", "用户ID不存在，请点击注册");
         }
         if (!result.getUsrPassword().equals(usrPassword)) {
             return new ModelAndView("login")
-                    .addObject("msg", "Try again");
+                    .addObject("msg", "密码错误，请重新填写");
         }
-        request.getSession().setAttribute("usrId", result.getUsrId());
+//        request.getSession().setAttribute("usrId", result.getUsrId());
         return new ModelAndView("管理员".equals(result.getUsrType()) ? "admin" : "home")
                 .addObject("usrId", result.getUsrId())
                 .addObject("usrPassword", result.getUsrPassword())
@@ -113,9 +119,9 @@ public class IndexController extends BaseController {
                 .addObject("idReal", result.getIsReal());
     }
 
-    @RequestMapping("/toLogin")
+    @RequestMapping(value = "/toLogin", method = RequestMethod.GET)
     public String toLogin() {
-        return "/login.jsp";
+        return "login";
     }
 
     @GetMapping(value = "home")

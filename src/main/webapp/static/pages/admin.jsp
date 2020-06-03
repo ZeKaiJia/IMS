@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>admin</title>
+    <title>Admin</title>
 </head>
 <body>
-
+您是管理员
 </body>
 </html>

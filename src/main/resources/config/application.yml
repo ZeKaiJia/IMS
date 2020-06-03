@@ -3,7 +3,6 @@ server:
 
 logging.level.root: INFO
 
-
 ################### Spring DataSource Configuration ##########################
 spring:
   datasource:
@@ -13,9 +12,10 @@ spring:
     url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
   mvc:
     view:
-      prefix: /WEB-INF/jsp/
+      prefix: /static/pages/
       suffix: .jsp
     static-path-pattern: /**
+
   resources:
     static-locations: classpath:/static/
 
