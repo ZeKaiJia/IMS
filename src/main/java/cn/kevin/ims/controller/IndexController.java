@@ -89,12 +89,16 @@ public class IndexController extends BaseController {
     }
 
     @PostMapping(value = "/login")
-    public ModelAndView login(HttpServletRequest request, @RequestBody User user) {
+    public ModelAndView login(HttpServletRequest request, String usrId, String usrPassword) {
         User result;
         try {
-            result = userService.login(user);
+            result = userService.login(usrId, usrPassword);
         } catch (Exception e) {
             e.printStackTrace();
+            return new ModelAndView("login")
+                    .addObject("msg", "Try again");
+        }
+        if (!result.getUsrPassword().equals(usrPassword)) {
             return new ModelAndView("login")
                     .addObject("msg", "Try again");
         }
@@ -107,6 +111,11 @@ public class IndexController extends BaseController {
                 .addObject("utcCreate", result.getUtcCreate())
                 .addObject("utcModify", result.getUtcModify())
                 .addObject("idReal", result.getIsReal());
+    }
+
+    @RequestMapping("/toLogin")
+    public String toLogin() {
+        return "/login.jsp";
     }
 
     @GetMapping(value = "home")

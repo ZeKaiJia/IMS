@@ -65,12 +65,13 @@ public class UserService {
         return null;
     }
 
-    public User login(User usr) {
-        users = userMapper.selectByAllInfo(usr);
-        if (users.size() != 0) {
-            user = select(usr.getUsrId());
-            user.setLastLogin(DateUtil.currentSecond());
-            userMapper.login(user);
+    public User login(String usrId, String usrPassword) {
+        user = userMapper.select(usrId);
+        if (user != null ) {
+            if (user.getUsrPassword().equals(usrPassword)) {
+                user.setLastLogin(DateUtil.currentSecond());
+                userMapper.login(user);
+            }
             return user;
         }
         return null;

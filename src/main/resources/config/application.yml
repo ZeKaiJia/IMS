@@ -13,8 +13,8 @@ spring:
     url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
   mvc:
     view:
-      prefix: /
-      suffix: .html
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
     static-path-pattern: /**
   resources:
     static-locations: classpath:/static/

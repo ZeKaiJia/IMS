@@ -4,38 +4,38 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <!--spring监听器-->
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+<!--    &lt;!&ndash;spring监听器&ndash;&gt;-->
+<!--    <listener>-->
+<!--        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+<!--    </listener>-->
 
-    <!--解决乱码-->
-    <filter>
-        <filter-name>SpringEncodingFilter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>forceEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <!--映射的路径-->
-    <filter-mapping>
-        <filter-name>SpringEncodingFilter</filter-name>
-        <url-pattern>/</url-pattern>
-    </filter-mapping>
-    <!-- 声明静态资源类型，加入spring扫描 -->
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
+<!--    &lt;!&ndash;解决乱码&ndash;&gt;-->
+<!--    <filter>-->
+<!--        <filter-name>SpringEncodingFilter</filter-name>-->
+<!--        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>-->
+<!--        <init-param>-->
+<!--            <param-name>encoding</param-name>-->
+<!--            <param-value>UTF-8</param-value>-->
+<!--        </init-param>-->
+<!--        <init-param>-->
+<!--            <param-name>forceEncoding</param-name>-->
+<!--            <param-value>true</param-value>-->
+<!--        </init-param>-->
+<!--    </filter>-->
+<!--    &lt;!&ndash;映射的路径&ndash;&gt;-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>SpringEncodingFilter</filter-name>-->
+<!--        <url-pattern>/</url-pattern>-->
+<!--    </filter-mapping>-->
+<!--    &lt;!&ndash; 声明静态资源类型，加入spring扫描 &ndash;&gt;-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>default</servlet-name>-->
+<!--        <url-pattern>*.jsp</url-pattern>-->
+<!--    </servlet-mapping>-->
 
-    <!-- 首页，可以多个，根据顺来显示-->
+    <!-- 首页，可以多个，根据顺序来显示-->
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 <!--    <servlet>-->
 <!--        <servlet-name>springDispatcherServlet</servlet-name>-->
