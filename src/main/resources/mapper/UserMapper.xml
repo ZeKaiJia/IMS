@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.kevin.ims.mapper.UserMapper">
+<mapper namespace="cn.kevin.ims.dao.UserMapper">
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
-    <insert id="insert" parameterType="cn.kevin.ims.entity.User">
+    <insert id="insert" parameterType="cn.kevin.ims.model.User">
         INSERT INTO User (usrId, usrPassword, usrType, lastLogin, utcCreate, utcModify, isReal)
         VALUE (#{usrId}, #{usrPassword}, #{usrType}, #{lastLogin}, #{utcCreate}, #{utcModify}, 1)
     </insert>
@@ -14,13 +14,13 @@
         FROM User
         WHERE isReal = 0
     </delete>
-    <update id="delete" parameterType="cn.kevin.ims.entity.User">
+    <update id="delete" parameterType="cn.kevin.ims.model.User">
         UPDATE User
         SET isReal = 0,
         utcModify = #{utcModify}
         WHERE usrId = #{usrId}
     </update>
-    <update id="update" parameterType="cn.kevin.ims.entity.User">
+    <update id="update" parameterType="cn.kevin.ims.model.User">
         UPDATE User
         <set>
             <if test="usrPassword != null and usrPassword != ''">
@@ -41,18 +41,18 @@
         </set>
         WHERE usrId = #{usrId}
     </update>
-    <select id="select" parameterType="String" resultType="cn.kevin.ims.entity.User">
+    <select id="select" parameterType="String" resultType="cn.kevin.ims.model.User">
         SELECT *
         FROM User
         WHERE usrId = #{usrId}
         AND isReal = 1
     </select>
-    <select id="selectAll" resultType="cn.kevin.ims.entity.User">
+    <select id="selectAll" resultType="cn.kevin.ims.model.User">
         SELECT *
         FROM User
         WHERE isReal = 1
     </select>
-    <select id="selectByAllInfo" parameterType="cn.kevin.ims.entity.User" resultType="cn.kevin.ims.entity.User">
+    <select id="selectByAllInfo" parameterType="cn.kevin.ims.model.User" resultType="cn.kevin.ims.model.User">
         SELECT *
         FROM User
         WHERE (usrId = #{usrId}
@@ -63,7 +63,7 @@
         OR utcModify = #{utcModify})
         AND isReal = 1
     </select>
-    <select id="selectGarbage" resultType="cn.kevin.ims.entity.User">
+    <select id="selectGarbage" resultType="cn.kevin.ims.model.User">
         SELECT *
         FROM User
         WHERE isReal = 0

@@ -1,7 +1,7 @@
 package cn.kevin.ims.service;
 
-import cn.kevin.ims.entity.User;
-import cn.kevin.ims.mapper.UserMapper;
+import cn.kevin.ims.model.User;
+import cn.kevin.ims.dao.UserMapper;
 import cn.kevin.ims.util.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

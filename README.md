@@ -182,3 +182,7 @@
 <li>好久没有更新这个项目了，过完六一我就不是孩子了，不能随便拖更。</li>
 <li>重构了一下，现在的 Entity 实体都继承自 AbstractEntity 类。</li>
 <li>加了一个类型处理器 typeHandlers 想处理日期类的数据，后来发现日期已经转换好了没必要再转换。</li>
+
+### 2020.6.3 - Demo 3.1.7
+<li>mapper -> dao , entity -> model .</li>
+<li>新增了一些配置信息</li>

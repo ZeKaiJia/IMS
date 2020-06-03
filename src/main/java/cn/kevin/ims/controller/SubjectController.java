@@ -1,6 +1,6 @@
 package cn.kevin.ims.controller;
 
-import cn.kevin.ims.entity.Subject;
+import cn.kevin.ims.model.Subject;
 import cn.kevin.ims.service.SubjectService;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;

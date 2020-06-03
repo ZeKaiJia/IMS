@@ -125,6 +125,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.caohongliang</groupId>
+            <artifactId>mybatis-generator-maven-plugin</artifactId>
+            <version>1.0.3</version>
+        </dependency>
 
         <!--JSON解析-->
         <dependency>

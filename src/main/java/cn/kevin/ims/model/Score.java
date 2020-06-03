@@ -1,10 +1,9 @@
-package cn.kevin.ims.entity;
+package cn.kevin.ims.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**

@@ -1,6 +1,6 @@
 package cn.kevin.ims.controller;
 
-import cn.kevin.ims.entity.User;
+import cn.kevin.ims.model.User;
 import cn.kevin.ims.service.UserService;
 import cn.kevin.ims.util.DateUtil;
 import cn.kevin.ims.vo.Response;

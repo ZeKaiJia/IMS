@@ -4,7 +4,7 @@ server:
 logging.level.root: INFO
 
 
-################### DataSource Configuration ##########################
+################### Spring DataSource Configuration ##########################
 spring:
   datasource:
     username: root
@@ -13,12 +13,13 @@ spring:
     url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
   mvc:
     view:
-      prefix: /WEB-INF/
-      suffix: .jsp
+      prefix: /
+      suffix: .html
     static-path-pattern: /**
   resources:
     static-locations: classpath:/static/
 
+################### Mybatis DataSource Configuration ##########################
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

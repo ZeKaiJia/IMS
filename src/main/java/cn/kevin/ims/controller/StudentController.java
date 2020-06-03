@@ -1,7 +1,7 @@
 package cn.kevin.ims.controller;
 
 import cn.kevin.ims.aop.LoginAction;
-import cn.kevin.ims.entity.Student;
+import cn.kevin.ims.model.Student;
 import cn.kevin.ims.service.StudentService;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;

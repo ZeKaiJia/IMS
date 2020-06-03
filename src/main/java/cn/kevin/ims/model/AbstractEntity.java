@@ -1,12 +1,9 @@
-package cn.kevin.ims.entity;
+package cn.kevin.ims.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 /**
  * @Author: Kevin

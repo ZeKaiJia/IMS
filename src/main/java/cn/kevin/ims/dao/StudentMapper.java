@@ -1,6 +1,6 @@
-package cn.kevin.ims.mapper;
+package cn.kevin.ims.dao;
 
-import cn.kevin.ims.entity.Student;
+import cn.kevin.ims.model.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * @author kevin
  */
-@Mapper
 @Repository
 public interface StudentMapper {
     /**
