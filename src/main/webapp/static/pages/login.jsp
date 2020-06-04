@@ -15,8 +15,18 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="../css/login_css.css">
+<%--    <link rel="stylesheet" type="text/css" href="../css/login_css.css">--%>
+    <script src="../font/font/iconfont.js"></script>
     <title>综合信息管理系统</title>
+    <style>
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+    </style>
     <script>
         function validate() {
             if (document.getElementById("usrId").value === "") {
@@ -34,6 +44,9 @@
 </head>
 
 <body>
+    <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-icon-test"></use>
+    </svg>
     <noscript>
         <strong>We're sorry but information management system doesn't work properly without JavaScript enabled. Please
             enable it to continue.
