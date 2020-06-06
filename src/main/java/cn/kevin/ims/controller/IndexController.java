@@ -33,10 +33,10 @@ public class IndexController extends BaseController {
         return "Hello " + name;
     }
 
-    @GetMapping(value = {"", "/index", "/login"})
-    public String getIndex() {
-        return INDEX;
-    }
+//    @GetMapping(value = {"", "/index", "/login"})
+//    public String getIndex() {
+//        return INDEX;
+//    }
 
     /**
      * insert

@@ -18,7 +18,6 @@ spring:
 
   resources:
     static-locations: classpath:/static/
-
 ################### Mybatis DataSource Configuration ##########################
 mybatis:
   configuration:
@@ -27,4 +26,3 @@ mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: cn.kevin.ims.entityn
   type-handlers-package: cn.kevin.ims.handler
-
