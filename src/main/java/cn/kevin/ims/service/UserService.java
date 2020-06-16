@@ -54,6 +54,22 @@ public class UserService {
         return user;
     }
 
+    public User redelete(String usrId) {
+        users = userMapper.selectAdmin();
+        for (User u : users) {
+            if (u.getUsrId().equals(usrId)) {
+                user = u;
+                break;
+            }
+        }
+        if (user != null) {
+            user.setUtcModify(DateUtil.currentSecond());
+            user.setIsReal(true);
+            userMapper.redelete(user);
+        }
+        return user;
+    }
+
     public User update(User usr) {
         user = userMapper.select(usr.getUsrId());
         if (user != null) {
@@ -91,5 +107,9 @@ public class UserService {
 
     public List<User> selectGarbage() {
         return userMapper.selectGarbage();
+    }
+
+    public List<User> selectAdmin() {
+        return userMapper.selectAdmin();
     }
 }

@@ -27,6 +27,11 @@ public interface UserMapper {
     void delete(User user);
 
     /**
+     * re删除方法
+     */
+    void redelete(User user);
+
+    /**
      * 修改方法 修改密码
      */
     void update(User user);
@@ -52,7 +57,12 @@ public interface UserMapper {
     List<User> selectByAllInfo(User user);
 
     /**
-     * 管理员专用
+     * 管理员专用清除数据
      */
     List<User> selectGarbage();
+
+    /**
+     * 管理员专用搜索全体数据
+     */
+    List<User> selectAdmin();
 }

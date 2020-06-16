@@ -163,6 +163,12 @@
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
+        <!--解决跨域-->
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>2.5</version>
+        </dependency>
     </dependencies>
 
 

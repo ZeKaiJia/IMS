@@ -11,9 +11,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
   mvc:
-    view:
-      prefix: /static/pages/
-      suffix: .jsp
+#    view:
+#      prefix: /static/pages/
+#      suffix: .jsp
     static-path-pattern: /**
 
   resources:
@@ -26,3 +26,5 @@ mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: cn.kevin.ims.entityn
   type-handlers-package: cn.kevin.ims.handler
+
+
