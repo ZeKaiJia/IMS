@@ -105,6 +105,10 @@ public class UserService {
         return userMapper.selectByAllInfo(user);
     }
 
+    public List<User> selectAdminById(String usrId) {
+        return userMapper.selectAdminById(usrId);
+    }
+
     public List<User> selectGarbage() {
         return userMapper.selectGarbage();
     }

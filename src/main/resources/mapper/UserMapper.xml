@@ -73,6 +73,11 @@
         OR utcModify = #{utcModify})
         AND isReal = 1
     </select>
+    <select id="selectAdminById" parameterType="String" resultType="cn.kevin.ims.model.User">
+        SELECT *
+        FROM User
+        WHERE usrId = #{usrId}
+    </select>
     <select id="selectGarbage" resultType="cn.kevin.ims.model.User">
         SELECT *
         FROM User

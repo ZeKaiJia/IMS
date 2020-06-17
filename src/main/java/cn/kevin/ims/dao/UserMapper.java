@@ -65,4 +65,9 @@ public interface UserMapper {
      * 管理员专用搜索全体数据
      */
     List<User> selectAdmin();
+
+    /**
+     * 管理员专用搜索定向数据
+     */
+    List<User> selectAdminById(String usrId);
 }

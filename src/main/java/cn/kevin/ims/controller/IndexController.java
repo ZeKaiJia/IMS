@@ -172,6 +172,16 @@ public class IndexController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    @GetMapping(value = "/selectAdminById")
+    @ResponseBody
+    public Response<List<User>> selectAdminById(String usrId) {
+        List<User> result = userService.selectAdminById(usrId);
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not find!");
+    }
+
     @GetMapping(value = "/selectByAllInfo")
     @ResponseBody
     public Response<List<User>> selectByAllInfo(@RequestBody User user) {
