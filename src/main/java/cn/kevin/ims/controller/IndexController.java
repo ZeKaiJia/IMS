@@ -54,9 +54,9 @@ public class IndexController extends BaseController {
      */
     @PostMapping(value = "/save")
     @ResponseBody
-    public Response<List<User>> save() {
-        List<User> result = userService.save();
-        if (result.size() != 0) {
+    public Response<User> save(String usrId) {
+        User result = userService.save(usrId);
+        if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not find!");
@@ -174,9 +174,9 @@ public class IndexController extends BaseController {
 
     @GetMapping(value = "/selectAdminById")
     @ResponseBody
-    public Response<List<User>> selectAdminById(String usrId) {
-        List<User> result = userService.selectAdminById(usrId);
-        if (result.size() != 0) {
+    public Response<User> selectAdminById(String usrId) {
+        User result = userService.selectAdminById(usrId);
+        if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not find!");

@@ -36,12 +36,12 @@ public class UserService {
     }
 
 
-    public List<User> save() {
-        users = userMapper.selectGarbage();
-        if (users.size() != 0) {
-            userMapper.save();
+    public User save(String usrId) {
+        user = userMapper.selectAdminById(usrId);
+        if (user != null) {
+            userMapper.save(usrId);
         }
-        return users;
+        return user;
     }
 
     public User delete(String usrId) {
@@ -75,6 +75,7 @@ public class UserService {
         if (user != null) {
             user.setUtcModify(DateUtil.currentSecond());
             user.setUsrPassword(usr.getUsrPassword());
+            user.setUsrType(usr.getUsrType());
             userMapper.update(user);
             return user;
         }
@@ -105,7 +106,7 @@ public class UserService {
         return userMapper.selectByAllInfo(user);
     }
 
-    public List<User> selectAdminById(String usrId) {
+    public User selectAdminById(String usrId) {
         return userMapper.selectAdminById(usrId);
     }
 

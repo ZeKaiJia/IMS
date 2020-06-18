@@ -9,10 +9,10 @@
         INSERT INTO User (usrId, usrPassword, usrType, lastLogin, utcCreate, utcModify, isReal)
         VALUE (#{usrId}, #{usrPassword}, #{usrType}, #{lastLogin}, #{utcCreate}, #{utcModify}, 1)
     </insert>
-    <delete id="save">
+    <delete id="save" parameterType="String">
         DELETE
         FROM User
-        WHERE isReal = 0
+        WHERE usrId = #{usrId}
     </delete>
     <update id="delete" parameterType="cn.kevin.ims.model.User">
         UPDATE User
@@ -31,6 +31,9 @@
         <set>
             <if test="usrPassword != null and usrPassword != ''">
                 usrPassword = #{usrPassword},
+            </if>
+            <if test="usrType != null and usrType != ''">
+                usrType = #{usrType},
             </if>
             <if test="true">
                 utcModify = #{utcModify},

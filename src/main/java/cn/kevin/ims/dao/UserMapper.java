@@ -17,9 +17,9 @@ public interface UserMapper {
     void insert(User user);
 
     /**
-     * 保存功能 删除不存在数据
+     * 保存功能 删除数据
      */
-    void save();
+    void save(String usrId);
 
     /**
      * 删除方法
@@ -69,5 +69,5 @@ public interface UserMapper {
     /**
      * 管理员专用搜索定向数据
      */
-    List<User> selectAdminById(String usrId);
+    User selectAdminById(String usrId);
 }
