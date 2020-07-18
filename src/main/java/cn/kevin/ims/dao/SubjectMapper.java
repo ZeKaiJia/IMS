@@ -1,6 +1,7 @@
 package cn.kevin.ims.dao;
 
 import cn.kevin.ims.model.Subject;
+import cn.kevin.ims.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -19,12 +20,17 @@ public interface SubjectMapper {
     /**
      * 保存功能 删除不存在数据
      */
-    void save();
+    void save(Integer subId);
 
     /**
      * 删除方法 id
      */
     void delete(Subject subject);
+
+    /**
+     * re删除方法
+     */
+    void reDelete(Subject subject);
 
     /**
      * 修改方法
@@ -55,4 +61,15 @@ public interface SubjectMapper {
      * 管理员专用
      */
     List<Subject> selectGarbage();
+
+
+    /**
+     * 管理员专用搜索全体数据
+     */
+    List<Subject> selectAdmin();
+
+    /**
+     * 管理员专用搜索定向数据
+     */
+    Subject selectAdminById(Integer subId);
 }

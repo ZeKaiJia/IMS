@@ -2,6 +2,7 @@ package cn.kevin.ims.service;
 
 import cn.kevin.ims.model.Student;
 import cn.kevin.ims.dao.StudentMapper;
+import cn.kevin.ims.model.User;
 import cn.kevin.ims.util.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -22,6 +23,8 @@ public class StudentService {
 
     private Student student;
 
+    private List<Student> students;
+
     public Student insert(Student stu) {
         student = studentMapper.select(stu.getStuId());
         if (student == null) {
@@ -34,12 +37,12 @@ public class StudentService {
     }
 
 
-    public List<Student> save() {
-        List<Student> students = studentMapper.selectGarbage();
-        if (students.size() != 0) {
-            studentMapper.save();
+    public Student save(Integer stuId) {
+        student = studentMapper.select(stuId);
+        if (student != null) {
+            studentMapper.save(stuId);
         }
-        return students;
+        return student;
     }
 
     public Student delete(Integer stuId) {
@@ -52,11 +55,27 @@ public class StudentService {
         return student;
     }
 
+    public Student reDelete(Integer stuId) {
+        students = studentMapper.selectAdmin();
+        for (Student s : students) {
+            if (s.getStuId().equals(stuId)) {
+                student = s;
+                break;
+            }
+        }
+        if (student != null) {
+            student.setUtcModify(DateUtil.currentSecond());
+            student.setIsReal(true);
+            studentMapper.reDelete(student);
+        }
+        return student;
+    }
+
     public Student update(Student stu) {
         student = studentMapper.select(stu.getStuId());
         if (student != null) {
-            stu.setUtcCreate(student.getUtcCreate());
             stu.setUtcModify(DateUtil.currentSecond());
+            stu.setUtcCreate(student.getUtcCreate());
             studentMapper.update(stu);
             return stu;
         }
@@ -81,5 +100,13 @@ public class StudentService {
 
     public List<Student> selectGarbage() {
         return studentMapper.selectGarbage();
+    }
+
+    public List<Student> selectAdmin() {
+        return studentMapper.selectAdmin();
+    }
+
+    public Student selectAdminById(Integer stuId) {
+        return studentMapper.selectAdminById(stuId);
     }
 }

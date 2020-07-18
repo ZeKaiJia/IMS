@@ -22,8 +22,6 @@ public class UserService {
 
     private User user;
 
-    private List<User> users;
-
     public User insert(User usr) {
         user = userMapper.select(usr.getUsrId());
         if (user == null) {
@@ -37,7 +35,7 @@ public class UserService {
 
 
     public User save(String usrId) {
-        user = userMapper.selectAdminById(usrId);
+        user = userMapper.select(usrId);
         if (user != null) {
             userMapper.save(usrId);
         }
@@ -54,8 +52,8 @@ public class UserService {
         return user;
     }
 
-    public User redelete(String usrId) {
-        users = userMapper.selectAdmin();
+    public User reDelete(String usrId) {
+        List<User> users = userMapper.selectAdmin();
         for (User u : users) {
             if (u.getUsrId().equals(usrId)) {
                 user = u;
@@ -65,7 +63,7 @@ public class UserService {
         if (user != null) {
             user.setUtcModify(DateUtil.currentSecond());
             user.setIsReal(true);
-            userMapper.redelete(user);
+            userMapper.reDelete(user);
         }
         return user;
     }
@@ -73,11 +71,10 @@ public class UserService {
     public User update(User usr) {
         user = userMapper.select(usr.getUsrId());
         if (user != null) {
-            user.setUtcModify(DateUtil.currentSecond());
-            user.setUsrPassword(usr.getUsrPassword());
-            user.setUsrType(usr.getUsrType());
-            userMapper.update(user);
-            return user;
+            usr.setUtcModify(DateUtil.currentSecond());
+            usr.setUtcCreate(user.getUtcCreate());
+            userMapper.update(usr);
+            return usr;
         }
         return null;
     }

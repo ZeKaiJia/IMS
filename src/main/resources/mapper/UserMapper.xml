@@ -20,7 +20,7 @@
         utcModify = #{utcModify}
         WHERE usrId = #{usrId}
     </update>
-    <update id="redelete" parameterType="cn.kevin.ims.model.User">
+    <update id="reDelete" parameterType="cn.kevin.ims.model.User">
         UPDATE User
         SET isReal = 1,
             utcModify = #{utcModify}

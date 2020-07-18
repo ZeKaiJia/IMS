@@ -10,15 +10,21 @@
         VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{utcCreate},
         #{utcModify}, 1)
     </insert>
-    <delete id="save">
+    <delete id="save" parameterType="Integer">
         DELETE
         FROM Student
-        WHERE isReal = 0
+        WHERE stuId = #{stuId}
     </delete>
     <update id="delete" parameterType="cn.kevin.ims.model.Student">
         UPDATE Student
         SET isReal = 0,
         utcModify = #{utcModify}
+        WHERE stuId = #{stuId}
+    </update>
+    <update id="reDelete" parameterType="cn.kevin.ims.model.Student">
+        UPDATE Student
+        SET isReal = 1,
+            utcModify = #{utcModify}
         WHERE stuId = #{stuId}
     </update>
     <update id="update" parameterType="cn.kevin.ims.model.Student">
@@ -56,6 +62,10 @@
         FROM Student
         WHERE isReal = 1
     </select>
+    <select id="selectAdmin" resultType="cn.kevin.ims.model.Student">
+        SELECT *
+        FROM Student
+    </select>
     <select id="selectByAllInfo" parameterType="cn.kevin.ims.model.Student" resultType="cn.kevin.ims.model.Student">
         SELECT *
         FROM Student
@@ -73,6 +83,11 @@
         FROM Student
         WHERE stuName LIKE '%${value}%'
         AND isReal = 1
+    </select>
+    <select id="selectAdminById" parameterType="Integer" resultType="cn.kevin.ims.model.Student">
+        SELECT *
+        FROM Student
+        WHERE stuID = #{stuID}
     </select>
     <select id="selectGarbage" resultType="cn.kevin.ims.model.Student">
         SELECT *

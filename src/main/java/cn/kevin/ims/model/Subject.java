@@ -16,14 +16,14 @@ public class Subject extends AbstractEntity {
     private static final long serialVersionUID = 1L;
     private Integer subId;
     private String subName;
-    private Integer subTeacherId;
+    private String subTeacherId;
     private Integer subCredit;
 
     public Subject() {
         super();
     }
 
-    public Subject(Integer subId, String subName, Integer subTeacherId, Integer subCredit, long utcCreate, long utcModify) {
+    public Subject(Integer subId, String subName, String subTeacherId, Integer subCredit, long utcCreate, long utcModify) {
         super(utcCreate, utcModify);
         this.subId = subId;
         this.subName = subName;

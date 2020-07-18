@@ -78,10 +78,10 @@ public class IndexController extends BaseController {
     /**
      * delete(in fact it's an update)
      */
-    @PostMapping(value = "/redelete")
+    @PostMapping(value = "/reDelete")
     @ResponseBody
-    public Response<User> redelete(String usrId) {
-        User result = userService.redelete(usrId);
+    public Response<User> reDelete(String usrId) {
+        User result = userService.reDelete(usrId);
         if (result != null) {
             return getSuccessResult(result);
         }

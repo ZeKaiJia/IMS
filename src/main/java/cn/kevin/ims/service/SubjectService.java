@@ -2,6 +2,7 @@ package cn.kevin.ims.service;
 
 import cn.kevin.ims.model.Subject;
 import cn.kevin.ims.dao.SubjectMapper;
+import cn.kevin.ims.model.User;
 import cn.kevin.ims.util.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -33,12 +34,12 @@ public class SubjectService {
         return null;
     }
 
-    public List<Subject> save() {
-        List<Subject> subjects = subjectMapper.selectGarbage();
-        if (subjects.size() != 0) {
-            subjectMapper.save();
+    public Subject save(Integer subId) {
+        subject = subjectMapper.select(subId);
+        if (subId != null) {
+            subjectMapper.save(subId);
         }
-        return subjects;
+        return subject;
     }
 
     public Subject delete(Integer subId) {
@@ -47,6 +48,22 @@ public class SubjectService {
             subject.setUtcModify(DateUtil.currentSecond());
             subject.setIsReal(false);
             subjectMapper.delete(subject);
+        }
+        return subject;
+    }
+
+    public Subject reDelete(Integer subId) {
+        List<Subject> subjects = subjectMapper.selectAdmin();
+        for (Subject s : subjects) {
+            if (s.getSubId().equals(subId)) {
+                subject = s;
+                break;
+            }
+        }
+        if (subject != null) {
+            subject.setUtcModify(DateUtil.currentSecond());
+            subject.setIsReal(true);
+            subjectMapper.reDelete(subject);
         }
         return subject;
     }
@@ -80,5 +97,13 @@ public class SubjectService {
 
     public List<Subject> selectGarbage() {
         return subjectMapper.selectGarbage();
+    }
+
+    public List<Subject> selectAdmin() {
+        return subjectMapper.selectAdmin();
+    }
+
+    public Subject selectAdminById(Integer subId) {
+        return subjectMapper.selectAdminById(subId);
     }
 }

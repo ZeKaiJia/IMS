@@ -2,6 +2,7 @@ package cn.kevin.ims.controller;
 
 import cn.kevin.ims.aop.LoginAction;
 import cn.kevin.ims.model.Student;
+import cn.kevin.ims.model.User;
 import cn.kevin.ims.service.StudentService;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
@@ -16,6 +17,7 @@ import java.util.Random;
 /**
  * @author kevin
  */
+@CrossOrigin
 @RestController()
 @RequestMapping("/student/")
 public class StudentController extends BaseController {
@@ -34,7 +36,6 @@ public class StudentController extends BaseController {
     @PostMapping(value = "/insert")
     @ResponseBody
     public Response<Student> insert(@NotNull @RequestBody Student student) {
-        student.setStuId(new Random().nextInt(5000));
         Student result = studentService.insert(student);
         if (result != null) {
             return getSuccessResult(result);
@@ -47,9 +48,9 @@ public class StudentController extends BaseController {
      */
     @PostMapping(value = "/save")
     @ResponseBody
-    public Response<List<Student>> save() {
-        List<Student> result = studentService.save();
-        if (result.size() != 0) {
+    public Response<Student> save(Integer stuId) {
+        Student result = studentService.save(stuId);
+        if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not find!");
@@ -60,8 +61,21 @@ public class StudentController extends BaseController {
      */
     @PostMapping(value = "/delete")
     @ResponseBody
-    public Response<Student> delete(int id) {
-        Student result = studentService.delete(id);
+    public Response<Student> delete(Integer stuId) {
+        Student result = studentService.delete(stuId);
+        if (result != null) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "ID not find!");
+    }
+
+    /**
+     * delete(in fact it's an update)
+     */
+    @PostMapping(value = "/reDelete")
+    @ResponseBody
+    public Response<Student> reDelete(Integer stuId) {
+        Student result = studentService.reDelete(stuId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -125,6 +139,25 @@ public class StudentController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    @GetMapping(value = "/selectAdmin")
+    @ResponseBody
+    public Response<List<Student>> selectAdmin() {
+        List<Student> result = studentService.selectAdmin();
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not find!");
+    }
+
+    @GetMapping(value = "/selectAdminById")
+    @ResponseBody
+    public Response<Student> selectAdminById(Integer stuId) {
+        Student result = studentService.selectAdminById(stuId);
+        if (result != null) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not find!");
+    }
 
     public static void main(String[] args) {
         Student stu = new Student();

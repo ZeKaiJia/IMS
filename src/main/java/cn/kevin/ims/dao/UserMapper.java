@@ -29,7 +29,7 @@ public interface UserMapper {
     /**
      * re删除方法
      */
-    void redelete(User user);
+    void reDelete(User user);
 
     /**
      * 修改方法 修改密码

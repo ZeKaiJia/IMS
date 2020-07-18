@@ -1,6 +1,7 @@
 package cn.kevin.ims.controller;
 
 import cn.kevin.ims.model.Subject;
+import cn.kevin.ims.model.User;
 import cn.kevin.ims.service.SubjectService;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
@@ -13,6 +14,7 @@ import java.util.Random;
 /**
  * @author kevin
  */
+@CrossOrigin
 @RestController()
 @RequestMapping("/subject/")
 public class SubjectController extends BaseController {
@@ -31,7 +33,6 @@ public class SubjectController extends BaseController {
     @PostMapping(value = "/insert")
     @ResponseBody
     public Response<Subject> insert(@RequestBody Subject subject) {
-        subject.setSubId(new Random().nextInt(5000));
         Subject result = subjectService.insert(subject);
         if (result != null) {
             return getSuccessResult(result);
@@ -44,9 +45,9 @@ public class SubjectController extends BaseController {
      */
     @PostMapping(value = "/save")
     @ResponseBody
-    public Response<List<Subject>> save() {
-        List<Subject> result = subjectService.save();
-        if (result.size() != 0) {
+    public Response<Subject> save(Integer subId) {
+        Subject result = subjectService.save(subId);
+        if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Massage not find!");
@@ -57,8 +58,21 @@ public class SubjectController extends BaseController {
      */
     @PostMapping(value = "/delete")
     @ResponseBody
-    public Response<Subject> delete(int id) {
-        Subject result = subjectService.delete(id);
+    public Response<Subject> delete(Integer subId) {
+        Subject result = subjectService.delete(subId);
+        if (result != null) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "ID not find!");
+    }
+
+    /**
+     * delete(in fact it's an update)
+     */
+    @PostMapping(value = "/reDelete")
+    @ResponseBody
+    public Response<Subject> reDelete(Integer subId) {
+        Subject result = subjectService.reDelete(subId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -121,12 +135,31 @@ public class SubjectController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    @GetMapping(value = "/selectAdmin")
+    @ResponseBody
+    public Response<List<Subject>> selectAdmin() {
+        List<Subject> result = subjectService.selectAdmin();
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not find!");
+    }
+
+    @GetMapping(value = "/selectAdminById")
+    @ResponseBody
+    public Response<Subject> selectAdminById(Integer subId) {
+        Subject result = subjectService.selectAdminById(subId);
+        if (result != null) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not find!");
+    }
 
     public static void main(String[] args) {
         Subject subject = new Subject();
         subject.setSubId(1);
         subject.setSubName("高数");
-        subject.setSubTeacherId(2);
+        subject.setSubTeacherId("2");
         subject.setSubCredit(5);
         System.out.println(JSON.toJSONString(subject));
     }
