@@ -2,6 +2,7 @@ package cn.kevin.ims.service;
 
 import cn.kevin.ims.model.Score;
 import cn.kevin.ims.dao.ScoreMapper;
+import cn.kevin.ims.model.Subject;
 import cn.kevin.ims.util.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -25,28 +26,28 @@ public class ScoreService {
     private Score score;
 
     public Score insert(Score sco) {
-        score = scoreMapper.select(sco);
+        score = scoreMapper.selectAdminById(sco.getStuId(), sco.getSubId());
         if (score == null) {
-            long currentSecond = DateUtil.currentSecond();
-            sco.setUtcCreate(currentSecond);
-            sco.setUtcModify(currentSecond);
+            sco.setUtcCreate(DateUtil.currentSecond());
+            sco.setUtcModify(DateUtil.currentSecond());
             scoreMapper.insert(sco);
             return sco;
         }
         return null;
     }
 
-    public List<Score> save() {
-        scores = scoreMapper.selectGarbage();
-        if (scores.size() != 0) {
-            scoreMapper.save();
+    public Score save(Integer stuId, Integer subId) {
+        Score sco = new Score(stuId, subId);
+        score = scoreMapper.select(sco);
+        if (score != null) {
+            scoreMapper.save(stuId, subId);
         }
-        return scores;
+        return score;
     }
 
     public Score delete(Integer stuId, Integer subId) {
-        score = new Score(stuId, subId);
-        score = scoreMapper.select(score);
+        Score sco = new Score(stuId, subId);
+        score = scoreMapper.select(sco);
         if (score != null) {
             score.setUtcModify(DateUtil.currentSecond());
             score.setIsReal(false);
@@ -55,20 +56,30 @@ public class ScoreService {
         return score;
     }
 
-    public List<Score> deleteAll(Integer stuId) {
-        score = new Score();
-        score.setStuId(stuId);
-        scores = scoreMapper.selectByAllInfo(score);
-        if (scores.size() != 0) {
-            for (Score sco : scores) {
-                sco.setUtcModify(DateUtil.currentSecond());
-                sco.setIsReal(false);
-            }
+    public Score reDelete(Integer stuId, Integer subId) {
+        score = scoreMapper.selectAdminById(stuId, subId);
+        if (score != null) {
             score.setUtcModify(DateUtil.currentSecond());
-            scoreMapper.deleteAll(score);
+            score.setIsReal(true);
+            scoreMapper.reDelete(score);
         }
-        return scores;
+        return score;
     }
+
+//    public List<Score> deleteAll(Integer stuId) {
+//        Score sco = new Score();
+//        sco.setStuId(stuId);
+//        scores = scoreMapper.selectByAllInfo(sco);
+//        if (scores.size() != 0) {
+//            for (Score sco : scores) {
+//                sco.setUtcModify(DateUtil.currentSecond());
+//                sco.setIsReal(false);
+//            }
+//            score.setUtcModify(DateUtil.currentSecond());
+//            scoreMapper.deleteAll(score);
+//        }
+//        return scores;
+//    }
 
     public Score update(Score sco) {
         score = scoreMapper.select(sco);
@@ -100,5 +111,21 @@ public class ScoreService {
 
     public List<Score> selectGarbage() {
         return scoreMapper.selectGarbage();
+    }
+
+    public List<Score> selectAdmin() {
+        return scoreMapper.selectAdmin();
+    }
+
+    public Score selectAdminById(Integer stuId, Integer subId) {
+        return scoreMapper.selectAdminById(stuId, subId);
+    }
+
+    public List<Score> selectAdminByStuId(Integer stuId) {
+        return scoreMapper.selectAdminByStuId(stuId);
+    }
+
+    public List<Score> selectAdminBySubId(Integer subId) {
+        return scoreMapper.selectAdminBySubId(subId);
     }
 }

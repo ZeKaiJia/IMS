@@ -1,7 +1,9 @@
 package cn.kevin.ims.dao;
 
 import cn.kevin.ims.model.Score;
+import cn.kevin.ims.model.Subject;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public interface ScoreMapper {
     /**
      * 保存功能 删除不存在数据
      */
-    void save();
+    void save(@Param("stuId") Integer stuId, @Param("subId") Integer subId);
 
     /**
      * 删除方法 单科 hashmap
@@ -27,9 +29,14 @@ public interface ScoreMapper {
     void delete(Score score);
 
     /**
+     * re删除方法 单科 hashmap
+     */
+    void reDelete(Score score);
+
+    /**
      * 删除方法 学生
      */
-    void deleteAll(Score score);
+    void saveAll(@Param("stuId") Integer stuId);
 
     /**
      * 修改方法 id不可被修改
@@ -54,15 +61,35 @@ public interface ScoreMapper {
     /**
      * 查找方法 及格
      */
-    List<Score> selectPassScore(Integer subScore);
+    List<Score> selectPassScore(@Param("subScore") Integer subScore);
 
     /**
      * 通过学生ID获取
      */
-    List<Score> getByStudentId(Integer stuId);
+    List<Score> getByStudentId(@Param("stuId") Integer stuId);
 
     /**
      * 管理员专用
      */
     List<Score> selectGarbage();
+
+    /**
+     * 管理员专用搜索全体数据
+     */
+    List<Score> selectAdmin();
+
+    /**
+     * 管理员专用搜索定向数据
+     */
+    Score selectAdminById(@Param("stuId") Integer stuId, @Param("subId") Integer subId);
+
+    /**
+     * 管理员专用根据学号搜索定向数据
+     */
+    List<Score> selectAdminByStuId(@Param("stuId") Integer stuId);
+
+    /**
+     * 管理员专用根据课程号搜索定向数据
+     */
+    List<Score> selectAdminBySubId(@Param("subId") Integer subId);
 }

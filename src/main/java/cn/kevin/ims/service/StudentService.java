@@ -26,7 +26,7 @@ public class StudentService {
     private List<Student> students;
 
     public Student insert(Student stu) {
-        student = studentMapper.select(stu.getStuId());
+        student = studentMapper.selectAdminById(stu.getStuId());
         if (student == null) {
             stu.setUtcCreate(DateUtil.currentSecond());
             stu.setUtcModify(DateUtil.currentSecond());

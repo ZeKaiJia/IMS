@@ -1,6 +1,7 @@
 package cn.kevin.ims.controller;
 
 import cn.kevin.ims.model.Score;
+import cn.kevin.ims.model.Subject;
 import cn.kevin.ims.service.ScoreService;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * @author kevin
  */
+@CrossOrigin
 @RestController()
 @RequestMapping("/score/")
 public class ScoreController extends BaseController {
@@ -45,9 +47,9 @@ public class ScoreController extends BaseController {
      */
     @PostMapping(value = "/save")
     @ResponseBody
-    public Response<List<Score>> save() {
-        List<Score> result = scoreService.save();
-        if (result.size() != 0) {
+    public Response<Score> save(Integer stuId, Integer subId) {
+        Score result = scoreService.save(stuId, subId);
+        if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not find!");
@@ -58,23 +60,36 @@ public class ScoreController extends BaseController {
      */
     @PostMapping(value = "/delete")
     @ResponseBody
-    public Response<Score> delete(int id1, int id2) {
-        Score result = scoreService.delete(id1, id2);
+    public Response<Score> delete(Integer stuId, Integer subId) {
+        Score result = scoreService.delete(stuId, subId);
         if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not find!");
     }
 
-    @PostMapping(value = "/deleteAll")
+    /**
+     * delete(in fact it's an update)
+     */
+    @PostMapping(value = "/reDelete")
     @ResponseBody
-    public Response<List<Score>> deleteAll(int id) {
-        List<Score> result = scoreService.deleteAll(id);
+    public Response<Score> reDelete(Integer stuId, Integer subId) {
+        Score result = scoreService.reDelete(stuId, subId);
         if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not find!");
     }
+
+//    @PostMapping(value = "/deleteAll")
+//    @ResponseBody
+//    public Response<List<Score>> deleteAll(int id) {
+//        List<Score> result = scoreService.deleteAll(id);
+//        if (result != null) {
+//            return getSuccessResult(result);
+//        }
+//        return getFailResult(404, "Message not find!");
+//    }
 
     /**
      * update
@@ -97,8 +112,8 @@ public class ScoreController extends BaseController {
      */
     @GetMapping(value = "/selectById")
     @ResponseBody
-    public Response<Score> selectById(int id1, int id2) {
-        Score result = scoreService.select(id1, id2);
+    public Response<Score> selectById(Integer stuId, Integer subId) {
+        Score result = scoreService.select(stuId, subId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -135,6 +150,45 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    @GetMapping(value = "/selectAdmin")
+    @ResponseBody
+    public Response<List<Score>> selectAdmin() {
+        List<Score> result = scoreService.selectAdmin();
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not find!");
+    }
+
+    @GetMapping(value = "/selectAdminById")
+    @ResponseBody
+    public Response<Score> selectAdminById(Integer stuId, Integer subId) {
+        Score result = scoreService.selectAdminById(stuId, subId);
+        if (result != null) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not find!");
+    }
+
+    @GetMapping(value = "/selectAdminByStuId")
+    @ResponseBody
+    public Response<List<Score>> selectAdminByStuId(Integer stuId) {
+        List<Score> result = scoreService.selectAdminByStuId(stuId);
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not find!");
+    }
+
+    @GetMapping(value = "/selectAdminBySubId")
+    @ResponseBody
+    public Response<List<Score>> selectAdminBySubId(Integer subId) {
+        List<Score> result = scoreService.selectAdminBySubId(subId);
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not find!");
+    }
 
     public static void main(String[] args) {
         Score score = new Score();

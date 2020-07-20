@@ -23,7 +23,7 @@ public class UserService {
     private User user;
 
     public User insert(User usr) {
-        user = userMapper.select(usr.getUsrId());
+        user = userMapper.selectAdminById(usr.getUsrId());
         if (user == null) {
             usr.setUtcCreate(DateUtil.currentSecond());
             usr.setUtcModify(DateUtil.currentSecond());

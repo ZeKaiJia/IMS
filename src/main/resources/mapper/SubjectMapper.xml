@@ -18,7 +18,7 @@
     <update id="delete" parameterType="cn.kevin.ims.model.Subject">
         UPDATE Subject
         SET isReal = 0,
-        utcModify = #{utcModify}
+            utcModify = #{utcModify}
         WHERE subId = #{subId}
     </update>
     <update id="reDelete" parameterType="cn.kevin.ims.model.Subject">

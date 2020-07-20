@@ -12,7 +12,8 @@
     <delete id="save">
         DELETE
         FROM Score
-        WHERE isReal = 0
+        WHERE stuId = #{stuId}
+        AND subId = #{subId}
     </delete>
     <update id="delete" parameterType="cn.kevin.ims.model.Score">
         UPDATE Score
@@ -21,10 +22,16 @@
         WHERE stuId = #{stuId}
         AND subId = #{subId}
     </update>
-    <update id="deleteAll" parameterType="cn.kevin.ims.model.Score">
+    <update id="reDelete" parameterType="cn.kevin.ims.model.Score">
         UPDATE Score
-        SET isReal = 0,
-        utcModify = #{utcModify}
+        SET isReal = 1,
+            utcModify = #{utcModify}
+        WHERE stuId = #{stuId}
+          AND subId = #{subId}
+    </update>
+    <update id="saveAll">
+        Delete
+        FROM Score
         WHERE stuId = #{stuId}
     </update>
     <update id="update" parameterType="cn.kevin.ims.model.Score">
@@ -62,7 +69,7 @@
         OR utcModify = #{utcModify})
         AND isReal = 1
     </select>
-    <select id="selectPassScore" parameterType="Integer" resultType="cn.kevin.ims.model.Score">
+    <select id="selectPassScore" resultType="cn.kevin.ims.model.Score">
         SELECT *
         FROM Score
         <where>
@@ -72,7 +79,7 @@
             </if>
         </where>
     </select>
-    <select id="getByStudentId" parameterType="Integer" resultType="cn.kevin.ims.model.Score">
+    <select id="getByStudentId" resultType="cn.kevin.ims.model.Score">
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
@@ -82,5 +89,25 @@
         SELECT *
         FROM Score
         WHERE isReal = 0
+    </select>
+    <select id="selectAdmin" resultType="cn.kevin.ims.model.Score">
+        SELECT *
+        FROM score
+    </select>
+    <select id="selectAdminById" resultType="cn.kevin.ims.model.Score">
+        SELECT *
+        FROM Score
+        WHERE subId = #{subId}
+        AND stuId = #{stuId}
+    </select>
+    <select id="selectAdminByStuId" resultType="cn.kevin.ims.model.Score">
+        SELECT *
+        FROM Score
+        WHERE stuId = #{stuId}
+    </select>
+    <select id="selectAdminBySubId" resultType="cn.kevin.ims.model.Score">
+        SELECT *
+        FROM Score
+        WHERE subId = #{subId}
     </select>
 </mapper>

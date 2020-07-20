@@ -24,7 +24,7 @@ public class SubjectService {
     private Subject subject;
 
     public Subject insert(Subject sub) {
-        subject = subjectMapper.select(sub.getSubId());
+        subject = subjectMapper.selectAdminById(sub.getSubId());
         if (subject == null) {
             sub.setUtcCreate(DateUtil.currentSecond());
             sub.setUtcModify(DateUtil.currentSecond());
@@ -36,7 +36,7 @@ public class SubjectService {
 
     public Subject save(Integer subId) {
         subject = subjectMapper.select(subId);
-        if (subId != null) {
+        if (subject != null) {
             subjectMapper.save(subId);
         }
         return subject;
