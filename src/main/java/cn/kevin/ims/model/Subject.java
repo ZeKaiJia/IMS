@@ -17,13 +17,13 @@ public class Subject extends AbstractEntity {
     private Integer subId;
     private String subName;
     private String subTeacherId;
-    private Integer subCredit;
+    private Double subCredit;
 
     public Subject() {
         super();
     }
 
-    public Subject(Integer subId, String subName, String subTeacherId, Integer subCredit, long utcCreate, long utcModify) {
+    public Subject(Integer subId, String subName, String subTeacherId, Double subCredit, long utcCreate, long utcModify) {
         super(utcCreate, utcModify);
         this.subId = subId;
         this.subName = subName;

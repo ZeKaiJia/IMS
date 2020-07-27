@@ -97,8 +97,8 @@ public class SubjectController extends BaseController {
      */
     @GetMapping(value = "/selectById")
     @ResponseBody
-    public Response<Subject> selectById(int id) {
-        Subject result = subjectService.select(id);
+    public Response<Subject> selectById(Integer subId) {
+        Subject result = subjectService.select(subId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -160,7 +160,7 @@ public class SubjectController extends BaseController {
         subject.setSubId(1);
         subject.setSubName("高数");
         subject.setSubTeacherId("2");
-        subject.setSubCredit(5);
+        subject.setSubCredit(5.0);
         System.out.println(JSON.toJSONString(subject));
     }
 }

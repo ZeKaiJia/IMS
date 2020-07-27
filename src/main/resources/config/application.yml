@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9988
 
 logging.level.root: INFO
 
