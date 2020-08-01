@@ -1,8 +1,7 @@
 package cn.kevin.ims.service;
 
-import cn.kevin.ims.model.Student;
-import cn.kevin.ims.dao.StudentMapper;
-import cn.kevin.ims.model.User;
+import cn.kevin.ims.entity.Student;
+import cn.kevin.ims.mapper.StudentMapper;
 import cn.kevin.ims.util.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

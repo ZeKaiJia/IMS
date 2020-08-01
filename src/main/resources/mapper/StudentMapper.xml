@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.kevin.ims.dao.StudentMapper">
+<mapper namespace="cn.kevin.ims.mapper.StudentMapper">
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
-    <insert id="insert" parameterType="cn.kevin.ims.model.Student">
+    <insert id="insert" parameterType="cn.kevin.ims.entity.Student">
         INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName, utcCreate, utcModify, isReal)
         VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{utcCreate},
         #{utcModify}, 1)
@@ -15,19 +15,19 @@
         FROM Student
         WHERE stuId = #{stuId}
     </delete>
-    <update id="delete" parameterType="cn.kevin.ims.model.Student">
+    <update id="delete" parameterType="cn.kevin.ims.entity.Student">
         UPDATE Student
         SET isReal = 0,
         utcModify = #{utcModify}
         WHERE stuId = #{stuId}
     </update>
-    <update id="reDelete" parameterType="cn.kevin.ims.model.Student">
+    <update id="reDelete" parameterType="cn.kevin.ims.entity.Student">
         UPDATE Student
         SET isReal = 1,
             utcModify = #{utcModify}
         WHERE stuId = #{stuId}
     </update>
-    <update id="update" parameterType="cn.kevin.ims.model.Student">
+    <update id="update" parameterType="cn.kevin.ims.entity.Student">
         UPDATE Student
         <set>
             <if test="stuAge != null and stuAge != ''">
@@ -51,22 +51,22 @@
         </set>
         WHERE stuId = #{stuId}
     </update>
-    <select id="select" parameterType="Integer" resultType="cn.kevin.ims.model.Student">
+    <select id="select" parameterType="Integer" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
         WHERE stuId = #{stuId}
         AND isReal = 1
     </select>
-    <select id="selectAll" resultType="cn.kevin.ims.model.Student">
+    <select id="selectAll" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
         WHERE isReal = 1
     </select>
-    <select id="selectAdmin" resultType="cn.kevin.ims.model.Student">
+    <select id="selectAdmin" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
     </select>
-    <select id="selectByAllInfo" parameterType="cn.kevin.ims.model.Student" resultType="cn.kevin.ims.model.Student">
+    <select id="selectByAllInfo" parameterType="cn.kevin.ims.entity.Student" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
         WHERE (stuId = #{stuId}
@@ -78,18 +78,18 @@
         OR utcModify = #{utcModify})
         AND isReal = 1
     </select>
-    <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.ims.model.Student">
+    <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
         WHERE stuName LIKE '%${value}%'
         AND isReal = 1
     </select>
-    <select id="selectAdminById" parameterType="Integer" resultType="cn.kevin.ims.model.Student">
+    <select id="selectAdminById" parameterType="Integer" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
         WHERE stuID = #{stuID}
     </select>
-    <select id="selectGarbage" resultType="cn.kevin.ims.model.Student">
+    <select id="selectGarbage" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
         WHERE isReal = 0

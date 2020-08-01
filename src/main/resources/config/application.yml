@@ -24,7 +24,7 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: cn.kevin.ims.entityn
+  type-aliases-package: cn.kevin.ims.mapper
   type-handlers-package: cn.kevin.ims.handler
 
 

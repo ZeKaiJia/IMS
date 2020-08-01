@@ -1,4 +1,4 @@
-package cn.kevin.ims.model;
+package cn.kevin.ims.entity;
 
 import lombok.Getter;
 import lombok.Setter;

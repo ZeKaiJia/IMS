@@ -1,8 +1,7 @@
 package cn.kevin.ims.service;
 
-import cn.kevin.ims.model.Score;
-import cn.kevin.ims.dao.ScoreMapper;
-import cn.kevin.ims.model.Subject;
+import cn.kevin.ims.entity.Score;
+import cn.kevin.ims.mapper.ScoreMapper;
 import cn.kevin.ims.util.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

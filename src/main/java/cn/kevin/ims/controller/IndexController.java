@@ -1,15 +1,13 @@
 package cn.kevin.ims.controller;
 
-import cn.kevin.ims.model.Menu;
-import cn.kevin.ims.model.User;
+import cn.kevin.ims.entity.Menu;
+import cn.kevin.ims.entity.User;
 import cn.kevin.ims.service.UserService;
 import cn.kevin.ims.util.DateUtil;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;

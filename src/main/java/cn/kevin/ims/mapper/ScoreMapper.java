@@ -1,8 +1,6 @@
-package cn.kevin.ims.dao;
+package cn.kevin.ims.mapper;
 
-import cn.kevin.ims.model.Score;
-import cn.kevin.ims.model.Subject;
-import org.apache.ibatis.annotations.Mapper;
+import cn.kevin.ims.entity.Score;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

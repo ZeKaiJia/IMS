@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.kevin.ims.dao.ScoreMapper">
+<mapper namespace="cn.kevin.ims.mapper.ScoreMapper">
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
-    <insert id="insert" parameterType="cn.kevin.ims.model.Score">
+    <insert id="insert" parameterType="cn.kevin.ims.entity.Score">
         INSERT INTO Score (stuId, subId, subScore, utcCreate, utcModify, isReal)
         VALUE (#{stuId}, #{subId}, #{subScore}, #{utcCreate}, #{utcModify}, 1)
     </insert>
@@ -15,14 +15,14 @@
         WHERE stuId = #{stuId}
         AND subId = #{subId}
     </delete>
-    <update id="delete" parameterType="cn.kevin.ims.model.Score">
+    <update id="delete" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
         SET isReal = 0,
         utcModify = #{utcModify}
         WHERE stuId = #{stuId}
         AND subId = #{subId}
     </update>
-    <update id="reDelete" parameterType="cn.kevin.ims.model.Score">
+    <update id="reDelete" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
         SET isReal = 1,
             utcModify = #{utcModify}
@@ -34,7 +34,7 @@
         FROM Score
         WHERE stuId = #{stuId}
     </update>
-    <update id="update" parameterType="cn.kevin.ims.model.Score">
+    <update id="update" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
         <set>
             <if test="subScore != null and subScore != ''">
@@ -47,19 +47,19 @@
         WHERE stuId = #{stuId}
         AND subId = #{subId}
     </update>
-    <select id="select" parameterType="cn.kevin.ims.model.Score" resultType="cn.kevin.ims.model.Score">
+    <select id="select" parameterType="cn.kevin.ims.entity.Score" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
         AND subId = #{subId}
         AND isReal = 1
     </select>
-    <select id="selectAll" resultType="cn.kevin.ims.model.Score">
+    <select id="selectAll" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         WHERE isReal = 1
     </select>
-    <select id="selectByAllInfo" parameterType="cn.kevin.ims.model.Score" resultType="cn.kevin.ims.model.Score">
+    <select id="selectByAllInfo" parameterType="cn.kevin.ims.entity.Score" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         WHERE (stuId = #{stuId}
@@ -69,7 +69,7 @@
         OR utcModify = #{utcModify})
         AND isReal = 1
     </select>
-    <select id="selectPassScore" resultType="cn.kevin.ims.model.Score">
+    <select id="selectPassScore" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         <where>
@@ -79,33 +79,33 @@
             </if>
         </where>
     </select>
-    <select id="getByStudentId" resultType="cn.kevin.ims.model.Score">
+    <select id="getByStudentId" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
         AND isReal = 1
     </select>
-    <select id="selectGarbage" resultType="cn.kevin.ims.model.Score">
+    <select id="selectGarbage" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         WHERE isReal = 0
     </select>
-    <select id="selectAdmin" resultType="cn.kevin.ims.model.Score">
+    <select id="selectAdmin" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM score
     </select>
-    <select id="selectAdminById" resultType="cn.kevin.ims.model.Score">
+    <select id="selectAdminById" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         WHERE subId = #{subId}
         AND stuId = #{stuId}
     </select>
-    <select id="selectAdminByStuId" resultType="cn.kevin.ims.model.Score">
+    <select id="selectAdminByStuId" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
     </select>
-    <select id="selectAdminBySubId" resultType="cn.kevin.ims.model.Score">
+    <select id="selectAdminBySubId" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         WHERE subId = #{subId}

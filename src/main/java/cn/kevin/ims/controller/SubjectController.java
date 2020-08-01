@@ -1,7 +1,6 @@
 package cn.kevin.ims.controller;
 
-import cn.kevin.ims.model.Subject;
-import cn.kevin.ims.model.User;
+import cn.kevin.ims.entity.Subject;
 import cn.kevin.ims.service.SubjectService;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author kevin

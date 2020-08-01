@@ -18,7 +18,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <!--HTTP组件-->
+        <!-- HTTP组件 -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
@@ -30,14 +30,14 @@
             <version>2.4</version>
         </dependency>
 
-        <!--Spring-->
+        <!-- Spring -->
         <dependency>
             <groupId>activemq</groupId>
             <artifactId>activemq-spring</artifactId>
             <version>2.1</version>
         </dependency>
 
-        <!--SpringMVC-->
+        <!-- SpringMVC -->
         <dependency>
             <groupId>com.alibaba.spring</groupId>
             <artifactId>spring-webmvc-support</artifactId>
@@ -53,7 +53,7 @@
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
 
-        <!--SpringBoot-->
+        <!-- SpringBoot -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
@@ -93,14 +93,14 @@
             <optional>true</optional>
         </dependency>
 
-        <!--lombok插件启动包-->
+        <!-- lombok插件启动包 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!--数据库连接-->
+        <!-- 数据库连接 -->
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
@@ -131,21 +131,21 @@
             <version>1.0.3</version>
         </dependency>
 
-        <!--JSON解析-->
+        <!-- JSON解析 -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!--java插件-->
+        <!-- java插件 -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
 
-        <!--注解包-->
+        <!-- 注解包 -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
@@ -163,11 +163,36 @@
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
-        <!--解决跨域-->
+        <!-- 解决跨域 -->
         <dependency>
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>cors-filter</artifactId>
             <version>2.5</version>
+        </dependency>
+
+        <!-- Shiro all -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-all</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+        <!-- Shiro核心包 -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+        <!-- 添加Shiro web支持 -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>1.5.3</version>
+        </dependency>
+        <!-- 添加Shiro Spring整合 -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>1.5.3</version>
         </dependency>
     </dependencies>
 
@@ -176,12 +201,12 @@
         <repository>
             <id>alimaven</id>
             <name>aliyun maven</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <url>https://maven.aliyun.com/repository/public</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>

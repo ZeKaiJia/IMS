@@ -1,8 +1,6 @@
-package cn.kevin.ims.dao;
+package cn.kevin.ims.mapper;
 
-import cn.kevin.ims.model.Subject;
-import cn.kevin.ims.model.User;
-import org.apache.ibatis.annotations.Mapper;
+import cn.kevin.ims.entity.Subject;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -1,10 +1,7 @@
-package cn.kevin.ims.model;
+package cn.kevin.ims.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import java.util.List;
 
 /**
  * @Author: Kevin

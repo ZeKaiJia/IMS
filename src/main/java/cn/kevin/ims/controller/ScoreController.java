@@ -1,7 +1,6 @@
 package cn.kevin.ims.controller;
 
-import cn.kevin.ims.model.Score;
-import cn.kevin.ims.model.Subject;
+import cn.kevin.ims.entity.Score;
 import cn.kevin.ims.service.ScoreService;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;

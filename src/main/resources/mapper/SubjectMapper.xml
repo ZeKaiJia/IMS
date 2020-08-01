@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.kevin.ims.dao.SubjectMapper">
+<mapper namespace="cn.kevin.ims.mapper.SubjectMapper">
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
-    <insert id="insert" parameterType="cn.kevin.ims.model.Subject">
+    <insert id="insert" parameterType="cn.kevin.ims.entity.Subject">
         INSERT INTO Subject (subId, subName, subTeacherId, subCredit, utcCreate, utcModify, isReal)
         VALUE (#{subId}, #{subName}, #{subTeacherId}, #{subCredit}, #{utcCreate},
         #{utcModify}, 1)
@@ -15,19 +15,19 @@
         FROM Subject
         WHERE subId = #{subId}
     </delete>
-    <update id="delete" parameterType="cn.kevin.ims.model.Subject">
+    <update id="delete" parameterType="cn.kevin.ims.entity.Subject">
         UPDATE Subject
         SET isReal = 0,
             utcModify = #{utcModify}
         WHERE subId = #{subId}
     </update>
-    <update id="reDelete" parameterType="cn.kevin.ims.model.Subject">
+    <update id="reDelete" parameterType="cn.kevin.ims.entity.Subject">
         UPDATE Subject
         SET isReal = 1,
             utcModify = #{utcModify}
         WHERE subId = #{subId}
     </update>
-    <update id="update" parameterType="cn.kevin.ims.model.Subject">
+    <update id="update" parameterType="cn.kevin.ims.entity.Subject">
         UPDATE Subject
         <set>
             <if test="subName != null and subName != ''">
@@ -45,22 +45,22 @@
         </set>
         WHERE subId = #{subId}
     </update>
-    <select id="select" parameterType="Integer" resultType="cn.kevin.ims.model.Subject">
+    <select id="select" parameterType="Integer" resultType="cn.kevin.ims.entity.Subject">
         SELECT *
         FROM Subject
         WHERE subId = #{subId}
         AND isReal = 1
     </select>
-    <select id="selectAll" resultType="cn.kevin.ims.model.Subject">
+    <select id="selectAll" resultType="cn.kevin.ims.entity.Subject">
         SELECT *
         FROM Subject
         WHERE isReal = 1
     </select>
-    <select id="selectAdmin" resultType="cn.kevin.ims.model.Subject">
+    <select id="selectAdmin" resultType="cn.kevin.ims.entity.Subject">
         SELECT *
         FROM Subject
     </select>
-    <select id="selectByAllInfo" parameterType="cn.kevin.ims.model.Subject" resultType="cn.kevin.ims.model.Subject">
+    <select id="selectByAllInfo" parameterType="cn.kevin.ims.entity.Subject" resultType="cn.kevin.ims.entity.Subject">
         SELECT *
         FROM Subject
         WHERE (subId = #{subId}
@@ -71,18 +71,18 @@
         OR utcModify = #{utcModify})
         AND isReal = 1
     </select>
-    <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.ims.model.Subject">
+    <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.ims.entity.Subject">
         SELECT *
         FROM Subject
         WHERE subName LIKE '%${value}%'
         AND isReal = 1
     </select>
-    <select id="selectAdminById" parameterType="Integer" resultType="cn.kevin.ims.model.Subject">
+    <select id="selectAdminById" parameterType="Integer" resultType="cn.kevin.ims.entity.Subject">
         SELECT *
         FROM Subject
         WHERE subId = #{subId}
     </select>
-    <select id="selectGarbage" resultType="cn.kevin.ims.model.Subject">
+    <select id="selectGarbage" resultType="cn.kevin.ims.entity.Subject">
         SELECT *
         FROM Subject
         WHERE isReal = 0
