@@ -1,32 +1,31 @@
 package cn.kevin.ims.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
 /**
+ * The type Abstract entity.
+ * AbstractEntity
  * @Author: Kevin
- * @Date: 2020/6/2 3:42 下午
+ * @Date: 2020 /6/2 3:42 下午
  */
-@Getter
-@Setter
+@Data
 public abstract class AbstractEntity implements Serializable {
+    /**
+     * 序列化参数
+     */
     private static final long serialVersionUID = 1L;
-    /** 创建时间 */
+    /**
+     * 创建时间
+     */
     private long utcCreate;
-    /** 更新时间 */
+    /**
+     * 更新时间
+     */
     private long utcModify;
-    /** 是否有效 */
+    /**
+     * 是否有效
+     */
     private Boolean isReal;
-
-    public AbstractEntity() {
-        isReal = true;
-    }
-
-    public AbstractEntity(long utcCreate, long utcModify) {
-        this.utcCreate = utcCreate;
-        this.utcModify = utcModify;
-        this.isReal = true;
-    }
 }

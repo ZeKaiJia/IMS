@@ -5,14 +5,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * The type My cross filter.
+ * MyCrossFilter
+ * 跨域处理器
  * @Author: Kevin
- * @Date: 2020/6/10 3:17 下午
+ * @Date: 2020 /6/10 3:17 下午
  */
 public class MyCrossFilter implements Filter {
+    /**
+     * Destroy.
+     */
     @Override
     public void destroy() {
     }
 
+    /**
+     * Do filter.
+     *
+     * @param req   the req
+     * @param res   the res
+     * @param chain the chain
+     * @throws IOException      the io exception
+     * @throws ServletException the servlet exception
+     */
     @Override
     public void doFilter(ServletRequest req, ServletResponse res,
                          FilterChain chain) throws IOException, ServletException {
@@ -26,6 +41,12 @@ public class MyCrossFilter implements Filter {
 
     }
 
+    /**
+     * Init.
+     *
+     * @param arg0 the arg 0
+     * @throws ServletException the servlet exception
+     */
     @Override
     public void init(FilterConfig arg0) throws ServletException {
     }

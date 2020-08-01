@@ -10,9 +10,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * Information Management System
- *
- * @author kevin
+ * Information Management System 启动类
+ * Application
+ * @Author: Kevin
+ * @Date: 2020 /2/18 10:56 下午
  */
 @Slf4j
 @EnableScheduling

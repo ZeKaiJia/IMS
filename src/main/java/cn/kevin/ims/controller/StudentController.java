@@ -13,15 +13,26 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * The type Student controller.
+ * StudentController
  * @author kevin
  */
 @CrossOrigin
 @RestController()
 @RequestMapping("/student/")
 public class StudentController extends BaseController {
+    /**
+     * The Student service.
+     */
     @Resource(name = "studentService")
     private StudentService studentService;
 
+    /**
+     * Hello world string.
+     * 测试
+     * @param name the name
+     * @return the string
+     */
     @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
@@ -30,6 +41,9 @@ public class StudentController extends BaseController {
 
     /**
      * insert
+     * 插入
+     * @param student the student
+     * @return the response
      */
     @PostMapping(value = "/insert")
     @ResponseBody
@@ -43,6 +57,9 @@ public class StudentController extends BaseController {
 
     /**
      * save(in fact it's delete)
+     * 删除
+     * @param stuId the stu id
+     * @return the response
      */
     @PostMapping(value = "/save")
     @ResponseBody
@@ -56,6 +73,9 @@ public class StudentController extends BaseController {
 
     /**
      * delete(in fact it's an update)
+     * 禁用
+     * @param stuId the stu id
+     * @return the response
      */
     @PostMapping(value = "/delete")
     @ResponseBody
@@ -69,6 +89,9 @@ public class StudentController extends BaseController {
 
     /**
      * delete(in fact it's an update)
+     * 恢复禁用
+     * @param stuId the stu id
+     * @return the response
      */
     @PostMapping(value = "/reDelete")
     @ResponseBody
@@ -82,6 +105,9 @@ public class StudentController extends BaseController {
 
     /**
      * update
+     * 更新
+     * @param student the student
+     * @return the response
      */
     @PostMapping(value = "/update")
     @ResponseBody
@@ -95,6 +121,9 @@ public class StudentController extends BaseController {
 
     /**
      * select
+     * 查找单个非禁用数据
+     * @param id the id
+     * @return the response
      */
     @GetMapping(value = "/selectById")
     @ResponseBody
@@ -106,6 +135,11 @@ public class StudentController extends BaseController {
         return getFailResult(404, "ID not find!");
     }
 
+    /**
+     * Select all response.
+     * 查找所有非禁用数据
+     * @return the response
+     */
     @GetMapping(value = "/selectAll")
     @ResponseBody
     @LoginAction(value = "false")
@@ -117,6 +151,12 @@ public class StudentController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select by all info response.
+     * 按任意字段查找非禁用数据
+     * @param student the student
+     * @return the response
+     */
     @GetMapping(value = "/selectByAllInfo")
     @ResponseBody
     public Response<List<Student>> selectByAllInfo(@RequestBody Student student) {
@@ -127,6 +167,12 @@ public class StudentController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select similar name response.
+     * 按姓名字段查找非禁用数据
+     * @param name the name
+     * @return the response
+     */
     @GetMapping(value = "/selectSimilarName")
     @ResponseBody
     public Response<List<Student>> selectSimilarName(String name) {
@@ -137,6 +183,11 @@ public class StudentController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select admin response.
+     * 查找所有数据
+     * @return the response
+     */
     @GetMapping(value = "/selectAdmin")
     @ResponseBody
     public Response<List<Student>> selectAdmin() {
@@ -147,6 +198,12 @@ public class StudentController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select admin by id response.
+     * 查找单个数据
+     * @param stuId the stu id
+     * @return the response
+     */
     @GetMapping(value = "/selectAdminById")
     @ResponseBody
     public Response<Student> selectAdminById(Integer stuId) {
@@ -155,16 +212,5 @@ public class StudentController extends BaseController {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not find!");
-    }
-
-    public static void main(String[] args) {
-        Student stu = new Student();
-        stu.setStuId(3);
-        stu.setStuAge(21);
-        stu.setStuBirthday(new Date());
-        stu.setStuEmail("jiazekai@gmail.com");
-        stu.setStuGender(1);
-        stu.setStuName("wulala");
-        System.out.println(JSON.toJSONString(stu));
     }
 }

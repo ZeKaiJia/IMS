@@ -5,11 +5,18 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
+ * The type Web app config.
+ * WebAppConfig
  * @Author: Kevin
- * @Date: 2020/6/3 10:31 下午
+ * @Date: 2020 /6/3 10:31 下午
  */
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
+    /**
+     * Add interceptors.
+     *
+     * @param registry the registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //注册自定义拦截器，添加拦截路径和排除拦截路径

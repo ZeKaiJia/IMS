@@ -10,15 +10,26 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * The type Subject controller.
+ * SubjectController
  * @author kevin
  */
 @CrossOrigin
 @RestController()
 @RequestMapping("/subject/")
 public class SubjectController extends BaseController {
+    /**
+     * The Subject service.
+     */
     @Resource(name = "subjectService")
     private SubjectService subjectService;
 
+    /**
+     * Hello world string.
+     * 测试
+     * @param name the name
+     * @return the string
+     */
     @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
@@ -27,6 +38,9 @@ public class SubjectController extends BaseController {
 
     /**
      * insert
+     * 插入
+     * @param subject the subject
+     * @return the response
      */
     @PostMapping(value = "/insert")
     @ResponseBody
@@ -40,6 +54,9 @@ public class SubjectController extends BaseController {
 
     /**
      * save(in fact it's delete)
+     * 删除
+     * @param subId the sub id
+     * @return the response
      */
     @PostMapping(value = "/save")
     @ResponseBody
@@ -53,6 +70,9 @@ public class SubjectController extends BaseController {
 
     /**
      * delete(in fact it's an update)
+     * 禁用
+     * @param subId the sub id
+     * @return the response
      */
     @PostMapping(value = "/delete")
     @ResponseBody
@@ -66,6 +86,9 @@ public class SubjectController extends BaseController {
 
     /**
      * delete(in fact it's an update)
+     * 恢复禁用
+     * @param subId the sub id
+     * @return the response
      */
     @PostMapping(value = "/reDelete")
     @ResponseBody
@@ -79,6 +102,9 @@ public class SubjectController extends BaseController {
 
     /**
      * update
+     * 更新
+     * @param subject the subject
+     * @return the response
      */
     @PostMapping(value = "/update")
     @ResponseBody
@@ -92,6 +118,9 @@ public class SubjectController extends BaseController {
 
     /**
      * select
+     * 查找单个非禁用数据
+     * @param subId the sub id
+     * @return the response
      */
     @GetMapping(value = "/selectById")
     @ResponseBody
@@ -103,6 +132,11 @@ public class SubjectController extends BaseController {
         return getFailResult(404, "ID not find!");
     }
 
+    /**
+     * Select all response.
+     * 查找所有非禁用数据
+     * @return the response
+     */
     @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<Subject>> selectAll() {
@@ -113,6 +147,12 @@ public class SubjectController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select by all info response.
+     * 按任意字段查找非禁用数据
+     * @param subject the subject
+     * @return the response
+     */
     @GetMapping(value = "/selectByAllInfo")
     @ResponseBody
     public Response<List<Subject>> selectByAllInfo(@RequestBody Subject subject) {
@@ -123,6 +163,12 @@ public class SubjectController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select similar name response.
+     * 按姓名字段查找非禁用数据
+     * @param name the name
+     * @return the response
+     */
     @GetMapping(value = "/selectSimilarName")
     @ResponseBody
     public Response<List<Subject>> selectSimilarName(String name) {
@@ -133,6 +179,11 @@ public class SubjectController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select admin response.
+     * 查找所有数据
+     * @return the response
+     */
     @GetMapping(value = "/selectAdmin")
     @ResponseBody
     public Response<List<Subject>> selectAdmin() {
@@ -143,6 +194,12 @@ public class SubjectController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select admin by id response.
+     * 查找单个数据
+     * @param subId the sub id
+     * @return the response
+     */
     @GetMapping(value = "/selectAdminById")
     @ResponseBody
     public Response<Subject> selectAdminById(Integer subId) {
@@ -151,14 +208,5 @@ public class SubjectController extends BaseController {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not find!");
-    }
-
-    public static void main(String[] args) {
-        Subject subject = new Subject();
-        subject.setSubId(1);
-        subject.setSubName("高数");
-        subject.setSubTeacherId("2");
-        subject.setSubCredit(5.0);
-        System.out.println(JSON.toJSONString(subject));
     }
 }

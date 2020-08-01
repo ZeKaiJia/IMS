@@ -10,15 +10,26 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * The type Score controller.
+ * ScoreController
  * @author kevin
  */
 @CrossOrigin
 @RestController()
 @RequestMapping("/score/")
 public class ScoreController extends BaseController {
+    /**
+     * The Score service.
+     */
     @Resource(name = "scoreService")
     private ScoreService scoreService;
 
+    /**
+     * Hello world string.
+     * 测试
+     * @param name the name
+     * @return the string
+     */
     @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
@@ -27,6 +38,9 @@ public class ScoreController extends BaseController {
 
     /**
      * insert
+     * 插入
+     * @param score the score
+     * @return the response
      */
     @PostMapping(value = "/insert")
     @ResponseBody
@@ -43,6 +57,10 @@ public class ScoreController extends BaseController {
 
     /**
      * save(in fact it's delete)
+     * 删除
+     * @param stuId the stu id
+     * @param subId the sub id
+     * @return the response
      */
     @PostMapping(value = "/save")
     @ResponseBody
@@ -56,6 +74,10 @@ public class ScoreController extends BaseController {
 
     /**
      * delete(in fact it's an update)
+     * 禁用
+     * @param stuId the stu id
+     * @param subId the sub id
+     * @return the response
      */
     @PostMapping(value = "/delete")
     @ResponseBody
@@ -69,6 +91,10 @@ public class ScoreController extends BaseController {
 
     /**
      * delete(in fact it's an update)
+     * 恢复禁用
+     * @param stuId the stu id
+     * @param subId the sub id
+     * @return the response
      */
     @PostMapping(value = "/reDelete")
     @ResponseBody
@@ -80,18 +106,11 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
-//    @PostMapping(value = "/deleteAll")
-//    @ResponseBody
-//    public Response<List<Score>> deleteAll(int id) {
-//        List<Score> result = scoreService.deleteAll(id);
-//        if (result != null) {
-//            return getSuccessResult(result);
-//        }
-//        return getFailResult(404, "Message not find!");
-//    }
-
     /**
      * update
+     * 更新
+     * @param score the score
+     * @return the response
      */
     @PostMapping(value = "/update")
     @ResponseBody
@@ -108,6 +127,10 @@ public class ScoreController extends BaseController {
 
     /**
      * select
+     * 查找单个非禁用数据
+     * @param stuId the stu id
+     * @param subId the sub id
+     * @return the response
      */
     @GetMapping(value = "/selectById")
     @ResponseBody
@@ -119,6 +142,11 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select all response.
+     * 查找所有非禁用数据
+     * @return the response
+     */
     @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<Score>> selectAll() {
@@ -129,6 +157,12 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select by all info response.
+     * 按字段查找非禁用数据
+     * @param score the score
+     * @return the response
+     */
     @GetMapping(value = "/selectByAllInfo")
     @ResponseBody
     public Response<List<Score>> selectByAllInfo(@RequestBody Score score) {
@@ -139,6 +173,12 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select pass score response.
+     * 查找非禁用及格数据
+     * @param score the score
+     * @return the response
+     */
     @GetMapping(value = "/selectPassScore")
     @ResponseBody
     public Response<List<Score>> selectPassScore(int score) {
@@ -149,6 +189,11 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select admin response.
+     * 查找所有数据
+     * @return the response
+     */
     @GetMapping(value = "/selectAdmin")
     @ResponseBody
     public Response<List<Score>> selectAdmin() {
@@ -159,6 +204,13 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select admin by id response.
+     * 查找单个数据
+     * @param stuId the stu id
+     * @param subId the sub id
+     * @return the response
+     */
     @GetMapping(value = "/selectAdminById")
     @ResponseBody
     public Response<Score> selectAdminById(Integer stuId, Integer subId) {
@@ -169,6 +221,12 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select admin by stu id response.
+     * 按学号查找
+     * @param stuId the stu id
+     * @return the response
+     */
     @GetMapping(value = "/selectAdminByStuId")
     @ResponseBody
     public Response<List<Score>> selectAdminByStuId(Integer stuId) {
@@ -179,6 +237,12 @@ public class ScoreController extends BaseController {
         return getFailResult(404, "Message not find!");
     }
 
+    /**
+     * Select admin by sub id response.
+     * 按课程号查找
+     * @param subId the sub id
+     * @return the response
+     */
     @GetMapping(value = "/selectAdminBySubId")
     @ResponseBody
     public Response<List<Score>> selectAdminBySubId(Integer subId) {
@@ -187,13 +251,5 @@ public class ScoreController extends BaseController {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not find!");
-    }
-
-    public static void main(String[] args) {
-        Score score = new Score();
-        score.setStuId(1);
-        score.setSubId(1);
-        score.setSubScore(98);
-        System.out.println(JSON.toJSONString(score));
     }
 }

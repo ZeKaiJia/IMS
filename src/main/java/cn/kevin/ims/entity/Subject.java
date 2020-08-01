@@ -1,36 +1,48 @@
 package cn.kevin.ims.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Objects;
 
 /**
+ * The type Subject.
+ * Subject
  * @author kevin
  */
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Subject extends AbstractEntity {
+    /**
+     * 序列化参数
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * 课程ID
+     */
     private Integer subId;
+    /**
+     * 课程名称
+     */
     private String subName;
+    /**
+     * 授课教师
+     */
     private String subTeacherId;
+    /**
+     * 课程学分
+     */
     private Double subCredit;
 
-    public Subject() {
-        super();
-    }
 
-    public Subject(Integer subId, String subName, String subTeacherId, Double subCredit, long utcCreate, long utcModify) {
-        super(utcCreate, utcModify);
-        this.subId = subId;
-        this.subName = subName;
-        this.subTeacherId = subTeacherId;
-        this.subCredit = subCredit;
-    }
-
+    /**
+     * Equals boolean.
+     * 判断类型
+     * @param o the o
+     * @return the boolean
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -40,12 +52,17 @@ public class Subject extends AbstractEntity {
             return false;
         }
         Subject subject = (Subject) o;
-        return this.subId.equals(subject.subId) &&
-                this.getIsReal().equals(subject.getIsReal());
+        return this.subId.equals(subject.subId);
     }
 
+
+    /**
+     * Hash code int.
+     * 计算哈希值
+     * @return the int
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(this.subId, this.getIsReal());
+        return Objects.hash(this.subId);
     }
 }

@@ -15,20 +15,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * The type Login aspect.
+ *
  * @Author: Kevin
- * @Date: 2020/2/18 7:09 下午
+ * @Date: 2020 /2/18 7:09 下午
  */
 @Component
 @Aspect
 public class LoginAspect {
+    /**
+     * The constant logger.
+     */
     private static Logger logger = LogManager.getLogger(LoginAspect.class.getName());
+    /**
+     * The constant NEED_LOGIN_OUT.
+     */
     private static final String NEED_LOGIN_OUT = "false";
+    /**
+     * The Need login in.
+     */
     static final String NEED_LOGIN_IN = "true";
 
+    /**
+     * Login action.
+     */
     @Pointcut("@annotation(cn.kevin.ims.aop.LoginAction)")
     public void loginAction() {
     }
 
+    /**
+     * To login object.
+     *
+     * @param proceedingJoinPoint the proceeding join point
+     * @return the object
+     * @throws Throwable the throwable
+     */
     @Around("loginAction()")
     public Object toLogin(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         //获取request和response
