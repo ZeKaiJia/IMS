@@ -6,96 +6,73 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * The interface User mapper.
- * UserMapper
- * @author kevin
+ * 用户Mapper
+ * The interface Sys user mapper.
  */
 @Repository
 public interface UserMapper {
     /**
-     * 添加功能
-     *
-     * @param user the user
+     * Save user info.
+     * 创建用户
+     * @param sysUser the sys user
      */
-    void insert(User user);
+    void saveUserInfo(User sysUser);
 
     /**
-     * 保存功能 删除数据
-     *
-     * @param usrId the usr id
+     * Delete user.
+     * 删除用户
+     * @param usrName the usr name
      */
-    void save(String usrId);
+    void deleteUser(String usrName);
 
     /**
-     * 删除方法
-     *
-     * @param user the user
+     * Disable user.
+     * 禁用用户
+     * @param sysUser the sys user
      */
-    void delete(User user);
+    void disableUser(User sysUser);
 
     /**
-     * re删除方法
-     *
-     * @param user the user
+     * Recover user.
+     * 恢复用户
+     * @param sysUser the sys user
      */
-    void reDelete(User user);
+    void recoverUser(User sysUser);
 
     /**
-     * 修改方法 修改密码
-     *
-     * @param user the user
+     * Update user info.
+     * 更新用户
+     * @param sysUser the sys user
      */
-    void update(User user);
+    void updateUserInfo(User sysUser);
 
     /**
-     * 登录
-     *
-     * @param user the user
+     * User login.
+     * 用户登录
+     * @param sysUser the sys user
      */
-    void login(User user);
+    void userLogin(User sysUser);
 
     /**
-     * 查找方法
-     *
-     * @param usrId the usr id
-     * @return the user
+     * Select by name sys user.
+     * 根据用户名查找
+     * @param usrName the usr name
+     * @return the sys user
      */
-    User select(String usrId);
+    User selectByName(String usrName);
 
     /**
-     * 全体查找方法
-     *
+     * Select all list.
+     * 查找全部
      * @return the list
      */
     List<User> selectAll();
 
     /**
-     * 查找方法 多参数多返回 精确查找 or
-     *
-     * @param user the user
+     * Select any param list.
+     * 按任意字段查找
+     * @param sysUser the sys user
      * @return the list
      */
-    List<User> selectByAllInfo(User user);
-
-    /**
-     * 管理员专用清除数据
-     *
-     * @return the list
-     */
-    List<User> selectGarbage();
-
-    /**
-     * 管理员专用搜索全体数据
-     *
-     * @return the list
-     */
-    List<User> selectAdmin();
-
-    /**
-     * 管理员专用搜索定向数据
-     *
-     * @param usrId the usr id
-     * @return the user
-     */
-    User selectAdminById(String usrId);
+    List<User> selectAnyParam(User sysUser);
 }

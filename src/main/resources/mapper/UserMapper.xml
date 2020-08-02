@@ -5,85 +5,95 @@
 
 <mapper namespace="cn.kevin.ims.mapper.UserMapper">
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
-    <insert id="insert" parameterType="cn.kevin.ims.entity.User">
-        INSERT INTO User (usrId, usrPassword, usrType, lastLogin, utcCreate, utcModify, isReal)
-        VALUE (#{usrId}, #{usrPassword}, #{usrType}, #{lastLogin}, #{utcCreate}, #{utcModify}, 1)
+    <resultMap id="BaseSysUserMap" type="cn.kevin.ims.entity.User">
+        <result column="usrName" jdbcType="VARCHAR" property="usrName"/>
+        <result column="usrPassword" jdbcType="VARCHAR" property="usrPassword"/>
+        <result column="usrNick" jdbcType="VARCHAR" property="usrNick"/>
+        <result column="usrPhone" jdbcType="VARCHAR" property="usrPhone"/>
+        <result column="usrEmail" jdbcType="VARCHAR" property="usrEmail"/>
+        <result column="remark" jdbcType="VARCHAR" property="usrNick"/>
+        <result column="lastLogin" jdbcType="BIGINT" property="lastLogin"/>
+        <result column="utcCreate" jdbcType="BIGINT" property="utcCreate"/>
+        <result column="utcModify" jdbcType="BIGINT" property="utcModify"/>
+        <result column="modifyBy" jdbcType="VARCHAR" property="modifyBy"/>
+        <result column="isReal" jdbcType="BIT" property="valid"/>
+    </resultMap>
+    <insert id="saveUserInfo" parameterType="cn.kevin.ims.entity.User">
+        INSERT INTO sys_user (usrName, usrPassword, usrNick, usrPhone, usrEmail, utcCreate, utcModify, modifyBy, valid)
+        VALUE (#{usrName}, #{usrPassword}, #{usrNick}, #{usrPhone}, #{usrEmail}, #{utcCreate}, #{utcModify}, #{modifyBy}, 1)
     </insert>
-    <delete id="save" parameterType="String">
+    <delete id="deleteUser" parameterType="String">
         DELETE
-        FROM User
-        WHERE usrId = #{usrId}
+        FROM sys_user
+        WHERE usrName = #{usrName}
     </delete>
-    <update id="delete" parameterType="cn.kevin.ims.entity.User">
-        UPDATE User
-        SET isReal = 0,
-        utcModify = #{utcModify}
-        WHERE usrId = #{usrId}
+    <update id="disableUser" parameterType="cn.kevin.ims.entity.User">
+        UPDATE sys_user
+        SET valid = 0,
+        utcModify = #{utcModify},
+        modifyBy = #{modifyBy}
+        WHERE usrName = #{usrName}
     </update>
-    <update id="reDelete" parameterType="cn.kevin.ims.entity.User">
-        UPDATE User
-        SET isReal = 1,
-            utcModify = #{utcModify}
-        WHERE usrId = #{usrId}
+    <update id="recoverUser" parameterType="cn.kevin.ims.entity.User">
+        UPDATE sys_user
+        SET valid = 1,
+            utcModify = #{utcModify},
+            modifyBy = #{modifyBy}
+        WHERE usrName = #{usrName}
     </update>
-    <update id="update" parameterType="cn.kevin.ims.entity.User">
-        UPDATE User
+    <update id="updateUserInfo" parameterType="cn.kevin.ims.entity.User">
+        UPDATE sys_user
         <set>
             <if test="usrPassword != null and usrPassword != ''">
                 usrPassword = #{usrPassword},
             </if>
-            <if test="usrType != null and usrType != ''">
-                usrType = #{usrType},
+            <if test="usrNick != null and usrNick != ''">
+                usrNick = #{usrNick},
+            </if>
+            <if test="usrPhone != null and usrPhone != ''">
+                usrPhone = #{usrPhone},
+            </if>
+            <if test="usrEmail != null and usrEmail != ''">
+                usrEmail = #{usrEmail},
             </if>
             <if test="true">
                 utcModify = #{utcModify},
+                modifyBy = #{modifyBy},
             </if>
         </set>
-        WHERE usrId = #{usrId}
+        WHERE usrName = #{usrName}
     </update>
-    <update id="login">
-        UPDATE User
+    <update id="userLogin" parameterType="cn.kevin.ims.entity.User">
+        UPDATE sys_user
         <set>
             <if test="lastLogin != null and lastLogin != ''">
                 lastLogin = #{lastLogin},
             </if>
         </set>
-        WHERE usrId = #{usrId}
+        WHERE usrName = #{usrName}
     </update>
-    <select id="select" parameterType="String" resultType="cn.kevin.ims.entity.User">
+    <select id="selectByName" parameterType="String" resultType="cn.kevin.ims.entity.User">
         SELECT *
-        FROM User
-        WHERE usrId = #{usrId}
-        AND isReal = 1
+        FROM sys_user
+        WHERE usrName = #{usrName}
     </select>
     <select id="selectAll" resultType="cn.kevin.ims.entity.User">
         SELECT *
-        FROM User
-        WHERE isReal = 1
+        FROM sys_user
     </select>
-    <select id="selectAdmin" resultType="cn.kevin.ims.entity.User">
+    <select id="selectAnyParam" parameterType="cn.kevin.ims.entity.User" resultType="cn.kevin.ims.entity.User">
         SELECT *
-        FROM User
-    </select>
-    <select id="selectByAllInfo" parameterType="cn.kevin.ims.entity.User" resultType="cn.kevin.ims.entity.User">
-        SELECT *
-        FROM User
-        WHERE (usrId = #{usrId}
-        OR usrType = #{usrType}
+        FROM sys_user
+        WHERE (usrName = #{usrName}
         OR usrPassword = #{usrPassword}
+        OR usrNick = #{usrNick}
+        OR usrPhone = #{usrPhone}
+        OR usrEmail = #{usrEmail}
+        OR remark = #{remark}
         OR lastLogin = #{lastLogin}
         OR utcCreate = #{utcCreate}
-        OR utcModify = #{utcModify})
-        AND isReal = 1
-    </select>
-    <select id="selectAdminById" parameterType="String" resultType="cn.kevin.ims.entity.User">
-        SELECT *
-        FROM User
-        WHERE usrId = #{usrId}
-    </select>
-    <select id="selectGarbage" resultType="cn.kevin.ims.entity.User">
-        SELECT *
-        FROM User
-        WHERE isReal = 0
+        OR utcModify = #{utcModify}
+        OR modifyBy = #{modifyBy}
+        OR valid = #{valid})
     </select>
 </mapper>

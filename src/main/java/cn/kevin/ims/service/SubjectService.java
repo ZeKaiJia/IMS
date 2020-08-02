@@ -71,7 +71,7 @@ public class SubjectService {
         subject = subjectMapper.select(subId);
         if (subject != null) {
             subject.setUtcModify(DateUtil.currentSecond());
-            subject.setIsReal(false);
+            subject.setValid(false);
             subjectMapper.delete(subject);
         }
         return subject;
@@ -93,7 +93,7 @@ public class SubjectService {
         }
         if (subject != null) {
             subject.setUtcModify(DateUtil.currentSecond());
-            subject.setIsReal(true);
+            subject.setValid(true);
             subjectMapper.reDelete(subject);
         }
         return subject;

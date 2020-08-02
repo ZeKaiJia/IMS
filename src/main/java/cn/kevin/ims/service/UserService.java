@@ -13,142 +13,136 @@ import java.util.List;
 
 /**
  * The type User service.
- * UserService
- * @author kevin
  */
 @Service
 @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
 public class UserService {
     /**
-     * The User mapper.
+     * The Sys user mapper.
      */
     @Resource
     private UserMapper userMapper;
+    /**
+     * The Sys users.
+     */
+    private List<User> sysUsers;
+    /**
+     * The Sys user.
+     */
+    private User sysUser;
 
     /**
-     * The User.
+     * Save user info sys user.
+     * 添加用户
+     * @param paramUser the param user
+     * @return the sys user
      */
-    private User user;
+    public User saveUserInfo(User paramUser) {
+        sysUser = userMapper.selectByName(paramUser.getUsrName());
+        if (sysUser == null) {
+            paramUser.setUtcCreate(DateUtil.currentSecond());
+            paramUser.setUtcModify(DateUtil.currentSecond());
+            userMapper.saveUserInfo(paramUser);
+            return paramUser;
+        } else {
+            return sysUser;
+        }
+    }
 
     /**
-     * Insert user.
-     * 插入
-     * @param usr the usr
-     * @return the user
+     * Delete user sys user.
+     * 删除用户
+     * @param paramUserName the param user name
+     * @return the sys user
      */
-    public User insert(User usr) {
-        user = userMapper.selectAdminById(usr.getUsrId());
-        if (user == null) {
-            usr.setUtcCreate(DateUtil.currentSecond());
-            usr.setUtcModify(DateUtil.currentSecond());
-            userMapper.insert(usr);
-            return usr;
+    public User deleteUser(String paramUserName) {
+        sysUser = userMapper.selectByName(paramUserName);
+        if (sysUser != null) {
+            userMapper.deleteUser(paramUserName);
+        }
+        return sysUser;
+    }
+
+    /**
+     * Disable user sys user.
+     * 禁用用户
+     * @param paramUserName the param user name
+     * @return the sys user
+     */
+    public User disableUser(String paramUserName) {
+        sysUser = userMapper.selectByName(paramUserName);
+        if (sysUser != null) {
+            sysUser.setUtcModify(DateUtil.currentSecond());
+            sysUser.setValid(false);
+            userMapper.disableUser(sysUser);
+        }
+        return sysUser;
+    }
+
+    /**
+     * Recover user sys user.
+     * 恢复用户
+     * @param paramUserName the param user name
+     * @return the sys user
+     */
+    public User recoverUser(String paramUserName) {
+       sysUser = userMapper.selectByName(paramUserName);
+       if (sysUser != null) {
+           sysUser.setUtcModify(DateUtil.currentSecond());
+           sysUser.setValid(true);
+           userMapper.recoverUser(sysUser);
+       }
+       return sysUser;
+    }
+
+    /**
+     * Update user info sys user.
+     * 更新用户
+     * @param paramUser the param user
+     * @return the sys user
+     */
+    public User updateUserInfo(User paramUser) {
+        sysUser = userMapper.selectByName(paramUser.getUsrName());
+        if (sysUser != null) {
+            paramUser.setUtcModify(DateUtil.currentSecond());
+            userMapper.updateUserInfo(paramUser);
+            return paramUser;
         }
         return null;
     }
 
-
     /**
-     * Save user.
-     * 删除
-     * @param usrId the usr id
-     * @return the user
+     * User login sys user.
+     * 用户登录
+     * @param paramUserName     the param user name
+     * @param paramUserPassword the param user password
+     * @return the sys user
      */
-    public User save(String usrId) {
-        user = userMapper.select(usrId);
-        if (user != null) {
-            userMapper.save(usrId);
-        }
-        return user;
-    }
-
-    /**
-     * Delete user.
-     * 禁用
-     * @param usrId the usr id
-     * @return the user
-     */
-    public User delete(String usrId) {
-        user = userMapper.select(usrId);
-        if (user != null) {
-            user.setUtcModify(DateUtil.currentSecond());
-            user.setIsReal(false);
-            userMapper.delete(user);
-        }
-        return user;
-    }
-
-    /**
-     * Re delete user.
-     * 恢复禁用
-     * @param usrId the usr id
-     * @return the user
-     */
-    public User reDelete(String usrId) {
-        List<User> users = userMapper.selectAdmin();
-        for (User u : users) {
-            if (u.getUsrId().equals(usrId)) {
-                user = u;
-                break;
+    public User userLogin(String paramUserName, String paramUserPassword) {
+        sysUser = userMapper.selectByName(paramUserName);
+        if (sysUser != null ) {
+            if (sysUser.getUsrPassword().equals(paramUserPassword)) {
+                sysUser.setLastLogin(DateUtil.currentSecond());
+                userMapper.userLogin(sysUser);
             }
-        }
-        if (user != null) {
-            user.setUtcModify(DateUtil.currentSecond());
-            user.setIsReal(true);
-            userMapper.reDelete(user);
-        }
-        return user;
-    }
-
-    /**
-     * Update user.
-     * 更新
-     * @param usr the usr
-     * @return the user
-     */
-    public User update(User usr) {
-        user = userMapper.select(usr.getUsrId());
-        if (user != null) {
-            usr.setUtcModify(DateUtil.currentSecond());
-            usr.setUtcCreate(user.getUtcCreate());
-            userMapper.update(usr);
-            return usr;
+            return sysUser;
         }
         return null;
     }
 
     /**
-     * Login user.
-     * 登录
-     * @param usrId       the usr id
-     * @param usrPassword the usr password
-     * @return the user
+     * Select by name sys user.
+     * 根据用户名查找用户
+     * @param paramUserName the param user name
+     * @return the sys user
      */
-    public User login(String usrId, String usrPassword) {
-        user = userMapper.select(usrId);
-        if (user != null ) {
-            if (user.getUsrPassword().equals(usrPassword)) {
-                user.setLastLogin(DateUtil.currentSecond());
-                userMapper.login(user);
-            }
-            return user;
-        }
-        return null;
-    }
-
-    /**
-     * Select user.
-     * 查找单个非禁用数据
-     * @param usrId the usr id
-     * @return the user
-     */
-    public User select(String usrId) {
-        return userMapper.select(usrId);
+    public User selectByName(String paramUserName) {
+        return userMapper.selectByName(paramUserName);
     }
 
     /**
      * Select all list.
-     * 查找所有非禁用数据
+     * 用户列表
      * @return the list
      */
     public List<User> selectAll() {
@@ -156,40 +150,12 @@ public class UserService {
     }
 
     /**
-     * Select by all info list.
-     * 按任意字段查找非禁用数据
-     * @param user the user
+     * Select any param list.
+     * 按任意字段查找用户
+     * @param paramUser the param user
      * @return the list
      */
-    public List<User> selectByAllInfo(User user) {
-        return userMapper.selectByAllInfo(user);
-    }
-
-    /**
-     * Select admin by id user.
-     * 查找单个数据
-     * @param usrId the usr id
-     * @return the user
-     */
-    public User selectAdminById(String usrId) {
-        return userMapper.selectAdminById(usrId);
-    }
-
-    /**
-     * Select garbage list.
-     * 查找禁用数据
-     * @return the list
-     */
-    public List<User> selectGarbage() {
-        return userMapper.selectGarbage();
-    }
-
-    /**
-     * Select admin list.
-     * 查找所有数据
-     * @return the list
-     */
-    public List<User> selectAdmin() {
-        return userMapper.selectAdmin();
+    public List<User> selectAnyParam(User paramUser) {
+        return userMapper.selectAnyParam(paramUser);
     }
 }

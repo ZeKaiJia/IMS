@@ -182,6 +182,12 @@
             <artifactId>shiro-core</artifactId>
             <version>1.5.3</version>
         </dependency>
+        <!-- Shiro Spring Boot -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shiro</groupId>-->
+<!--            <artifactId>shiro-spring-boot-web-starter</artifactId>-->
+<!--            <version>1.5.3</version>-->
+<!--        </dependency>-->
         <!-- 添加Shiro web支持 -->
         <dependency>
             <groupId>org.apache.shiro</groupId>

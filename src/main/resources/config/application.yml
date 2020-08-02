@@ -21,8 +21,3 @@ mybatis:
   type-aliases-package: cn.kevin.ims.mapper
   type-handlers-package: cn.kevin.ims.handler
 ################### Shiro DataSource Configuration ##########################
-shiro:
-  loginUrl: /login.html
-  userNativeSessionManager: true
-  sessionManager:
-    sessionIdUrlRewritingEnabled: false

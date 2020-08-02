@@ -3,7 +3,6 @@ package cn.kevin.ims.entity;
 import lombok.*;
 
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * 用户实体类
@@ -23,17 +22,29 @@ public class User extends AbstractEntity {
      */
     private static final long serialVersionUID = -5026828438186547513L;
     /**
-     * 用户ID
+     * 用户名
      */
-    private String usrId;
+    private String usrName;
     /**
      * 用户密码
      */
     private String usrPassword;
     /**
-     * 用户类型
+     * 用户昵称
      */
-    private String usrType;
+    private String usrNick;
+    /**
+     * 用户联系电话
+     */
+    private long usrPhone;
+    /**
+     * 用户电子邮箱
+     */
+    private long usrEmail;
+    /**
+     * 备注
+     */
+    private long remark;
     /**
      * 最近登录时间
      */
@@ -54,8 +65,8 @@ public class User extends AbstractEntity {
         if (!(o instanceof User)) {
             return false;
         }
-        User user = (User) o;
-        return this.usrId.equals(user.usrId);
+        User sysUser = (User) o;
+        return this.usrName.equals(sysUser.usrName);
     }
 
     /**
@@ -66,6 +77,6 @@ public class User extends AbstractEntity {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(this.usrId);
+        return Objects.hash(this.usrName);
     }
 }

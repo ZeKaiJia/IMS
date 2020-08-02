@@ -80,7 +80,7 @@ public class ScoreService {
         score = scoreMapper.select(sco);
         if (score != null) {
             score.setUtcModify(DateUtil.currentSecond());
-            score.setIsReal(false);
+            score.setValid(false);
             scoreMapper.delete(score);
         }
         return score;
@@ -97,7 +97,7 @@ public class ScoreService {
         score = scoreMapper.selectAdminById(stuId, subId);
         if (score != null) {
             score.setUtcModify(DateUtil.currentSecond());
-            score.setIsReal(true);
+            score.setValid(true);
             scoreMapper.reDelete(score);
         }
         return score;

@@ -72,7 +72,7 @@ public class StudentService {
         student = studentMapper.select(stuId);
         if (student != null) {
             student.setUtcModify(DateUtil.currentSecond());
-            student.setIsReal(false);
+            student.setValid(false);
             studentMapper.delete(student);
         }
         return student;
@@ -94,7 +94,7 @@ public class StudentService {
         }
         if (student != null) {
             student.setUtcModify(DateUtil.currentSecond());
-            student.setIsReal(true);
+            student.setValid(true);
             studentMapper.reDelete(student);
         }
         return student;

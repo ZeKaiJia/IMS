@@ -25,7 +25,11 @@ public abstract class AbstractEntity implements Serializable {
      */
     private long utcModify;
     /**
+     * 更新操作人
+     */
+    private String modifyBy;
+    /**
      * 是否有效
      */
-    private Boolean isReal;
+    private Boolean valid;
 }
