@@ -11,15 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * The type Index controller.
- * IndexController
+ * The type User controller.
+ * UserController
  * @Author: Kevin
  * @Date: 2020 /2/18 10:30 下午
  */
 @RestController()
 @CrossOrigin
 @RequestMapping("/login/")
-public class IndexController extends BaseController {
+public class UserController extends BaseController {
     /**
      * The constant INDEX.
      */

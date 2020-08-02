@@ -1,7 +1,7 @@
 server:
   port: 9988
 
-logging.level.root: WARN
+logging.level.root: INFO
 
 ################### Spring DataSource Configuration ##########################
 spring:
