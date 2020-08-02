@@ -18,7 +18,7 @@ public class Subject extends AbstractEntity {
     /**
      * 序列化参数
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 9037415837973538853L;
     /**
      * 课程ID
      */

@@ -15,7 +15,7 @@ public abstract class AbstractEntity implements Serializable {
     /**
      * 序列化参数
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4846381295033205916L;
     /**
      * 创建时间
      */

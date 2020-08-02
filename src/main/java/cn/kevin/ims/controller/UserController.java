@@ -2,6 +2,7 @@ package cn.kevin.ims.controller;
 
 import cn.kevin.ims.entity.User;
 import cn.kevin.ims.service.UserService;
+import cn.kevin.ims.util.SerialUtil;
 import cn.kevin.ims.vo.Response;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;

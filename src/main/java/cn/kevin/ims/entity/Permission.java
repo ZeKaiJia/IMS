@@ -18,13 +18,13 @@ public class Permission extends AbstractEntity {
     /**
      * The constant serialVersionUID.
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8482551052982019660L;
     /**
-     * The Per id.
+     * 权限ID
      */
     private String perId;
     /**
-     * The Per name.
+     * 权限名称
      */
     private String perName;
 }

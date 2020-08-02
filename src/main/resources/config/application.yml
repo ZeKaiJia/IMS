@@ -1,8 +1,6 @@
 server:
   port: 9988
-
 logging.level.root: INFO
-
 ################### Spring DataSource Configuration ##########################
 spring:
   datasource:
@@ -11,11 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
   mvc:
-#    view:
-#      prefix: /static/pages/
-#      suffix: .jsp
     static-path-pattern: /**
-
   resources:
     static-locations: classpath:/static/
 ################### Mybatis DataSource Configuration ##########################
@@ -26,5 +20,9 @@ mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
   type-aliases-package: cn.kevin.ims.mapper
   type-handlers-package: cn.kevin.ims.handler
-
-
+################### Shiro DataSource Configuration ##########################
+shiro:
+  loginUrl: /login.html
+  userNativeSessionManager: true
+  sessionManager:
+    sessionIdUrlRewritingEnabled: false

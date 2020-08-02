@@ -18,7 +18,7 @@ public class Score extends AbstractEntity {
     /**
      * 序列化参数
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 488188911958680866L;
     /**
      * 学生ID
      */

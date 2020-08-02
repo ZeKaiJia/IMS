@@ -19,7 +19,7 @@ public class Student extends AbstractEntity {
     /**
      * 序列化参数
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -3103418538707967614L;
     /**
      * 学生ID
      */

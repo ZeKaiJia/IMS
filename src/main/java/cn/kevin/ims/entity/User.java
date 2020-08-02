@@ -3,10 +3,12 @@ package cn.kevin.ims.entity;
 import lombok.*;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 用户实体类
  * User
+ *
  * @Author: Kevin
  * @Date: 2020 /2/18 10:56 下午
  */
@@ -19,7 +21,7 @@ public class User extends AbstractEntity {
     /**
      * 序列化参数
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -5026828438186547513L;
     /**
      * 用户ID
      */
@@ -40,6 +42,7 @@ public class User extends AbstractEntity {
     /**
      * Equals boolean.
      * 判断类型
+     *
      * @param o the o
      * @return the boolean
      */
@@ -58,6 +61,7 @@ public class User extends AbstractEntity {
     /**
      * Hash code int.
      * 计算哈希值
+     *
      * @return the int
      */
     @Override
