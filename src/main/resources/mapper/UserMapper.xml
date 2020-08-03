@@ -11,7 +11,7 @@
         <result column="usrNick" jdbcType="VARCHAR" property="usrNick"/>
         <result column="usrPhone" jdbcType="VARCHAR" property="usrPhone"/>
         <result column="usrEmail" jdbcType="VARCHAR" property="usrEmail"/>
-        <result column="remark" jdbcType="VARCHAR" property="usrNick"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="lastLogin" jdbcType="BIGINT" property="lastLogin"/>
         <result column="utcCreate" jdbcType="BIGINT" property="utcCreate"/>
         <result column="utcModify" jdbcType="BIGINT" property="utcModify"/>
@@ -19,8 +19,8 @@
         <result column="isReal" jdbcType="BIT" property="valid"/>
     </resultMap>
     <insert id="saveUserInfo" parameterType="cn.kevin.ims.entity.User">
-        INSERT INTO sys_user (usrName, usrPassword, usrNick, usrPhone, usrEmail, utcCreate, utcModify, modifyBy, valid)
-        VALUE (#{usrName}, #{usrPassword}, #{usrNick}, #{usrPhone}, #{usrEmail}, #{utcCreate}, #{utcModify}, #{modifyBy}, 1)
+        INSERT INTO sys_user (usrName, usrPassword, usrNick, usrPhone, usrEmail, remark, utcCreate, utcModify, modifyBy, valid)
+        VALUE (#{usrName}, #{usrPassword}, #{usrNick}, #{usrPhone}, #{usrEmail}, #{remark}, #{utcCreate}, #{utcModify}, #{modifyBy}, 1)
     </insert>
     <delete id="deleteUser" parameterType="String">
         DELETE
@@ -55,6 +55,9 @@
             </if>
             <if test="usrEmail != null and usrEmail != ''">
                 usrEmail = #{usrEmail},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
             </if>
             <if test="true">
                 utcModify = #{utcModify},

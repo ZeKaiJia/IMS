@@ -42,10 +42,6 @@ public class User extends AbstractEntity {
      */
     private long usrEmail;
     /**
-     * 备注
-     */
-    private long remark;
-    /**
      * 最近登录时间
      */
     private long lastLogin;

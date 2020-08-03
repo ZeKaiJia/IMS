@@ -25,11 +25,11 @@ public class UserService {
     /**
      * The Sys users.
      */
-    private List<User> sysUsers;
+    private List<User> users;
     /**
      * The Sys user.
      */
-    private User sysUser;
+    private User user;
 
     /**
      * Save user info sys user.
@@ -38,14 +38,14 @@ public class UserService {
      * @return the sys user
      */
     public User saveUserInfo(User paramUser) {
-        sysUser = userMapper.selectByName(paramUser.getUsrName());
-        if (sysUser == null) {
+        user = userMapper.selectByName(paramUser.getUsrName());
+        if (user == null) {
             paramUser.setUtcCreate(DateUtil.currentSecond());
             paramUser.setUtcModify(DateUtil.currentSecond());
             userMapper.saveUserInfo(paramUser);
             return paramUser;
         } else {
-            return sysUser;
+            return user;
         }
     }
 
@@ -56,11 +56,13 @@ public class UserService {
      * @return the sys user
      */
     public User deleteUser(String paramUserName) {
-        sysUser = userMapper.selectByName(paramUserName);
-        if (sysUser != null) {
+        user = userMapper.selectByName(paramUserName);
+        if (user != null) {
             userMapper.deleteUser(paramUserName);
+            return user;
+        } else {
+            return null;
         }
-        return sysUser;
     }
 
     /**
@@ -70,13 +72,15 @@ public class UserService {
      * @return the sys user
      */
     public User disableUser(String paramUserName) {
-        sysUser = userMapper.selectByName(paramUserName);
-        if (sysUser != null) {
-            sysUser.setUtcModify(DateUtil.currentSecond());
-            sysUser.setValid(false);
-            userMapper.disableUser(sysUser);
+        user = userMapper.selectByName(paramUserName);
+        if (user != null) {
+            user.setUtcModify(DateUtil.currentSecond());
+            user.setValid(false);
+            userMapper.disableUser(user);
+            return user;
+        } else {
+            return null;
         }
-        return sysUser;
     }
 
     /**
@@ -86,13 +90,15 @@ public class UserService {
      * @return the sys user
      */
     public User recoverUser(String paramUserName) {
-       sysUser = userMapper.selectByName(paramUserName);
-       if (sysUser != null) {
-           sysUser.setUtcModify(DateUtil.currentSecond());
-           sysUser.setValid(true);
-           userMapper.recoverUser(sysUser);
+       user = userMapper.selectByName(paramUserName);
+       if (user != null) {
+           user.setUtcModify(DateUtil.currentSecond());
+           user.setValid(true);
+           userMapper.recoverUser(user);
+           return user;
+       } else {
+           return null;
        }
-       return sysUser;
     }
 
     /**
@@ -102,13 +108,14 @@ public class UserService {
      * @return the sys user
      */
     public User updateUserInfo(User paramUser) {
-        sysUser = userMapper.selectByName(paramUser.getUsrName());
-        if (sysUser != null) {
+        user = userMapper.selectByName(paramUser.getUsrName());
+        if (user != null) {
             paramUser.setUtcModify(DateUtil.currentSecond());
             userMapper.updateUserInfo(paramUser);
             return paramUser;
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
@@ -119,13 +126,13 @@ public class UserService {
      * @return the sys user
      */
     public User userLogin(String paramUserName, String paramUserPassword) {
-        sysUser = userMapper.selectByName(paramUserName);
-        if (sysUser != null ) {
-            if (sysUser.getUsrPassword().equals(paramUserPassword)) {
-                sysUser.setLastLogin(DateUtil.currentSecond());
-                userMapper.userLogin(sysUser);
+        user = userMapper.selectByName(paramUserName);
+        if (user != null ) {
+            if (user.getUsrPassword().equals(paramUserPassword)) {
+                user.setLastLogin(DateUtil.currentSecond());
+                userMapper.userLogin(user);
             }
-            return sysUser;
+            return user;
         }
         return null;
     }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kevin.ims.mapper.PermissionMapper">
+    <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
+    <resultMap id="BaseSysPermissionMap" type="cn.kevin.ims.entity.Permission">
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="perName" jdbcType="VARCHAR" property="permission"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="utcCreate" jdbcType="BIGINT" property="utcCreate"/>
+        <result column="utcModify" jdbcType="BIGINT" property="utcModify"/>
+        <result column="modifyBy" jdbcType="VARCHAR" property="modifyBy"/>
+        <result column="valid" jdbcType="BIT" property="valid"/>
+    </resultMap>
+    <insert id="savePermissionInfo" parameterType="cn.kevin.ims.entity.Permission">
+        INSERT INTO sys_permission (name, permission, url, remark, utcCreate, utcModify, modifyBy, valid)
+        VALUE (#{name}, #{permission}, #{url}, #{remark}, #{utcCreate}, #{utcModify}, #{modifyBy}, 1)
+    </insert>
+    <delete id="deletePermission" parameterType="String">
+        DELETE
+        FROM sys_permission
+        WHERE name = #{name}
+    </delete>
+    <update id="disablePermission" parameterType="cn.kevin.ims.entity.Permission">
+        UPDATE sys_permission
+        SET valid = 0,
+        utcModify = #{utcModify},
+        modifyBy = #{modifyBy}
+        WHERE name = #{name}
+    </update>
+    <update id="recoverPermission" parameterType="cn.kevin.ims.entity.Permission">
+        UPDATE sys_permission
+        SET valid = 1,
+            utcModify = #{utcModify},
+            modifyBy = #{modifyBy}
+        WHERE name = #{name}
+    </update>
+    <update id="updatePermissionInfo" parameterType="cn.kevin.ims.entity.Permission">
+        UPDATE sys_permission
+        <set>
+            <if test="permission != null and permission != ''">
+                permission = #{permission},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="true">
+                utcModify = #{utcModify},
+                modifyBy = #{modifyBy},
+            </if>
+        </set>
+        WHERE name = #{name}
+    </update>
+    <select id="selectByName" parameterType="String" resultType="cn.kevin.ims.entity.Permission">
+        SELECT *
+        FROM sys_permission
+        WHERE name = #{name}
+    </select>
+    <select id="selectAll" resultType="cn.kevin.ims.entity.Permission">
+        SELECT *
+        FROM sys_permission
+    </select>
+    <select id="selectAnyParam" parameterType="cn.kevin.ims.entity.Permission" resultType="cn.kevin.ims.entity.Permission">
+        SELECT *
+        FROM sys_permission
+        WHERE (name = #{name}
+        OR permission = #{permission}
+        OR url = #{url}
+        OR remark = #{remark}
+        OR utcCreate = #{utcCreate}
+        OR utcModify = #{utcModify}
+        OR modifyBy = #{modifyBy}
+        OR valid = #{valid})
+    </select>
+    <select id="findPermissionByRole" parameterType="String" resultType="String">
+        SELECT permission
+        FROM sys_role_permission
+        WHERE role = #{role}
+    </select>
+</mapper>

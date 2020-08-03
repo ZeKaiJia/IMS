@@ -32,4 +32,8 @@ public abstract class AbstractEntity implements Serializable {
      * 是否有效
      */
     private Boolean valid;
+    /**
+     * 备注
+     */
+    private long remark;
 }

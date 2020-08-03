@@ -23,15 +23,15 @@ public class Role extends AbstractEntity {
      */
     private static final long serialVersionUID = -1644537057173967996L;
     /**
-     * 角色ID
+     * 序号
      */
-    private String roleId;
+    private Integer id;
+    /**
+     * 描述
+     */
+    private String description;
     /**
      * 角色
      */
-    private String roleName;
-    /**
-     * 权限集合
-     */
-    private Set<Permission> permissions;
+    private String role;
 }

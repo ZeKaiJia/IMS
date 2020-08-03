@@ -8,6 +8,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
@@ -87,6 +88,7 @@ public class UserController extends BaseController {
         } catch (LockedAccountException e) {
             return getFailResult(401, "Account locked");
         } catch (Exception e) {
+            e.printStackTrace();
             return getFailResult(408, "Unknown error");
         }
         return getSuccessResult(result);
@@ -104,6 +106,7 @@ public class UserController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
+
     @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<User>> selectAll() {

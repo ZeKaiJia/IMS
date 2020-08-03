@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.kevin.ims.mapper.RoleMapper">
+    <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
+    <resultMap id="BaseSysRoleMap" type="cn.kevin.ims.entity.Role">
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="utcCreate" jdbcType="BIGINT" property="utcCreate"/>
+        <result column="utcModify" jdbcType="BIGINT" property="utcModify"/>
+        <result column="modifyBy" jdbcType="VARCHAR" property="modifyBy"/>
+        <result column="valid" jdbcType="BIT" property="valid"/>
+    </resultMap>
+    <insert id="saveRoleInfo" parameterType="cn.kevin.ims.entity.Role">
+        INSERT INTO sys_role (id, description, role, remark, utcCreate, utcModify, modifyBy, valid)
+        VALUE (#{id}, #{description}, #{role}, #{remark}, #{utcCreate}, #{utcModify}, #{modifyBy}, 1)
+    </insert>
+    <delete id="deleteRole" parameterType="Integer">
+        DELETE
+        FROM sys_role
+        WHERE id = #{id}
+    </delete>
+    <update id="disableRole" parameterType="cn.kevin.ims.entity.Role">
+        UPDATE sys_role
+        SET valid = 0,
+        utcModify = #{utcModify},
+        modifyBy = #{modifyBy}
+        WHERE id = #{id}
+    </update>
+    <update id="recoverRole" parameterType="cn.kevin.ims.entity.Role">
+        UPDATE sys_role
+        SET valid = 1,
+            utcModify = #{utcModify},
+            modifyBy = #{modifyBy}
+        WHERE id = #{id}
+    </update>
+    <update id="updateRoleInfo" parameterType="cn.kevin.ims.entity.Role">
+        UPDATE sys_role
+        <set>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="role != null and role != ''">
+                role = #{role},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="true">
+                utcModify = #{utcModify},
+                modifyBy = #{modifyBy},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <select id="selectById" parameterType="Integer" resultType="cn.kevin.ims.entity.Role">
+        SELECT *
+        FROM sys_role
+        WHERE id = #{id}
+    </select>
+    <select id="selectAll" resultType="cn.kevin.ims.entity.Role">
+        SELECT *
+        FROM sys_role
+    </select>
+    <select id="selectAnyParam" parameterType="cn.kevin.ims.entity.Role" resultType="cn.kevin.ims.entity.Role">
+        SELECT *
+        FROM sys_role
+        WHERE (id = #{id}
+        OR description = #{description}
+        OR role = #{role}
+        OR remark = #{remark}
+        OR utcCreate = #{utcCreate}
+        OR utcModify = #{utcModify}
+        OR modifyBy = #{modifyBy}
+        OR valid = #{valid})
+    </select>
+    <select id="findRoleByUserName" parameterType="String" resultType="String">
+        SELECT role
+        FROM sys_user_role
+        WHERE user_name = #{usrName}
+    </select>
+</mapper>
