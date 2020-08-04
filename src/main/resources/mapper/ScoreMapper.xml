@@ -5,109 +5,90 @@
 
 <mapper namespace="cn.kevin.ims.mapper.ScoreMapper">
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
-    <insert id="insert" parameterType="cn.kevin.ims.entity.Score">
-        INSERT INTO Score (stuId, subId, subScore, utcCreate, utcModify, isReal)
-        VALUE (#{stuId}, #{subId}, #{subScore}, #{utcCreate}, #{utcModify}, 1)
+    <insert id="saveScoreInfo" parameterType="cn.kevin.ims.entity.Score">
+        INSERT INTO Score (stuId, subId, subScore, remark,
+                           utcCreate, utcModify, modifyBy, valid)
+        VALUE (#{stuId}, #{subId}, #{subScore}, #{remark},
+               #{utcCreate}, #{utcModify}, #{modifyBy}, 1)
     </insert>
-    <delete id="save">
+    <delete id="deleteScore">
         DELETE
         FROM Score
         WHERE stuId = #{stuId}
         AND subId = #{subId}
     </delete>
-    <update id="delete" parameterType="cn.kevin.ims.entity.Score">
+    <update id="disableScore" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
-        SET isReal = 0,
-        utcModify = #{utcModify}
+        SET valid = 0,
+            utcModify = #{utcModify},
+            modifyBy = #{modifyBy}
         WHERE stuId = #{stuId}
         AND subId = #{subId}
     </update>
-    <update id="reDelete" parameterType="cn.kevin.ims.entity.Score">
+    <update id="recoverScore" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
-        SET isReal = 1,
-            utcModify = #{utcModify}
+        SET valid = 1,
+            utcModify = #{utcModify},
+            modifyBy = #{modifyBy}
         WHERE stuId = #{stuId}
           AND subId = #{subId}
     </update>
-    <update id="saveAll">
-        Delete
-        FROM Score
-        WHERE stuId = #{stuId}
-    </update>
-    <update id="update" parameterType="cn.kevin.ims.entity.Score">
+    <update id="updateScoreInfo" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
         <set>
             <if test="subScore != null and subScore != ''">
                 subScore = #{subScore},
             </if>
             <if test="true">
+                remark = #{remark},
                 utcModify = #{utcModify},
+                modifyBy = #{modifyBy},
             </if>
         </set>
         WHERE stuId = #{stuId}
         AND subId = #{subId}
     </update>
-    <select id="select" parameterType="cn.kevin.ims.entity.Score" resultType="cn.kevin.ims.entity.Score">
+    <select id="selectAll" parameterType="cn.kevin.ims.entity.Score" resultType="cn.kevin.ims.entity.Score">
+        SELECT *
+        FROM Score
+    </select>
+    <select id="selectAnyParam" parameterType="cn.kevin.ims.entity.Score" resultType="cn.kevin.ims.entity.Score">
+        SELECT *
+        FROM Score
+        WHERE (scoId = #{scoId}
+        OR stuId = #{stuId}
+        OR subId = #{subId}
+        OR subScore = #{subScore}
+        OR remark = #{remark}
+        OR utcCreate = #{utcCreate}
+        OR utcModify = #{utcModify}
+        OR modifyBy = #{modifyBy}
+        OR valid = #{valid})
+    </select>
+<!--    <select id="selectPassScore" resultType="cn.kevin.ims.entity.Score">-->
+<!--        SELECT *-->
+<!--        FROM Score-->
+<!--        <where>-->
+<!--            1 = 0-->
+<!--            <if test="subScore lte 100 and subScore gte 0">-->
+<!--                OR (subScore >= #{subScore} AND isReal = 1)-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+    <select id="selectByStudentId" resultType="cn.kevin.ims.entity.Score">
+        SELECT *
+        FROM Score
+        WHERE stuId = #{stuId}
+    </select>
+    <select id="selectBySubjectId" resultType="cn.kevin.ims.entity.Score">
+        SELECT *
+        FROM Score
+        WHERE subId = #{subId}
+    </select>
+    <select id="selectByStudentAndSubjectId" resultType="cn.kevin.ims.entity.Score">
         SELECT *
         FROM Score
         WHERE stuId = #{stuId}
         AND subId = #{subId}
-        AND isReal = 1
-    </select>
-    <select id="selectAll" resultType="cn.kevin.ims.entity.Score">
-        SELECT *
-        FROM Score
-        WHERE isReal = 1
-    </select>
-    <select id="selectByAllInfo" parameterType="cn.kevin.ims.entity.Score" resultType="cn.kevin.ims.entity.Score">
-        SELECT *
-        FROM Score
-        WHERE (stuId = #{stuId}
-        OR subId = #{subId}
-        OR subScore = #{subScore}
-        OR utcCreate = #{utcCreate}
-        OR utcModify = #{utcModify})
-        AND isReal = 1
-    </select>
-    <select id="selectPassScore" resultType="cn.kevin.ims.entity.Score">
-        SELECT *
-        FROM Score
-        <where>
-            1 = 0
-            <if test="subScore lte 100 and subScore gte 0">
-                OR (subScore >= #{subScore} AND isReal = 1)
-            </if>
-        </where>
-    </select>
-    <select id="getByStudentId" resultType="cn.kevin.ims.entity.Score">
-        SELECT *
-        FROM Score
-        WHERE stuId = #{stuId}
-        AND isReal = 1
-    </select>
-    <select id="selectGarbage" resultType="cn.kevin.ims.entity.Score">
-        SELECT *
-        FROM Score
-        WHERE isReal = 0
-    </select>
-    <select id="selectAdmin" resultType="cn.kevin.ims.entity.Score">
-        SELECT *
-        FROM score
-    </select>
-    <select id="selectAdminById" resultType="cn.kevin.ims.entity.Score">
-        SELECT *
-        FROM Score
-        WHERE subId = #{subId}
-        AND stuId = #{stuId}
-    </select>
-    <select id="selectAdminByStuId" resultType="cn.kevin.ims.entity.Score">
-        SELECT *
-        FROM Score
-        WHERE stuId = #{stuId}
-    </select>
-    <select id="selectAdminBySubId" resultType="cn.kevin.ims.entity.Score">
-        SELECT *
-        FROM Score
-        WHERE subId = #{subId}
     </select>
 </mapper>

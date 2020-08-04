@@ -23,7 +23,7 @@ public class Student extends AbstractEntity {
     /**
      * 学生ID
      */
-    private Integer stuId;
+    private String stuId;
     /**
      * 学生姓名
      */
@@ -41,10 +41,9 @@ public class Student extends AbstractEntity {
      */
     private String stuEmail;
     /**
-     * 学生年龄
+     * 学生手机号
      */
-    private Integer stuAge;
-
+    private String stuPhone;
 
     /**
      * Equals boolean.

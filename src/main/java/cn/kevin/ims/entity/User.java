@@ -36,11 +36,11 @@ public class User extends AbstractEntity {
     /**
      * 用户联系电话
      */
-    private long usrPhone;
+    private String usrPhone;
     /**
      * 用户电子邮箱
      */
-    private long usrEmail;
+    private String usrEmail;
     /**
      * 最近登录时间
      */

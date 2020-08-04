@@ -5,93 +5,85 @@
 
 <mapper namespace="cn.kevin.ims.mapper.StudentMapper">
     <cache eviction="FIFO" readOnly="true" size="1024" flushInterval="30000"/>
-    <insert id="insert" parameterType="cn.kevin.ims.entity.Student">
-        INSERT INTO Student (stuId, stuAge, stuBirthday, stuEmail, stuGender, stuName, utcCreate, utcModify, isReal)
-        VALUE (#{stuId}, #{stuAge}, #{stuBirthday}, #{stuEmail}, #{stuGender}, #{stuName}, #{utcCreate},
-        #{utcModify}, 1)
+    <insert id="saveStudentInfo" parameterType="cn.kevin.ims.entity.Student">
+        INSERT INTO Student (stuId, stuBirthday, stuPhone, stuEmail, stuGender,
+                             stuName, remark, utcCreate, utcModify, modifyBy, valid)
+        VALUE (#{stuId}, #{stuBirthday}, #{stuPhone}, #{stuEmail}, #{stuGender}, #{stuName}, #{remark},
+               #{utcCreate}, #{utcModify}, #{modifyBy}, 1)
     </insert>
-    <delete id="save" parameterType="Integer">
+    <delete id="deleteStudent" parameterType="String">
         DELETE
         FROM Student
         WHERE stuId = #{stuId}
     </delete>
-    <update id="delete" parameterType="cn.kevin.ims.entity.Student">
+    <update id="disableStudent" parameterType="cn.kevin.ims.entity.Student">
         UPDATE Student
-        SET isReal = 0,
-        utcModify = #{utcModify}
+        SET valid = 0,
+            utcModify = #{utcModify},
+            modifyBy = #{modifyBy}
         WHERE stuId = #{stuId}
     </update>
-    <update id="reDelete" parameterType="cn.kevin.ims.entity.Student">
+    <update id="recoverStudent" parameterType="cn.kevin.ims.entity.Student">
         UPDATE Student
-        SET isReal = 1,
-            utcModify = #{utcModify}
+        SET valid = 1,
+            utcModify = #{utcModify},
+            modifyBy = #{modifyBy}
         WHERE stuId = #{stuId}
     </update>
-    <update id="update" parameterType="cn.kevin.ims.entity.Student">
+    <update id="updateStudentInfo" parameterType="cn.kevin.ims.entity.Student">
         UPDATE Student
         <set>
-            <if test="stuAge != null and stuAge != ''">
-                stuAge = #{stuAge},
-            </if>
             <if test="stuBirthday != null">
                 stuBirthday = #{stuBirthday},
+            </if>
+            <if test="stuPhone != null and stuPhone != ''">
+                stuPhone = #{stuPhone},
             </if>
             <if test="stuEmail != null and stuEmail != ''">
                 stuEmail = #{stuEmail},
             </if>
-            <if test="stuGender != null and stuGender != ''">
-                stuGender = #{stuGender},
-            </if>
+            <choose>
+                <when test="stuGender">
+                    stuGender = 1,
+                </when>
+                <otherwise>
+                    stuGender = 0,
+                </otherwise>
+            </choose>
             <if test="stuName != null and stuName != ''">
                 stuName = #{stuName},
             </if>
             <if test="true">
+                remark = #{remark},
                 utcModify = #{utcModify},
+                modifyBy = #{modifyBy},
             </if>
         </set>
         WHERE stuId = #{stuId}
     </update>
-    <select id="select" parameterType="Integer" resultType="cn.kevin.ims.entity.Student">
-        SELECT *
-        FROM Student
-        WHERE stuId = #{stuId}
-        AND isReal = 1
-    </select>
     <select id="selectAll" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
-        WHERE isReal = 1
     </select>
-    <select id="selectAdmin" resultType="cn.kevin.ims.entity.Student">
+    <select id="selectAnyParam" parameterType="cn.kevin.ims.entity.Student" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
-    </select>
-    <select id="selectByAllInfo" parameterType="cn.kevin.ims.entity.Student" resultType="cn.kevin.ims.entity.Student">
-        SELECT *
-        FROM Student
-        WHERE (stuId = #{stuId}
-        OR stuAge = #{stuAge}
+        WHERE (id = #{id}
+        OR stuId = #{stuId}
+        OR stuBirthday = #{stuBirthday}
+        OR stuPhone = #{stuPhone}
         OR stuEmail = #{stuEmail}
         OR stuGender = #{stuGender}
         OR stuName = #{stuName}
+        OR remark = #{remark}
         OR utcCreate = #{utcCreate}
         OR utcModify = #{utcModify})
-        AND isReal = 1
+        OR modifyBy = #{modifyBy}
+        OR valid = #{valid})
     </select>
-    <select id="selectSimilarName" parameterType="String" resultType="cn.kevin.ims.entity.Student">
+    <select id="selectById" parameterType="String" resultType="cn.kevin.ims.entity.Student">
         SELECT *
         FROM Student
-        WHERE stuName LIKE '%${value}%'
-        AND isReal = 1
-    </select>
-    <select id="selectAdminById" parameterType="Integer" resultType="cn.kevin.ims.entity.Student">
-        SELECT *
-        FROM Student
-        WHERE stuID = #{stuID}
-    </select>
-    <select id="selectGarbage" resultType="cn.kevin.ims.entity.Student">
-        SELECT *
-        FROM Student
-        WHERE isReal = 0
+        WHERE stuId = #{stuId}
     </select>
 </mapper>

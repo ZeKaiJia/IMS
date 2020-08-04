@@ -56,10 +56,8 @@
             <if test="usrEmail != null and usrEmail != ''">
                 usrEmail = #{usrEmail},
             </if>
-            <if test="remark != null and remark != ''">
-                remark = #{remark},
-            </if>
             <if test="true">
+                remark = #{remark},
                 utcModify = #{utcModify},
                 modifyBy = #{modifyBy},
             </if>

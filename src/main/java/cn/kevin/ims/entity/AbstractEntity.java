@@ -35,5 +35,5 @@ public abstract class AbstractEntity implements Serializable {
     /**
      * 备注
      */
-    private long remark;
+    private String remark;
 }

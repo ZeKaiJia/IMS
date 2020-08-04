@@ -22,7 +22,7 @@ public class Score extends AbstractEntity {
     /**
      * 学生ID
      */
-    private Integer stuId;
+    private String stuId;
     /**
      * 课程ID
      */
@@ -31,17 +31,6 @@ public class Score extends AbstractEntity {
      * 课程分数
      */
     private Integer subScore;
-
-    /**
-     * Instantiates a new Score.
-     * 双参数构造函数
-     * @param stuId the stu id
-     * @param subId the sub id
-     */
-    public Score(Integer stuId, Integer subId) {
-        this.stuId = stuId;
-        this.subId = subId;
-    }
 
     /**
      * Equals boolean.

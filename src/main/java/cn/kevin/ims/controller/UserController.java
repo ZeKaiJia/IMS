@@ -9,7 +9,10 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.servlet.Cookie;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +30,8 @@ public class UserController extends BaseController {
     public String helloWorld(@PathVariable(name = "name") String name) {
         return "Hello " + name;
     }
+    @RequiresRoles("admin")
+    @RequiresPermissions("user:insert")
     @PostMapping(value = "/insert")
     @ResponseBody
     public Response<User> saveUserInfo(@NotNull @RequestBody User sysUser) {
@@ -36,33 +41,41 @@ public class UserController extends BaseController {
         }
         return getFailResult(405, "Message already exist!");
     }
+    @RequiresRoles("admin")
+    @RequiresPermissions("user:delete")
     @PostMapping(value = "/delete")
     @ResponseBody
-    public Response<User> deleteUser(String userName) {
-        User result = userService.deleteUser(userName);
+    public Response<User> deleteUser(String usrName) {
+        User result = userService.deleteUser(usrName);
         if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresRoles("admin")
+    @RequiresPermissions("user:disable")
     @PostMapping(value = "/disable")
     @ResponseBody
-    public Response<User> disableUser(String userName) {
-        User result = userService.disableUser(userName);
+    public Response<User> disableUser(String usrName) {
+        User result = userService.disableUser(usrName);
         if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresRoles("admin")
+    @RequiresPermissions("user:recover")
     @PostMapping(value = "/recover")
     @ResponseBody
-    public Response<User> recoverUser(String userName) {
-        User result = userService.recoverUser(userName);
+    public Response<User> recoverUser(String usrName) {
+        User result = userService.recoverUser(usrName);
         if (result != null) {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresRoles("admin")
+    @RequiresPermissions("user:update")
     @PostMapping(value = "/update")
     @ResponseBody
     public Response<User> updateUserInfo(@RequestBody User sysUser) {
@@ -76,11 +89,13 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response<User> userLogin(@RequestBody User sysUser) {
         User result;
-        UsernamePasswordToken token = new UsernamePasswordToken(sysUser.getUsrName(), sysUser.getUsrPassword());
         Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(sysUser.getUsrName(), sysUser.getUsrPassword());
+        token.setRememberMe(true);
         try {
             subject.login(token);
             result = userService.userLogin(sysUser.getUsrName(), sysUser.getUsrPassword());
+            session.setAttribute("user", subject);
         } catch (UnknownAccountException e) {
             return getFailResult(404, "Message not found");
         } catch (IncorrectCredentialsException e) {
@@ -93,20 +108,8 @@ public class UserController extends BaseController {
         }
         return getSuccessResult(result);
     }
-    @RequestMapping(value = "/toLogin", method = RequestMethod.GET)
-    public String toLogin() {
-        return "redirect:user/login";
-    }
-    @GetMapping(value = "/selectByName")
-    @ResponseBody
-    public Response<User> selectByName(String userName) {
-        User result = userService.selectByName(userName);
-        if (result != null) {
-            return getSuccessResult(result);
-        }
-        return getFailResult(404, "Message not found!");
-    }
-
+    @RequiresRoles("admin")
+    @RequiresPermissions("user:selectAll")
     @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<User>> selectAll() {
@@ -116,6 +119,19 @@ public class UserController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresRoles("admin")
+    @RequiresPermissions("user:selectByName")
+    @GetMapping(value = "/selectByName")
+    @ResponseBody
+    public Response<User> selectByName(String usrName) {
+        User result = userService.selectByName(usrName);
+        if (result != null) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not found!");
+    }
+    @RequiresRoles("admin")
+    @RequiresPermissions("user:selectAnyParam")
     @GetMapping(value = "/selectAnyParam")
     @ResponseBody
     public Response<List<User>> selectAnyParam(@RequestBody User sysUser) {
@@ -124,5 +140,16 @@ public class UserController extends BaseController {
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not found!");
+    }
+    @GetMapping(value = "/logout")
+    @ResponseBody
+    public Response<User> userLogout() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return getSuccessResult(new User());
+    }
+    @RequestMapping(value = "/toLogin", method = RequestMethod.GET)
+    public String toLogin() {
+        return "redirect:user/login";
     }
 }
