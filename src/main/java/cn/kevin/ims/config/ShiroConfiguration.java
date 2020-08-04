@@ -79,7 +79,6 @@ public class ShiroConfiguration {
      * SpringShiroFilter首先注册到spring容器
      * 然后被包装成FilterRegistrationBean
      * 最后通过FilterRegistrationBean注册到servlet容器
-     * @return
      */
     @Bean
     public FilterRegistrationBean delegatingFilterProxy(){
