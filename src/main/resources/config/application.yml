@@ -18,6 +18,6 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cache-enabled: true
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: cn.kevin.ims.mapper
+  type-aliases-package: cn.kevin.ims.entity
   type-handlers-package: cn.kevin.ims.handler
 ################### Shiro DataSource Configuration ##########################

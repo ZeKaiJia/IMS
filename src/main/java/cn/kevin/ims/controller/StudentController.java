@@ -5,6 +5,7 @@ import cn.kevin.ims.entity.Student;
 import cn.kevin.ims.service.StudentService;
 import cn.kevin.ims.vo.Response;
 import com.alibaba.fastjson.JSON;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class StudentController extends BaseController {
     public String helloWorld(@PathVariable(name = "name") String name) {
         return "Hello " + name;
     }
+    @RequiresPermissions("student:insert")
     @PostMapping(value = "/insert")
     @ResponseBody
     public Response<Student> saveStudentInfo(@NotNull @RequestBody Student student) {
@@ -32,6 +34,7 @@ public class StudentController extends BaseController {
         }
         return getFailResult(405, "Message already exist!");
     }
+    @RequiresPermissions("student:delete")
     @PostMapping(value = "/delete")
     @ResponseBody
     public Response<Student> deleteStudent(String stuId) {
@@ -41,6 +44,7 @@ public class StudentController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresPermissions("student:disable")
     @PostMapping(value = "/disable")
     @ResponseBody
     public Response<Student> disableStudent(String stuId) {
@@ -50,6 +54,7 @@ public class StudentController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresPermissions("student:recover")
     @PostMapping(value = "/recover")
     @ResponseBody
     public Response<Student> recoverStudent(String stuId) {
@@ -59,6 +64,7 @@ public class StudentController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresPermissions("student:update")
     @PostMapping(value = "/update")
     @ResponseBody
     public Response<Student> updateStudentInfo(@RequestBody Student student) {
@@ -68,6 +74,7 @@ public class StudentController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresPermissions("student:selectById")
     @GetMapping(value = "/selectById")
     @ResponseBody
     public Response<Student> selectById(String stuId) {
@@ -77,6 +84,7 @@ public class StudentController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresPermissions("student:selectAll")
     @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<Student>> selectAll() {
@@ -86,6 +94,7 @@ public class StudentController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
+    @RequiresPermissions("student:selectAnyParam")
     @GetMapping(value = "/selectAnyParam")
     @ResponseBody
     public Response<List<Student>> selectAnyParam(@RequestBody Student student) {

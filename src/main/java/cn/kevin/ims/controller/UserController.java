@@ -1,6 +1,8 @@
 package cn.kevin.ims.controller;
 
+import cn.kevin.ims.entity.Role;
 import cn.kevin.ims.entity.User;
+import cn.kevin.ims.service.RoleService;
 import cn.kevin.ims.service.UserService;
 import cn.kevin.ims.vo.Response;
 import org.apache.shiro.SecurityUtils;
@@ -17,7 +19,10 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @RestController()
 @CrossOrigin
@@ -25,6 +30,8 @@ import java.util.List;
 public class UserController extends BaseController {
     @Resource(name = "userService")
     private UserService userService;
+    @Resource(name = "roleService")
+    private RoleService roleService;
     @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
@@ -34,9 +41,10 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:insert")
     @PostMapping(value = "/insert")
     @ResponseBody
-    public Response<User> saveUserInfo(@NotNull @RequestBody User sysUser) {
+    public Response<User> saveUserInfo(@NotNull @RequestBody User sysUser, @RequestParam String usrType) {
         User result = userService.saveUserInfo(sysUser);
         if (result != null) {
+            roleService.createUserRole(usrType, result.getUsrName());
             return getSuccessResult(result);
         }
         return getFailResult(405, "Message already exist!");
@@ -45,9 +53,10 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:delete")
     @PostMapping(value = "/delete")
     @ResponseBody
-    public Response<User> deleteUser(String usrName) {
+    public Response<User> deleteUser(@RequestParam String usrName) {
         User result = userService.deleteUser(usrName);
         if (result != null) {
+            roleService.deleteUserRole(usrName);
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not found!");
@@ -56,7 +65,7 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:disable")
     @PostMapping(value = "/disable")
     @ResponseBody
-    public Response<User> disableUser(String usrName) {
+    public Response<User> disableUser(@RequestParam String usrName) {
         User result = userService.disableUser(usrName);
         if (result != null) {
             return getSuccessResult(result);
@@ -67,7 +76,7 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:recover")
     @PostMapping(value = "/recover")
     @ResponseBody
-    public Response<User> recoverUser(String usrName) {
+    public Response<User> recoverUser(@RequestParam String usrName) {
         User result = userService.recoverUser(usrName);
         if (result != null) {
             return getSuccessResult(result);
@@ -78,9 +87,10 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:update")
     @PostMapping(value = "/update")
     @ResponseBody
-    public Response<User> updateUserInfo(@RequestBody User sysUser) {
+    public Response<User> updateUserInfo(@RequestBody User sysUser, @RequestParam String usrType) {
         User result = userService.updateUserInfo(sysUser);
         if (result != null) {
+            roleService.changeUserRole(usrType, result.getUsrName());
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not found!");
@@ -120,10 +130,22 @@ public class UserController extends BaseController {
         return getFailResult(404, "Message not found!");
     }
     @RequiresRoles("admin")
+    @RequiresPermissions("user:selectRole")
+    @GetMapping(value = "/findRoleByUserName")
+    @ResponseBody
+    public Response<String> findRoleByUserName(@RequestParam String usrName) {
+        Set<String> roles = roleService.findRoleByUserName(usrName);
+        List<String> result = new ArrayList<String>(roles);
+        if (result.size() != 0) {
+            return getSuccessResult(result.get(0));
+        }
+        return getFailResult(404, "Message not found!");
+    }
+    @RequiresRoles("admin")
     @RequiresPermissions("user:selectByName")
     @GetMapping(value = "/selectByName")
     @ResponseBody
-    public Response<User> selectByName(String usrName) {
+    public Response<User> selectByName(@RequestParam String usrName) {
         User result = userService.selectByName(usrName);
         if (result != null) {
             return getSuccessResult(result);
