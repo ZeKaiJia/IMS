@@ -94,4 +94,8 @@
         FROM sys_user_role
         WHERE user_name = #{usrName}
     </select>
+    <select id="selectAllUserRole" resultType="java.lang.String">
+        SELECT role
+        FROM sys_user_role
+    </select>
 </mapper>

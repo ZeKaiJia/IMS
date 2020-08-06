@@ -24,4 +24,5 @@ public interface RoleMapper {
     List<Role> selectAll();
     List<Role> selectAnyParam(Role role);
     Set<String> findRoleByUserName(@Param("usrName") String usrName);
+    List<String> selectAllUserRole();
 }

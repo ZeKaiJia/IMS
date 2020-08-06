@@ -1,7 +1,9 @@
 package cn.kevin.ims.controller;
 
+import cn.kevin.ims.entity.Permission;
 import cn.kevin.ims.entity.Role;
 import cn.kevin.ims.entity.User;
+import cn.kevin.ims.service.PermissionService;
 import cn.kevin.ims.service.RoleService;
 import cn.kevin.ims.service.UserService;
 import cn.kevin.ims.vo.Response;
@@ -32,6 +34,8 @@ public class UserController extends BaseController {
     private UserService userService;
     @Resource(name = "roleService")
     private RoleService roleService;
+    @Resource(name = "permissionService")
+    private PermissionService permissionService;
     @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
@@ -129,8 +133,6 @@ public class UserController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
-    @RequiresRoles("admin")
-    @RequiresPermissions("user:selectRole")
     @GetMapping(value = "/findRoleByUserName")
     @ResponseBody
     public Response<String> findRoleByUserName(@RequestParam String usrName) {
@@ -138,6 +140,15 @@ public class UserController extends BaseController {
         List<String> result = new ArrayList<String>(roles);
         if (result.size() != 0) {
             return getSuccessResult(result.get(0));
+        }
+        return getFailResult(404, "Message not found!");
+    }
+    @GetMapping(value = "/selectAllUserRole")
+    @ResponseBody
+    public Response<List<String>> selectAllUserRole() {
+        List<String> result = roleService.selectAllUserRole();
+        if (result.size() != 0) {
+            return getSuccessResult(result);
         }
         return getFailResult(404, "Message not found!");
     }
@@ -163,12 +174,22 @@ public class UserController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
+    @GetMapping(value = "/selectAllPermission")
+    @ResponseBody
+    public Response<List<Permission>> selectAllPermission() {
+        List<Permission> result = permissionService.selectAll();
+        if (result.size() != 0) {
+            return getSuccessResult(result);
+        }
+        return getFailResult(404, "Message not found!");
+    }
     @GetMapping(value = "/logout")
     @ResponseBody
-    public Response<User> userLogout() {
+    public Response<String> userLogout() {
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9999");
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return getSuccessResult(new User());
+        return getSuccessResult("logout");
     }
     @RequestMapping(value = "/toLogin", method = RequestMethod.GET)
     public String toLogin() {

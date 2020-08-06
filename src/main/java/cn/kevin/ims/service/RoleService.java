@@ -100,4 +100,7 @@ public class RoleService {
     public Set<String> findRoleByUserName(String usrName) {
         return roleMapper.findRoleByUserName(usrName);
     }
+    public List<String> selectAllUserRole() {
+        return roleMapper.selectAllUserRole();
+    }
 }

@@ -66,8 +66,8 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setLoginUrl("/user/login");
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/user/login","anon");
-        filterChainDefinitionMap.put("/user/logout","logout");
         filterChainDefinitionMap.put("/**", "corsAuthenticationFilter");
+        filterChainDefinitionMap.put("/user/logout","logout");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         Map<String, Filter> filterMap = new LinkedHashMap<>();
         filterMap.put("corsAuthenticationFilter", corsAuthenticationFilter());
