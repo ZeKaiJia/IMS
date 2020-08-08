@@ -15,15 +15,12 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.servlet.Cookie;
-import org.apache.shiro.web.servlet.SimpleCookie;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @RestController()
@@ -34,8 +31,6 @@ public class UserController extends BaseController {
     private UserService userService;
     @Resource(name = "roleService")
     private RoleService roleService;
-    @Resource(name = "permissionService")
-    private PermissionService permissionService;
     @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
@@ -133,25 +128,6 @@ public class UserController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
-    @GetMapping(value = "/findRoleByUserName")
-    @ResponseBody
-    public Response<String> findRoleByUserName(@RequestParam String usrName) {
-        Set<String> roles = roleService.findRoleByUserName(usrName);
-        List<String> result = new ArrayList<String>(roles);
-        if (result.size() != 0) {
-            return getSuccessResult(result.get(0));
-        }
-        return getFailResult(404, "Message not found!");
-    }
-    @GetMapping(value = "/selectAllUserRole")
-    @ResponseBody
-    public Response<List<String>> selectAllUserRole() {
-        List<String> result = roleService.selectAllUserRole();
-        if (result.size() != 0) {
-            return getSuccessResult(result);
-        }
-        return getFailResult(404, "Message not found!");
-    }
     @RequiresRoles("admin")
     @RequiresPermissions("user:selectByName")
     @GetMapping(value = "/selectByName")
@@ -169,15 +145,6 @@ public class UserController extends BaseController {
     @ResponseBody
     public Response<List<User>> selectAnyParam(@RequestBody User sysUser) {
         List<User> result = userService.selectAnyParam(sysUser);
-        if (result.size() != 0) {
-            return getSuccessResult(result);
-        }
-        return getFailResult(404, "Message not found!");
-    }
-    @GetMapping(value = "/selectAllPermission")
-    @ResponseBody
-    public Response<List<Permission>> selectAllPermission() {
-        List<Permission> result = permissionService.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }

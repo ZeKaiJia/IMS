@@ -19,10 +19,19 @@
         INSERT INTO sys_permission (name, permission, url, remark, utcCreate, utcModify, modifyBy, valid)
         VALUE (#{name}, #{permission}, #{url}, #{remark}, #{utcCreate}, #{utcModify}, #{modifyBy}, 1)
     </insert>
+    <insert id="insertNewPermission">
+        INSERT INTO sys_role_permission (role, permission)
+        VALUE (#{role}, #{permission})
+    </insert>
     <delete id="deletePermission" parameterType="String">
         DELETE
         FROM sys_permission
         WHERE name = #{name}
+    </delete>
+    <delete id="deleteRolePermission">
+        DELETE
+        FROM sys_role_permission
+        WHERE role = #{role}
     </delete>
     <update id="disablePermission" parameterType="cn.kevin.ims.entity.Permission">
         UPDATE sys_permission
@@ -41,6 +50,9 @@
     <update id="updatePermissionInfo" parameterType="cn.kevin.ims.entity.Permission">
         UPDATE sys_permission
         <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
             <if test="permission != null and permission != ''">
                 permission = #{permission},
             </if>
@@ -55,12 +67,17 @@
                 modifyBy = #{modifyBy},
             </if>
         </set>
-        WHERE name = #{name}
+        WHERE id = #{id}
     </update>
     <select id="selectByName" parameterType="String" resultType="cn.kevin.ims.entity.Permission">
         SELECT *
         FROM sys_permission
         WHERE name = #{name}
+    </select>
+    <select id="selectById" parameterType="Integer" resultType="cn.kevin.ims.entity.Permission">
+        SELECT *
+        FROM sys_permission
+        WHERE id = #{id}
     </select>
     <select id="selectAll" resultType="cn.kevin.ims.entity.Permission">
         SELECT *

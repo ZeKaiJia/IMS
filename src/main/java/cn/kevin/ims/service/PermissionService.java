@@ -30,6 +30,10 @@ public class PermissionService {
             return permission;
         }
     }
+    public String insertNewPermission(String paramRole, String paramPermission) {
+        permissionMapper.insertNewPermission(paramRole, paramPermission);
+        return "Success!";
+    }
     public Permission deletePermission(String paramName) {
         permission = permissionMapper.selectByName(paramName);
         if (permission != null) {
@@ -38,6 +42,10 @@ public class PermissionService {
         } else {
             return null;
         }
+    }
+    public String deleteRolePermission(String paramRole) {
+        permissionMapper.deleteRolePermission(paramRole);
+        return "Success!";
     }
     public Permission disablePermission(String paramName) {
         permission = permissionMapper.selectByName(paramName);
@@ -62,7 +70,7 @@ public class PermissionService {
        }
     }
     public Permission updatePermissionInfo(Permission paramPermission) {
-        permission = permissionMapper.selectByName(paramPermission.getName());
+        permission = permissionMapper.selectById(paramPermission.getId());
         if (permission != null) {
             paramPermission.setUtcModify(DateUtil.currentSecond());
             permissionMapper.updatePermissionInfo(paramPermission);
@@ -74,13 +82,16 @@ public class PermissionService {
     public Permission selectByName(String paramName) {
         return permissionMapper.selectByName(paramName);
     }
+    public Permission selectById(Integer paramId) {
+        return permissionMapper.selectById(paramId);
+    }
     public List<Permission> selectAll() {
         return permissionMapper.selectAll();
     }
     public List<Permission> selectAnyParam(Permission paramPermission) {
         return permissionMapper.selectAnyParam(paramPermission);
     }
-    public Set<String> findPermissionByRole(String role) {
-        return permissionMapper.findPermissionByRole(role);
+    public Set<String> findPermissionByRole(String paramRole) {
+        return permissionMapper.findPermissionByRole(paramRole);
     }
 }

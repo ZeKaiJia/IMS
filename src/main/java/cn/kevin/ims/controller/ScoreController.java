@@ -71,7 +71,7 @@ public class ScoreController extends BaseController {
         }
         return getFailResult(404, "Message not found!");
     }
-    @RequiresPermissions("score:selectByStudentAndSubjectId")
+    @RequiresPermissions("score:selectByStuAndSub")
     @GetMapping(value = "/selectByStudentAndSubjectId")
     @ResponseBody
     public Response<Score> selectByStudentAndSubjectId(@RequestParam String stuId, @RequestParam Integer subId) {

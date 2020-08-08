@@ -15,20 +15,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Permission extends AbstractEntity {
-    /**
-     * The constant serialVersionUID.
-     */
     private static final long serialVersionUID = 8482551052982019660L;
-    /**
-     * 权限名
-     */
+    private Integer id;
     private String name;
-    /**
-     * Shiro权限名称
-     */
     private String permission;
-    /**
-     * url
-     */
     private String url;
 }
