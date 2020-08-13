@@ -1,6 +1,6 @@
 server:
   port: 9988
-logging.level.root: INFO
+logging.level.root: WARN
 ################### Spring DataSource Configuration ##########################
 spring:
   datasource:
@@ -9,6 +9,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///IMS?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
   mvc:
+    view:
+      suffix: html
     static-path-pattern: /**
   resources:
     static-locations: classpath:/static/

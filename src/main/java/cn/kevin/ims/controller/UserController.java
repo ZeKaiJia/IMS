@@ -14,6 +14,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
@@ -153,9 +154,16 @@ public class UserController extends BaseController {
     @GetMapping(value = "/logout")
     @ResponseBody
     public Response<String> userLogout() {
+        // TODO : 部署时修改为本地域名
         response.setHeader("Access-Control-Allow-Origin", "http://localhost:9999");
+        response.setHeader( "Access-Control-Allow-Credentials", "true" );
         Subject subject = SecurityUtils.getSubject();
-        subject.logout();
+        try {
+            subject.logout();
+        } catch (SessionException e) {
+            e.printStackTrace();
+            return getFailResult(408, e.toString());
+        }
         return getSuccessResult("logout");
     }
     @RequestMapping(value = "/toLogin", method = RequestMethod.GET)

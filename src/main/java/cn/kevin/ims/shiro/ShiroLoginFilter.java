@@ -1,4 +1,4 @@
-package cn.kevin.ims.handler;
+package cn.kevin.ims.shiro;
 
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.stereotype.Component;
@@ -31,7 +31,7 @@ public class ShiroLoginFilter  implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         // 允许哪些Origin发起跨域请求,nginx下正常
-        // response.setHeader( "Access-Control-Allow-Origin", config.getInitParameter( "AccessControlAllowOrigin" ) );
+        // TODO : 部署时修改为本地域名
         response.setHeader( "Access-Control-Allow-Origin", "http://localhost:9999" );
         // 允许请求的方法
         response.setHeader( "Access-Control-Allow-Methods", "OPTIONS, GET, POST" );
@@ -41,7 +41,6 @@ public class ShiroLoginFilter  implements Filter {
         response.setHeader( "Access-Control-Allow-Headers", "content-type" );
         //是否允许浏览器携带用户身份信息（cookie）
         response.setHeader( "Access-Control-Allow-Credentials", "true" );
-//         response.setHeader( "Access-Control-Request-Headers", "*" );
         if ("OPTIONS".equals(request.getMethod().toUpperCase())) {
             response.setStatus( 200 );
             return;

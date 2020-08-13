@@ -37,14 +37,16 @@ public class CORSAuthenticationFilter extends FormAuthenticationFilter {
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletResponse res = (HttpServletResponse)response;
+        // TODO : 部署时修改为本地域名
         res.setHeader("Access-Control-Allow-Origin", "http://localhost:9999");
         res.setHeader("Access-Control-Allow-Headers", "content-type");
+        res.setHeader("Access-Control-Allow-Credentials", "true");
         res.setStatus(HttpServletResponse.SC_OK);
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();
         Map<String, Object> map= new HashMap<>();
         map.put("code", 702);
-        map.put("msg", "no login!");
+        map.put("msg", "用户未登录");
         writer.write(JSON.toJSONString(map));
         writer.close();
         return false;

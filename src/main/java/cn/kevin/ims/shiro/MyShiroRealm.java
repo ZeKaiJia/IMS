@@ -10,6 +10,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,16 @@ public class MyShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String userName = token.getUsername();
         User user = userService.selectByName(userName);
+        if (user == null) {
+            throw new UnknownAccountException("Message not found");
+        } else if (!user.getValid()) {
+            throw new LockedAccountException("Account locked");
+        }
         return new SimpleAuthenticationInfo(
-                user.getUsrName(),
-                user.getUsrPassword(),
-                getName()
+            user.getUsrName(),
+            user.getUsrPassword(),
+            ByteSource.Util.bytes(userName),
+            getName()
         );
     }
     @Override
