@@ -66,7 +66,6 @@ public class ShiroConfiguration {
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
         filterChainDefinitionMap.put("/favicon.ico","anon");
         filterChainDefinitionMap.put("/user/login","anon");
-//        filterChainDefinitionMap.put("/user/logout","logout");
         filterChainDefinitionMap.put("/**", "corsAuthenticationFilter");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         Map<String, Filter> filterMap = new LinkedHashMap<>();
@@ -93,7 +92,8 @@ public class ShiroConfiguration {
     @Bean
     public SimpleCookie rememberMeCookie(){
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
-        simpleCookie.setMaxAge(36000);
+        simpleCookie.setMaxAge(24 * 60 * 60);
+        simpleCookie.setHttpOnly(false);
         return simpleCookie;
     }
 

@@ -1,7 +1,8 @@
 package cn.kevin.ims.config;
 
+import cn.kevin.ims.util.DateUtil;
 import com.alibaba.fastjson.JSON;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.filter.authc.UserFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +18,7 @@ import java.util.Map;
  * @Author: Kevin
  * @Date: 2020/8/4 2:06 下午
  */
-public class CORSAuthenticationFilter extends FormAuthenticationFilter {
+public class CORSAuthenticationFilter extends UserFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(CORSAuthenticationFilter.class);
 
@@ -27,7 +28,6 @@ public class CORSAuthenticationFilter extends FormAuthenticationFilter {
 
     @Override
     public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        //Always return true if the request's method is OPTIONSif (request instanceof HttpServletRequest) {
         if ("OPTIONS".equals(((HttpServletRequest) request).getMethod().toUpperCase())) {
             return true;
         }
@@ -44,9 +44,11 @@ public class CORSAuthenticationFilter extends FormAuthenticationFilter {
         res.setStatus(HttpServletResponse.SC_OK);
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();
-        Map<String, Object> map= new HashMap<>();
+        Map<String, Object> map= new HashMap<>(16);
+        map.put("success", false);
         map.put("code", 702);
-        map.put("msg", "用户未登录");
+        map.put("message", "用户未登录");
+        map.put("timestamp", DateUtil.currentSecond());
         writer.write(JSON.toJSONString(map));
         writer.close();
         return false;
