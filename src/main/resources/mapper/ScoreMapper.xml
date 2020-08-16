@@ -35,16 +35,10 @@
     </update>
     <update id="updateScoreInfo" parameterType="cn.kevin.ims.entity.Score">
         UPDATE Score
-        <set>
-            <if test="subScore != null and subScore != ''">
-                subScore = #{subScore},
-            </if>
-            <if test="true">
-                remark = #{remark},
-                utcModify = #{utcModify},
-                modifyBy = #{modifyBy},
-            </if>
-        </set>
+        SET subScore = #{subScore},
+            remark = #{remark},
+            utcModify = #{utcModify},
+            modifyBy = #{modifyBy}
         WHERE stuId = #{stuId}
         AND subId = #{subId}
     </update>
