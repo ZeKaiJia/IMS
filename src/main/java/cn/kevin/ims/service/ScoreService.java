@@ -1,88 +1,98 @@
 package cn.kevin.ims.service;
 
 import cn.kevin.ims.entity.Score;
-import cn.kevin.ims.mapper.ScoreMapper;
-import cn.kevin.ims.util.DateUtil;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Resource;
-import java.util.*;
+import java.util.List;
 
-@Service
-@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
-public class ScoreService {
-    @Resource
-    private ScoreMapper scoreMapper;
-    private List<Score> scores;
-    private Score score;
-    public Score saveScoreInfo(Score paramScore) {
-        score = scoreMapper.selectByStudentAndSubjectId(paramScore.getStuId(), paramScore.getSubId());
-        if (score == null) {
-            paramScore.setUtcCreate(DateUtil.currentSecond());
-            paramScore.setUtcModify(DateUtil.currentSecond());
-            scoreMapper.saveScoreInfo(paramScore);
-            return paramScore;
-        } else {
-            return null;
-        }
-    }
-    public Score deleteScore(String paramStudentId, Integer paramSubjectId) {
-        score = scoreMapper.selectByStudentAndSubjectId(paramStudentId, paramSubjectId);
-        if (score != null) {
-            scoreMapper.deleteScore(paramStudentId, paramSubjectId);
-            return score;
-        } else {
-            return null;
-        }
-    }
-    public Score disableScore(String paramStudentId, Integer paramSubjectId) {
-        score = scoreMapper.selectByStudentAndSubjectId(paramStudentId, paramSubjectId);
-        if (score != null) {
-            score.setUtcModify(DateUtil.currentSecond());
-            score.setValid(false);
-            scoreMapper.disableScore(score);
-            return score;
-        } else {
-            return null;
-        }
-    }
-    public Score recoverScore(String paramStudentId, Integer paramSubjectId) {
-        score = scoreMapper.selectByStudentAndSubjectId(paramStudentId, paramSubjectId);
-        if (score != null) {
-            score.setUtcModify(DateUtil.currentSecond());
-            score.setValid(true);
-            scoreMapper.recoverScore(score);
-            return score;
-        } else {
-            return null;
-        }
-    }
-    public Score updateScoreInfo(Score paramScore) {
-        score = scoreMapper.selectByStudentAndSubjectId(paramScore.getStuId(), paramScore.getSubId());
-        if (score != null) {
-            paramScore.setUtcModify(DateUtil.currentSecond());
-            scoreMapper.updateScoreInfo(paramScore);
-            return paramScore;
-        } else {
-            return null;
-        }
-    }
-    public Score selectByStudentAndSubjectId(String paramStudentId, Integer paramSubjectId) {
-        return scoreMapper.selectByStudentAndSubjectId(paramStudentId, paramSubjectId);
-    }
-    public List<Score> selectAll() {
-        return scoreMapper.selectAll();
-    }
-    public List<Score> selectAnyParam(Score paramScore) {
-        return scoreMapper.selectAnyParam(paramScore);
-    }
-    public List<Score> selectByStudentId(String paramStudentId) {
-        return scoreMapper.selectByStudentId(paramStudentId);
-    }
-    public List<Score> selectBySubjectId(Integer paramSubjectId) {
-        return scoreMapper.selectBySubjectId(paramSubjectId);
-    }
+/**
+ * The interface Score service.
+ * 成绩表Service层接口类
+ * @Author: Kevin
+ * @Date: 2020 /8/19 5:59 下午
+ */
+public interface ScoreService {
+    /**
+     * Save score info score.
+     * 根据成绩对象插入成绩数据
+     * @param paramScore the param score
+     * @return the score
+     */
+    Score saveScoreInfo(@NotNull Score paramScore);
+
+    /**
+     * Delete score score.
+     * 根据学号和课程号删除成绩数据
+     * @param paramStudentId the param student id
+     * @param paramSubjectId the param subject id
+     * @return the score
+     */
+    Score deleteScore(String paramStudentId, Integer paramSubjectId);
+
+    /**
+     * Disable score score.
+     * 根据学号和课程号禁用成绩
+     * @param paramStudentId the param student id
+     * @param paramSubjectId the param subject id
+     * @return the score
+     */
+    Score disableScore(String paramStudentId, Integer paramSubjectId);
+
+    /**
+     * Recover score score.
+     * 根据学号和课程号恢复成绩
+     * @param paramStudentId the param student id
+     * @param paramSubjectId the param subject id
+     * @return the score
+     */
+    Score recoverScore(String paramStudentId, Integer paramSubjectId);
+
+    /**
+     * Update score info score.
+     * 根据成绩对象更新成绩数据
+     * @param paramScore the param score
+     * @return the score
+     */
+    Score updateScoreInfo(@NotNull Score paramScore);
+
+    /**
+     * Select by student and subject id score.
+     * 根据学号和课程号查找成绩数据
+     * @param paramStudentId the param student id
+     * @param paramSubjectId the param subject id
+     * @return the score
+     */
+    Score selectByStudentAndSubjectId(String paramStudentId, Integer paramSubjectId);
+
+    /**
+     * Select all list.
+     * 查询成绩列表
+     * @return the list
+     */
+    List<Score> selectAll();
+
+    /**
+     * Select any param list.
+     * 根据任意字段查找成绩数据
+     * @param paramScore the param score
+     * @return the list
+     */
+    List<Score> selectAnyParam(Score paramScore);
+
+    /**
+     * Select by student id list.
+     * 根据学号查找成绩
+     * @param paramStudentId the param student id
+     * @return the list
+     */
+    List<Score> selectByStudentId(String paramStudentId);
+
+    /**
+     * Select by subject id list.
+     * 根据课程号查找成绩
+     * @param paramSubjectId the param subject id
+     * @return the list
+     */
+    List<Score> selectBySubjectId(Integer paramSubjectId);
+
 }

@@ -1,11 +1,9 @@
 package cn.kevin.ims.controller;
 
-import cn.kevin.ims.entity.Permission;
-import cn.kevin.ims.entity.Role;
 import cn.kevin.ims.entity.User;
-import cn.kevin.ims.service.PermissionService;
-import cn.kevin.ims.service.RoleService;
-import cn.kevin.ims.service.UserService;
+import cn.kevin.ims.service.implement.RoleServiceImpl;
+import cn.kevin.ims.service.implement.UserServiceImpl;
+import cn.kevin.ims.util.CorsUtil;
 import cn.kevin.ims.vo.Response;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -20,18 +18,16 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController()
 @CrossOrigin
 @RequestMapping("/user/")
 public class UserController extends BaseController {
-    @Resource(name = "userService")
-    private UserService userService;
-    @Resource(name = "roleService")
-    private RoleService roleService;
+    @Resource(name = "userServiceImpl")
+    private UserServiceImpl userServiceImpl;
+    @Resource(name = "roleServiceImpl")
+    private RoleServiceImpl roleServiceImpl;
     @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
@@ -42,9 +38,9 @@ public class UserController extends BaseController {
     @PostMapping(value = "/insert")
     @ResponseBody
     public Response<User> saveUserInfo(@NotNull @RequestBody User sysUser, @RequestParam String usrType) {
-        User result = userService.saveUserInfo(sysUser);
+        User result = userServiceImpl.saveUserInfo(sysUser);
         if (result != null) {
-            roleService.createUserRole(usrType, result.getUsrName());
+            roleServiceImpl.createUserRole(usrType, result.getUsrName());
             return getSuccessResult(result);
         }
         return getFailResult(405, "Message already exist!");
@@ -54,9 +50,9 @@ public class UserController extends BaseController {
     @PostMapping(value = "/delete")
     @ResponseBody
     public Response<User> deleteUser(@RequestParam String usrName) {
-        User result = userService.deleteUser(usrName);
+        User result = userServiceImpl.deleteUser(usrName);
         if (result != null) {
-            roleService.deleteUserRole(usrName);
+            roleServiceImpl.deleteUserRole(usrName);
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not found!");
@@ -66,7 +62,7 @@ public class UserController extends BaseController {
     @PostMapping(value = "/disable")
     @ResponseBody
     public Response<User> disableUser(@RequestParam String usrName) {
-        User result = userService.disableUser(usrName);
+        User result = userServiceImpl.disableUser(usrName);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -77,7 +73,7 @@ public class UserController extends BaseController {
     @PostMapping(value = "/recover")
     @ResponseBody
     public Response<User> recoverUser(@RequestParam String usrName) {
-        User result = userService.recoverUser(usrName);
+        User result = userServiceImpl.recoverUser(usrName);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -88,9 +84,9 @@ public class UserController extends BaseController {
     @PostMapping(value = "/update")
     @ResponseBody
     public Response<User> updateUserInfo(@RequestBody User sysUser, @RequestParam String usrType) {
-        User result = userService.updateUserInfo(sysUser);
+        User result = userServiceImpl.updateUserInfo(sysUser);
         if (result != null) {
-            roleService.changeUserRole(usrType, result.getUsrName());
+            roleServiceImpl.changeUserRole(usrType, result.getUsrName());
             return getSuccessResult(result);
         }
         return getFailResult(404, "Message not found!");
@@ -104,7 +100,7 @@ public class UserController extends BaseController {
         token.setRememberMe(true);
         try {
             subject.login(token);
-            result = userService.userLogin(sysUser.getUsrName(), sysUser.getUsrPassword());
+            result = userServiceImpl.userLogin(sysUser.getUsrName(), sysUser.getUsrPassword());
             session.setAttribute("user", subject);
         } catch (UnknownAccountException e) {
             return getFailResult(404, "Message not found");
@@ -123,7 +119,7 @@ public class UserController extends BaseController {
     @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<User>> selectAll() {
-        List<User> result = userService.selectAll();
+        List<User> result = userServiceImpl.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -134,7 +130,7 @@ public class UserController extends BaseController {
     @GetMapping(value = "/selectByName")
     @ResponseBody
     public Response<User> selectByName(@RequestParam String usrName) {
-        User result = userService.selectByName(usrName);
+        User result = userServiceImpl.selectByName(usrName);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -145,7 +141,7 @@ public class UserController extends BaseController {
     @GetMapping(value = "/selectAnyParam")
     @ResponseBody
     public Response<List<User>> selectAnyParam(@RequestBody User sysUser) {
-        List<User> result = userService.selectAnyParam(sysUser);
+        List<User> result = userServiceImpl.selectAnyParam(sysUser);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -154,9 +150,7 @@ public class UserController extends BaseController {
     @GetMapping(value = "/logout")
     @ResponseBody
     public Response<String> userLogout() {
-        // TODO : 部署时修改为本地域名
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:9999");
-        response.setHeader( "Access-Control-Allow-Credentials", "true" );
+        CorsUtil.setResponseHeader(response, request);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.logout();

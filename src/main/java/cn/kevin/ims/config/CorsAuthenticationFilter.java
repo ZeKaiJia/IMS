@@ -1,5 +1,6 @@
 package cn.kevin.ims.config;
 
+import cn.kevin.ims.util.CorsUtil;
 import cn.kevin.ims.util.DateUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.shiro.web.filter.authc.UserFilter;
@@ -18,11 +19,11 @@ import java.util.Map;
  * @Author: Kevin
  * @Date: 2020/8/4 2:06 下午
  */
-public class CORSAuthenticationFilter extends UserFilter {
+public class CorsAuthenticationFilter extends UserFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(CORSAuthenticationFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(CorsAuthenticationFilter.class);
 
-    public CORSAuthenticationFilter() {
+    public CorsAuthenticationFilter() {
         super();
     }
 
@@ -37,10 +38,8 @@ public class CORSAuthenticationFilter extends UserFilter {
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletResponse res = (HttpServletResponse)response;
-        // TODO : 部署时修改为本地域名
-        res.setHeader("Access-Control-Allow-Origin", "http://localhost:9999");
-        res.setHeader("Access-Control-Allow-Headers", "content-type");
-        res.setHeader("Access-Control-Allow-Credentials", "true");
+        HttpServletRequest req = (HttpServletRequest)request;
+        CorsUtil.setResponseHeader(res, req);
         res.setStatus(HttpServletResponse.SC_OK);
         res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();

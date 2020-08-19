@@ -1,93 +1,86 @@
 package cn.kevin.ims.service;
 
 import cn.kevin.ims.entity.User;
-import cn.kevin.ims.mapper.UserMapper;
-import cn.kevin.ims.util.DateUtil;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Resource;
 import java.util.List;
 
-@Service
-@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
-public class UserService {
-    @Resource
-    private UserMapper userMapper;
-    private List<User> users;
-    private User user;
-    public User saveUserInfo(User paramUser) {
-        user = userMapper.selectByName(paramUser.getUsrName());
-        if (user == null) {
-            paramUser.setUtcCreate(DateUtil.currentSecond());
-            paramUser.setUtcModify(DateUtil.currentSecond());
-            userMapper.saveUserInfo(paramUser);
-            return paramUser;
-        } else {
-            return null;
-        }
-    }
-    public User deleteUser(String paramUserName) {
-        user = userMapper.selectByName(paramUserName);
-        if (user != null) {
-            userMapper.deleteUser(paramUserName);
-            return user;
-        } else {
-            return null;
-        }
-    }
-    public User disableUser(String paramUserName) {
-        user = userMapper.selectByName(paramUserName);
-        if (user != null) {
-            user.setUtcModify(DateUtil.currentSecond());
-            user.setValid(false);
-            userMapper.disableUser(user);
-            return user;
-        } else {
-            return null;
-        }
-    }
-    public User recoverUser(String paramUserName) {
-       user = userMapper.selectByName(paramUserName);
-       if (user != null) {
-           user.setUtcModify(DateUtil.currentSecond());
-           user.setValid(true);
-           userMapper.recoverUser(user);
-           return user;
-       } else {
-           return null;
-       }
-    }
-    public User updateUserInfo(User paramUser) {
-        user = userMapper.selectByName(paramUser.getUsrName());
-        if (user != null) {
-            paramUser.setUtcModify(DateUtil.currentSecond());
-            userMapper.updateUserInfo(paramUser);
-            return paramUser;
-        } else {
-            return null;
-        }
-    }
-    public User userLogin(String paramUserName, String paramUserPassword) {
-        user = userMapper.selectByName(paramUserName);
-        if (user != null ) {
-            if (user.getUsrPassword().equals(paramUserPassword)) {
-                user.setLastLogin(DateUtil.currentSecond());
-                userMapper.userLogin(user);
-            }
-            return user;
-        }
-        return null;
-    }
-    public User selectByName(String paramUserName) {
-        return userMapper.selectByName(paramUserName);
-    }
-    public List<User> selectAll() {
-        return userMapper.selectAll();
-    }
-    public List<User> selectAnyParam(User paramUser) {
-        return userMapper.selectAnyParam(paramUser);
-    }
+/**
+ * The interface User service.
+ * 用户表Service层接口类
+ * @Author: Kevin
+ * @Date: 2020 /8/19 3:06 下午
+ */
+public interface UserService {
+    /**
+     * Save user info user.
+     * 根据用户对象插入用户信息
+     * @param paramUser the param user
+     * @return the user
+     */
+    User saveUserInfo(@NotNull User paramUser);
+
+    /**
+     * Delete user user.
+     * 根据用户名删除用户信息
+     * @param paramUserName the param user name
+     * @return the user
+     */
+    User deleteUser(String paramUserName);
+
+    /**
+     * Disable user user.
+     * 根据用户名禁用用户账户
+     * @param paramUserName the param user name
+     * @return the user
+     */
+    User disableUser(String paramUserName);
+
+    /**
+     * Recover user user.
+     * 根据用户名恢复用户账户
+     * @param paramUserName the param user name
+     * @return the user
+     */
+    User recoverUser(String paramUserName);
+
+    /**
+     * Update user info user.
+     * 根据用户对象更新用户数据
+     * @param paramUser the param user
+     * @return the user
+     */
+    User updateUserInfo(@NotNull User paramUser);
+
+    /**
+     * User login user.
+     * 根据用户名和密码登录用户
+     * @param paramUserName     the param user name
+     * @param paramUserPassword the param user password
+     * @return the user
+     */
+    User userLogin(String paramUserName, String paramUserPassword);
+
+    /**
+     * Select by name user.
+     * 根据用户名查找用户
+     * @param paramUserName the param user name
+     * @return the user
+     */
+    User selectByName(String paramUserName);
+
+    /**
+     * Select all list.
+     * 查找用户列表
+     * @return the list
+     */
+    List<User> selectAll();
+
+    /**
+     * Select any param list.
+     * 根据任意字段查找用户
+     * @param paramUser the param user
+     * @return the list
+     */
+    List<User> selectAnyParam(User paramUser);
 }

@@ -1,81 +1,77 @@
 package cn.kevin.ims.service;
 
 import cn.kevin.ims.entity.Subject;
-import cn.kevin.ims.mapper.SubjectMapper;
-import cn.kevin.ims.util.DateUtil;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Resource;
 import java.util.List;
 
-@Service
-@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
-public class SubjectService {
-    @Resource
-    private SubjectMapper subjectMapper;
-    private Subject subject;
-    public Subject saveSubjectInfo(Subject paramSubject) {
-        subject = subjectMapper.selectById(paramSubject.getSubId());
-        if (subject == null) {
-            paramSubject.setUtcCreate(DateUtil.currentSecond());
-            paramSubject.setUtcModify(DateUtil.currentSecond());
-            subjectMapper.saveSubjectInfo(paramSubject);
-            return paramSubject;
-        } else {
-            return null;
-        }
-    }
-    public Subject deleteSubject(Integer paramSubjectId) {
-        subject = subjectMapper.selectById(paramSubjectId);
-        if (subject != null) {
-            subjectMapper.deleteSubject(paramSubjectId);
-            return subject;
-        } else {
-            return null;
-        }
-    }
-    public Subject disableSubject(Integer paramSubjectId) {
-        subject = subjectMapper.selectById(paramSubjectId);
-        if (subject != null) {
-            subject.setUtcModify(DateUtil.currentSecond());
-            subject.setValid(false);
-            subjectMapper.disableSubject(subject);
-            return subject;
-        } else {
-            return null;
-        }
-    }
-    public Subject recoverSubject(Integer paramSubjectId) {
-        subject = subjectMapper.selectById(paramSubjectId);
-        if (subject != null) {
-            subject.setUtcModify(DateUtil.currentSecond());
-            subject.setValid(true);
-            subjectMapper.recoverSubject(subject);
-            return subject;
-        } else {
-            return null;
-        }
-    }
-    public Subject updateSubjectInfo(Subject paramSubject) {
-        subject = subjectMapper.selectById(paramSubject.getSubId());
-        if (subject != null) {
-            paramSubject.setUtcModify(DateUtil.currentSecond());
-            subjectMapper.updateSubjectInfo(paramSubject);
-            return paramSubject;
-        } else {
-            return null;
-        }
-    }
-    public List<Subject> selectAll() {
-        return subjectMapper.selectAll();
-    }
-    public Subject selectById(Integer paramSubjectId) {
-        return subjectMapper.selectById(paramSubjectId);
-    }
-    public List<Subject> selectAnyParam(Subject paramSubject) {
-        return subjectMapper.selectAnyParam(paramSubject);
-    }
+/**
+ * The interface Subject service.
+ * 课程表Service层接口类
+ * @Author: Kevin
+ * @Date: 2020 /8/19 3:39 下午
+ */
+public interface SubjectService {
+    /**
+     * Save subject info subject.
+     * 根据课程对象插入课程数据
+     * @param paramSubject the param subject
+     * @return the subject
+     */
+    Subject saveSubjectInfo(@NotNull Subject paramSubject);
+
+    /**
+     * Delete subject subject.
+     * 根据课程号删除课程
+     * @param paramSubjectId the param subject id
+     * @return the subject
+     */
+    Subject deleteSubject(Integer paramSubjectId);
+
+    /**
+     * Disable subject subject.
+     * 根据课程号禁用课程
+     * @param paramSubjectId the param subject id
+     * @return the subject
+     */
+    Subject disableSubject(Integer paramSubjectId);
+
+    /**
+     * Recover subject subject.
+     * 根据课程号恢复课程
+     * @param paramSubjectId the param subject id
+     * @return the subject
+     */
+    Subject recoverSubject(Integer paramSubjectId);
+
+    /**
+     * Update subject info subject.
+     * 根据课程对象更新课程
+     * @param paramSubject the param subject
+     * @return the subject
+     */
+    Subject updateSubjectInfo(@NotNull Subject paramSubject);
+
+    /**
+     * Select all list.
+     * 查询课程列表
+     * @return the list
+     */
+    List<Subject> selectAll();
+
+    /**
+     * Select by id subject.
+     * 根据课程号查询课程
+     * @param paramSubjectId the param subject id
+     * @return the subject
+     */
+    Subject selectById(Integer paramSubjectId);
+
+    /**
+     * Select any param list.
+     * 根据任意字段查询课程
+     * @param paramSubject the param subject
+     * @return the list
+     */
+    List<Subject> selectAnyParam(Subject paramSubject);
 }

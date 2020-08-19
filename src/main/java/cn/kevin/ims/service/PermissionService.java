@@ -1,97 +1,111 @@
 package cn.kevin.ims.service;
 
 import cn.kevin.ims.entity.Permission;
-import cn.kevin.ims.mapper.PermissionMapper;
-import cn.kevin.ims.util.DateUtil;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Set;
 
-@Service
-@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
-public class PermissionService {
-    @Resource
-    private PermissionMapper permissionMapper;
-    private List<Permission> permissions;
-    private Permission permission;
-    public Permission savePermissionInfo(Permission paramPermission) {
-        permission = permissionMapper.selectByName(paramPermission.getName());
-        if (permission == null) {
-            paramPermission.setUtcCreate(DateUtil.currentSecond());
-            paramPermission.setUtcModify(DateUtil.currentSecond());
-            permissionMapper.savePermissionInfo(paramPermission);
-            return paramPermission;
-        } else {
-            return permission;
-        }
-    }
-    public String insertNewPermission(String paramRole, String paramPermission) {
-        permissionMapper.insertNewPermission(paramRole, paramPermission);
-        return "Success!";
-    }
-    public Permission deletePermission(String paramName) {
-        permission = permissionMapper.selectByName(paramName);
-        if (permission != null) {
-            permissionMapper.deletePermission(paramName);
-            return permission;
-        } else {
-            return null;
-        }
-    }
-    public String deleteRolePermission(String paramRole) {
-        permissionMapper.deleteRolePermission(paramRole);
-        return "Success!";
-    }
-    public Permission disablePermission(String paramName) {
-        permission = permissionMapper.selectByName(paramName);
-        if (permission != null) {
-            permission.setUtcModify(DateUtil.currentSecond());
-            permission.setValid(false);
-            permissionMapper.disablePermission(permission);
-            return permission;
-        } else {
-            return null;
-        }
-    }
-    public Permission recoverPermission(String paramName) {
-       permission = permissionMapper.selectByName(paramName);
-       if (permission != null) {
-           permission.setUtcModify(DateUtil.currentSecond());
-           permission.setValid(true);
-           permissionMapper.recoverPermission(permission);
-           return permission;
-       } else {
-           return null;
-       }
-    }
-    public Permission updatePermissionInfo(Permission paramPermission) {
-        permission = permissionMapper.selectById(paramPermission.getId());
-        if (permission != null) {
-            paramPermission.setUtcModify(DateUtil.currentSecond());
-            permissionMapper.updatePermissionInfo(paramPermission);
-            return paramPermission;
-        } else {
-            return null;
-        }
-    }
-    public Permission selectByName(String paramName) {
-        return permissionMapper.selectByName(paramName);
-    }
-    public Permission selectById(Integer paramId) {
-        return permissionMapper.selectById(paramId);
-    }
-    public List<Permission> selectAll() {
-        return permissionMapper.selectAll();
-    }
-    public List<Permission> selectAnyParam(Permission paramPermission) {
-        return permissionMapper.selectAnyParam(paramPermission);
-    }
-    public Set<String> findPermissionByRole(String paramRole) {
-        return permissionMapper.findPermissionByRole(paramRole);
-    }
+/**
+ * The type Role service.
+ * 角色表/用户-角色表Service层接口类
+ * @author kevin
+ */
+public interface PermissionService {
+    /**
+     * Save permission info permission.
+     * 根据权限对象插入权限数据
+     * @param paramPermission the param permission
+     * @return the permission
+     */
+    Permission savePermissionInfo(@NotNull Permission paramPermission);
+
+    /**
+     * Insert new permission string.
+     * 根据角色名和权限名创建角色对应权限
+     * @param paramRole       the param role
+     * @param paramPermission the param permission
+     * @return the string
+     */
+    String insertNewPermission(String paramRole, String paramPermission);
+
+    /**
+     * Delete permission permission.
+     * 根据权限名删除权限
+     * @param paramName the param name
+     * @return the permission
+     */
+    Permission deletePermission(String paramName);
+
+    /**
+     * Delete role permission string.
+     * 根据角色名删除角色对应权限
+     * @param paramRole the param role
+     * @return the string
+     */
+    String deleteRolePermission(String paramRole);
+
+    /**
+     * Disable permission permission.
+     * 根据权限名禁用权限
+     * @param paramName the param name
+     * @return the permission
+     */
+    Permission disablePermission(String paramName);
+
+    /**
+     * Recover permission permission.
+     * 根据权限名恢复权限
+     * @param paramName the param name
+     * @return the permission
+     */
+    Permission recoverPermission(String paramName);
+
+    /**
+     * Update permission info permission.
+     * 根据权限对象更新权限数据
+     * @param paramPermission the param permission
+     * @return the permission
+     */
+    Permission updatePermissionInfo(@NotNull Permission paramPermission);
+
+    /**
+     * Select by name permission.
+     * 根据权限名查询权限数据
+     * @param paramName the param name
+     * @return the permission
+     */
+    Permission selectByName(String paramName);
+
+    /**
+     * Select by id permission.
+     * 根据ID查询权限数据
+     * @param paramId the param id
+     * @return the permission
+     */
+    Permission selectById(Integer paramId);
+
+    /**
+     * Select all list.
+     * 查询权限列表
+     * @return the list
+     */
+    List<Permission> selectAll();
+
+    /**
+     * Select any param list.
+     * 根据任意字段查询权限数据
+     * @param paramPermission the param permission
+     * @return the list
+     */
+    List<Permission> selectAnyParam(Permission paramPermission);
+
+    /**
+     * Find permission by role set.
+     * 根据角色名查询角色对应权限
+     * @param paramRole the param role
+     * @return the set
+     */
+    Set<String> findPermissionByRole(String paramRole);
+
 }

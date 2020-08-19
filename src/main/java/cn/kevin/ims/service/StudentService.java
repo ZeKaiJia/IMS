@@ -1,82 +1,77 @@
 package cn.kevin.ims.service;
 
 import cn.kevin.ims.entity.Student;
-import cn.kevin.ims.mapper.StudentMapper;
-import cn.kevin.ims.util.DateUtil;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Resource;
 import java.util.List;
 
-@Service
-@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
-public class StudentService {
-    @Resource
-    private StudentMapper studentMapper;
-    private Student student;
-    public Student saveStudentInfo(Student paramStudent) {
-        student = studentMapper.selectById(paramStudent.getStuId());
-        if (student == null) {
-            paramStudent.setUtcCreate(DateUtil.currentSecond());
-            paramStudent.setUtcModify(DateUtil.currentSecond());
-            studentMapper.saveStudentInfo(paramStudent);
-            return paramStudent;
-        } else {
-            return null;
-        }
-    }
-    public Student deleteStudent(String paramStudentId) {
-        student = studentMapper.selectById(paramStudentId);
-        if (student != null) {
-            studentMapper.deleteStudent(paramStudentId);
-            return student;
-        } else {
-            return null;
-        }
-    }
-    public Student disableStudent(String paramStudentId) {
-        student = studentMapper.selectById(paramStudentId);
-        if (student != null) {
-            student.setUtcModify(DateUtil.currentSecond());
-            student.setValid(false);
-            studentMapper.disableStudent(student);
-            return student;
-        } else {
-            return null;
-        }
-    }
-    public Student recoverStudent(String paramStudentId) {
-        student = studentMapper.selectById(paramStudentId);
-        if (student != null) {
-            student.setUtcModify(DateUtil.currentSecond());
-            student.setValid(true);
-            studentMapper.recoverStudent(student);
-            return student;
-        } else {
-            return null;
-        }
-    }
-    public Student updateStudentInfo(Student paramStudent) {
-        student = studentMapper.selectById(paramStudent.getStuId());
-        if (student != null) {
-            paramStudent.setUtcModify(DateUtil.currentSecond());
-            paramStudent.setUtcCreate(student.getUtcCreate());
-            studentMapper.updateStudentInfo(paramStudent);
-            return paramStudent;
-        } else {
-            return null;
-        }
-    }
-    public List<Student> selectAll() {
-        return studentMapper.selectAll();
-    }
-    public List<Student> selectAnyParam(Student paramStudent) {
-        return studentMapper.selectAnyParam(paramStudent);
-    }
-    public Student selectById(String paramStudentId) {
-        return studentMapper.selectById(paramStudentId);
-    }
+/**
+ * The interface Student service.
+ * 学生表Service层接口类
+ * @Author: Kevin
+ * @Date: 2020 /8/19 5:31 下午
+ */
+public interface StudentService {
+    /**
+     * Save student info student.
+     * 根据学生对象插入学生数据
+     * @param paramStudent the param student
+     * @return the student
+     */
+    Student saveStudentInfo(@NotNull Student paramStudent);
+
+    /**
+     * Delete student student.
+     * 根据学号删除学生
+     * @param paramStudentId the param student id
+     * @return the student
+     */
+    Student deleteStudent(String paramStudentId);
+
+    /**
+     * Disable student student.
+     * 根据学号禁用学生
+     * @param paramStudentId the param student id
+     * @return the student
+     */
+    Student disableStudent(String paramStudentId);
+
+    /**
+     * Recover student student.
+     * 根据学号恢复学生
+     * @param paramStudentId the param student id
+     * @return the student
+     */
+    Student recoverStudent(String paramStudentId);
+
+    /**
+     * Update student info student.
+     * 根据学生对象更新学生数据
+     * @param paramStudent the param student
+     * @return the student
+     */
+    Student updateStudentInfo(@NotNull Student paramStudent);
+
+    /**
+     * Select all list.
+     * 查找学生列表
+     * @return the list
+     */
+    List<Student> selectAll();
+
+    /**
+     * Select any param list.
+     * 根据任意字段查询学生数据
+     * @param paramStudent the param student
+     * @return the list
+     */
+    List<Student> selectAnyParam(Student paramStudent);
+
+    /**
+     * Select by id student.
+     * 根据学号查询学生数据
+     * @param paramStudentId the param student id
+     * @return the student
+     */
+    Student selectById(String paramStudentId);
 }

@@ -1,24 +1,21 @@
 package cn.kevin.ims.controller;
 
-import cn.kevin.ims.aop.LoginAction;
 import cn.kevin.ims.entity.Student;
-import cn.kevin.ims.service.StudentService;
+import cn.kevin.ims.service.implement.StudentServiceImpl;
 import cn.kevin.ims.vo.Response;
-import com.alibaba.fastjson.JSON;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
 @RestController()
 @RequestMapping("/student/")
 public class StudentController extends BaseController {
-    @Resource(name = "studentService")
-    private StudentService studentService;
+    @Resource(name = "studentServiceImpl")
+    private StudentServiceImpl studentServiceImpl;
     @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
@@ -28,7 +25,7 @@ public class StudentController extends BaseController {
     @PostMapping(value = "/insert")
     @ResponseBody
     public Response<Student> saveStudentInfo(@NotNull @RequestBody Student student) {
-        Student result = studentService.saveStudentInfo(student);
+        Student result = studentServiceImpl.saveStudentInfo(student);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -38,7 +35,7 @@ public class StudentController extends BaseController {
     @PostMapping(value = "/delete")
     @ResponseBody
     public Response<Student> deleteStudent(String stuId) {
-        Student result = studentService.deleteStudent(stuId);
+        Student result = studentServiceImpl.deleteStudent(stuId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -48,7 +45,7 @@ public class StudentController extends BaseController {
     @PostMapping(value = "/disable")
     @ResponseBody
     public Response<Student> disableStudent(String stuId) {
-        Student result = studentService.disableStudent(stuId);
+        Student result = studentServiceImpl.disableStudent(stuId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -58,7 +55,7 @@ public class StudentController extends BaseController {
     @PostMapping(value = "/recover")
     @ResponseBody
     public Response<Student> recoverStudent(String stuId) {
-        Student result = studentService.recoverStudent(stuId);
+        Student result = studentServiceImpl.recoverStudent(stuId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -68,7 +65,7 @@ public class StudentController extends BaseController {
     @PostMapping(value = "/update")
     @ResponseBody
     public Response<Student> updateStudentInfo(@RequestBody Student student) {
-        Student result = studentService.updateStudentInfo(student);
+        Student result = studentServiceImpl.updateStudentInfo(student);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -78,7 +75,7 @@ public class StudentController extends BaseController {
     @GetMapping(value = "/selectById")
     @ResponseBody
     public Response<Student> selectById(String stuId) {
-        Student result = studentService.selectById(stuId);
+        Student result = studentServiceImpl.selectById(stuId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -88,7 +85,7 @@ public class StudentController extends BaseController {
     @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<Student>> selectAll() {
-        List<Student> result = studentService.selectAll();
+        List<Student> result = studentServiceImpl.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -98,7 +95,7 @@ public class StudentController extends BaseController {
     @GetMapping(value = "/selectAnyParam")
     @ResponseBody
     public Response<List<Student>> selectAnyParam(@RequestBody Student student) {
-        List<Student> result = studentService.selectAnyParam(student);
+        List<Student> result = studentServiceImpl.selectAnyParam(student);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }

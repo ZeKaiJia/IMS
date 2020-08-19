@@ -1,10 +1,9 @@
 package cn.kevin.ims.shiro;
 
 import cn.kevin.ims.entity.User;
-import cn.kevin.ims.service.PermissionService;
-import cn.kevin.ims.service.RoleService;
-import cn.kevin.ims.service.UserService;
-import lombok.extern.log4j.Log4j;
+import cn.kevin.ims.service.implement.PermissionServiceImpl;
+import cn.kevin.ims.service.implement.RoleServiceImpl;
+import cn.kevin.ims.service.implement.UserServiceImpl;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -26,16 +25,16 @@ import java.util.Set;
 public class MyShiroRealm extends AuthorizingRealm {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyShiroRealm.class);
     @Autowired
-    private RoleService roleService;
+    private RoleServiceImpl roleServiceImpl;
     @Autowired
-    private PermissionService permissionService;
+    private PermissionServiceImpl permissionServiceImpl;
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String userName = token.getUsername();
-        User user = userService.selectByName(userName);
+        User user = userServiceImpl.selectByName(userName);
         if (user == null) {
             throw new UnknownAccountException("Message not found");
         } else if (!user.getValid()) {
@@ -57,10 +56,10 @@ public class MyShiroRealm extends AuthorizingRealm {
             return null;
         }
         try {
-            Set<String> roles = roleService.findRoleByUserName(userName);
+            Set<String> roles = roleServiceImpl.findRoleByUserName(userName);
             simpleAuthorizationInfo.addRoles(roles);
             for (String role : roles) {
-                Set<String> permissions = permissionService.findPermissionByRole(role);
+                Set<String> permissions = permissionServiceImpl.findPermissionByRole(role);
                 simpleAuthorizationInfo.addStringPermissions(permissions);
             }
             return simpleAuthorizationInfo;

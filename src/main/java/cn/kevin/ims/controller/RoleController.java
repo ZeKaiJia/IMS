@@ -1,8 +1,8 @@
 package cn.kevin.ims.controller;
 
 import cn.kevin.ims.entity.Role;
-import cn.kevin.ims.service.PermissionService;
-import cn.kevin.ims.service.RoleService;
+import cn.kevin.ims.service.implement.PermissionServiceImpl;
+import cn.kevin.ims.service.implement.RoleServiceImpl;
 import cn.kevin.ims.vo.Response;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -17,14 +17,14 @@ import java.util.Set;
 @RestController()
 @RequestMapping("/role/")
 public class RoleController extends BaseController {
-    @Resource(name = "roleService")
-    private RoleService roleService;
-    @Resource(name = "permissionService")
-    private PermissionService permissionService;
+    @Resource(name = "roleServiceImpl")
+    private RoleServiceImpl roleServiceImpl;
+    @Resource(name = "permissionServiceImpl")
+    private PermissionServiceImpl permissionServiceImpl;
     @GetMapping(value = "/findRoleByUserName")
     @ResponseBody
     public Response<String> findRoleByUserName(@RequestParam String usrName) {
-        Set<String> roles = roleService.findRoleByUserName(usrName);
+        Set<String> roles = roleServiceImpl.findRoleByUserName(usrName);
         List<String> result = new ArrayList<String>(roles);
         if (result.size() != 0) {
             return getSuccessResult(result.get(0));
@@ -34,7 +34,7 @@ public class RoleController extends BaseController {
     @GetMapping(value = "/selectAllUserRole")
     @ResponseBody
     public Response<List<String>> selectAllUserRole() {
-        List<String> result = roleService.selectAllUserRole();
+        List<String> result = roleServiceImpl.selectAllUserRole();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -43,7 +43,7 @@ public class RoleController extends BaseController {
     @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<Role>> selectAll() {
-        List<Role> result = roleService.selectAll();
+        List<Role> result = roleServiceImpl.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -52,7 +52,7 @@ public class RoleController extends BaseController {
     @GetMapping(value = "/selectById")
     @ResponseBody
     public Response<Role> selectById(@RequestParam Integer id) {
-        Role result = roleService.selectById(id);
+        Role result = roleServiceImpl.selectById(id);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -63,7 +63,7 @@ public class RoleController extends BaseController {
     @PostMapping(value = "/update")
     @ResponseBody
     public Response<Role> updateRoleInfo(@RequestBody Role role) {
-        Role result = roleService.updateRoleInfo(role);
+        Role result = roleServiceImpl.updateRoleInfo(role);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -72,7 +72,7 @@ public class RoleController extends BaseController {
     @GetMapping(value = "/findPermissionByRole")
     @ResponseBody
     public Response<Set<String>> findPermissionByRole(@RequestParam String role) {
-        Set<String> results = permissionService.findPermissionByRole(role);
+        Set<String> results = permissionServiceImpl.findPermissionByRole(role);
         if (results.size() != 0) {
             return getSuccessResult(results);
         }

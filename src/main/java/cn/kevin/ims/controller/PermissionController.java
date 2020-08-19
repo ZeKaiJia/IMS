@@ -1,9 +1,8 @@
 package cn.kevin.ims.controller;
 
 import cn.kevin.ims.entity.Permission;
-import cn.kevin.ims.service.PermissionService;
+import cn.kevin.ims.service.implement.PermissionServiceImpl;
 import cn.kevin.ims.vo.Response;
-import com.alibaba.fastjson.JSONArray;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +15,11 @@ import java.util.List;
 @RequestMapping("/permission/")
 public class PermissionController extends BaseController {
     @Resource
-    private PermissionService permissionService;
+    private PermissionServiceImpl permissionServiceImpl;
     @GetMapping(value = "/selectAllPermission")
     @ResponseBody
     public Response<List<Permission>> selectAllPermission() {
-        List<Permission> result = permissionService.selectAll();
+        List<Permission> result = permissionServiceImpl.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -31,7 +30,7 @@ public class PermissionController extends BaseController {
     @PostMapping(value = "/update")
     @ResponseBody
     public Response<Permission> updatePermissionInfo(@RequestBody Permission permission) {
-        Permission result = permissionService.updatePermissionInfo(permission);
+        Permission result = permissionServiceImpl.updatePermissionInfo(permission);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -40,7 +39,7 @@ public class PermissionController extends BaseController {
     @GetMapping(value = "/selectById")
     @ResponseBody
     public Response<Permission> selectByName(@RequestParam Integer id) {
-        Permission result = permissionService.selectById(id);
+        Permission result = permissionServiceImpl.selectById(id);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -51,7 +50,7 @@ public class PermissionController extends BaseController {
     @PostMapping(value = "/managePermission")
     @ResponseBody
     public Response<String> insertNewPermission(@RequestParam String role, @RequestParam String permission){
-        String result = permissionService.insertNewPermission(role, permission);
+        String result = permissionServiceImpl.insertNewPermission(role, permission);
         if ("Success!".equals(result)) {
             return getSuccessResult(result);
         }
@@ -62,7 +61,7 @@ public class PermissionController extends BaseController {
     @PostMapping(value = "/preManagePermission")
     @ResponseBody
     public Response<String> deleteRolePermission(@RequestParam String role){
-        String result = permissionService.deleteRolePermission(role);
+        String result = permissionServiceImpl.deleteRolePermission(role);
         if ("Success!".equals(result)) {
             return getSuccessResult(result);
         }

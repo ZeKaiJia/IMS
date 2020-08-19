@@ -1,9 +1,8 @@
 package cn.kevin.ims.controller;
 
 import cn.kevin.ims.entity.Score;
-import cn.kevin.ims.service.ScoreService;
+import cn.kevin.ims.service.implement.ScoreServiceImpl;
 import cn.kevin.ims.vo.Response;
-import com.alibaba.fastjson.JSON;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +13,8 @@ import java.util.List;
 @RestController()
 @RequestMapping("/score/")
 public class ScoreController extends BaseController {
-    @Resource(name = "scoreService")
-    private ScoreService scoreService;
+    @Resource(name = "scoreServiceImpl")
+    private ScoreServiceImpl scoreServiceImpl;
     @GetMapping(value = "/{name}")
     @ResponseBody
     public String helloWorld(@PathVariable(name = "name") String name) {
@@ -25,7 +24,7 @@ public class ScoreController extends BaseController {
     @PostMapping(value = "/insert")
     @ResponseBody
     public Response<Score> saveScoreInfo(@RequestBody Score score) {
-        Score result = scoreService.saveScoreInfo(score);
+        Score result = scoreServiceImpl.saveScoreInfo(score);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -35,7 +34,7 @@ public class ScoreController extends BaseController {
     @PostMapping(value = "/delete")
     @ResponseBody
     public Response<Score> deleteScore(@RequestParam String stuId, @RequestParam Integer subId) {
-        Score result = scoreService.deleteScore(stuId, subId);
+        Score result = scoreServiceImpl.deleteScore(stuId, subId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -45,7 +44,7 @@ public class ScoreController extends BaseController {
     @PostMapping(value = "/disable")
     @ResponseBody
     public Response<Score> disableScore(@RequestParam String stuId, @RequestParam Integer subId) {
-        Score result = scoreService.disableScore(stuId, subId);
+        Score result = scoreServiceImpl.disableScore(stuId, subId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -55,7 +54,7 @@ public class ScoreController extends BaseController {
     @PostMapping(value = "/recover")
     @ResponseBody
     public Response<Score> recoverScore(@RequestParam String stuId, @RequestParam Integer subId) {
-        Score result = scoreService.recoverScore(stuId, subId);
+        Score result = scoreServiceImpl.recoverScore(stuId, subId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -65,7 +64,7 @@ public class ScoreController extends BaseController {
     @PostMapping(value = "/update")
     @ResponseBody
     public Response<Score> updateScoreInfo(@RequestBody Score score) {
-        Score result = scoreService.updateScoreInfo(score);
+        Score result = scoreServiceImpl.updateScoreInfo(score);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -75,7 +74,7 @@ public class ScoreController extends BaseController {
     @GetMapping(value = "/selectByStudentAndSubjectId")
     @ResponseBody
     public Response<Score> selectByStudentAndSubjectId(@RequestParam String stuId, @RequestParam Integer subId) {
-        Score result = scoreService.selectByStudentAndSubjectId(stuId, subId);
+        Score result = scoreServiceImpl.selectByStudentAndSubjectId(stuId, subId);
         if (result != null) {
             return getSuccessResult(result);
         }
@@ -85,7 +84,7 @@ public class ScoreController extends BaseController {
     @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<Score>> selectAll() {
-        List<Score> result = scoreService.selectAll();
+        List<Score> result = scoreServiceImpl.selectAll();
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -95,7 +94,7 @@ public class ScoreController extends BaseController {
     @GetMapping(value = "/selectAnyParam")
     @ResponseBody
     public Response<List<Score>> selectAnyParam(@RequestBody Score score) {
-        List<Score> result = scoreService.selectAnyParam(score);
+        List<Score> result = scoreServiceImpl.selectAnyParam(score);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -105,7 +104,7 @@ public class ScoreController extends BaseController {
     @GetMapping(value = "/selectByStudentId")
     @ResponseBody
     public Response<List<Score>> selectByStudentId(@RequestParam String stuId) {
-        List<Score> result = scoreService.selectByStudentId(stuId);
+        List<Score> result = scoreServiceImpl.selectByStudentId(stuId);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
@@ -115,7 +114,7 @@ public class ScoreController extends BaseController {
     @GetMapping(value = "/selectBySubjectId")
     @ResponseBody
     public Response<List<Score>> selectBySubjectId(@RequestParam Integer subId) {
-        List<Score> result = scoreService.selectBySubjectId(subId);
+        List<Score> result = scoreServiceImpl.selectBySubjectId(subId);
         if (result.size() != 0) {
             return getSuccessResult(result);
         }
