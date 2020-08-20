@@ -7,49 +7,55 @@ import java.util.Objects;
 /**
  * 用户实体类
  * User
- *
+ * 用户POJO类
  * @Author: Kevin
  * @Date: 2020 /2/18 10:56 下午
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends AbstractEntity {
+public class User extends BaseEntity {
     /**
-     * 序列化参数
+     * 序列化
+     * The constant serialVersionUID.
      */
     private static final long serialVersionUID = -5026828438186547513L;
     /**
      * 用户名
+     * The Usr name.
      */
     private String usrName;
     /**
-     * 用户密码
+     * 密码
+     * The Usr password.
      */
     private String usrPassword;
     /**
-     * 用户昵称
+     * 昵称
+     * The Usr nick.
      */
     private String usrNick;
     /**
-     * 用户联系电话
+     * 联系电话
+     * The Usr phone.
      */
     private String usrPhone;
     /**
-     * 用户电子邮箱
+     * 电子邮箱
+     * The Usr email.
      */
     private String usrEmail;
     /**
-     * 最近登录时间
+     * 最近登录
+     * The Last login.
      */
     private long lastLogin;
 
     /**
      * Equals boolean.
      * 判断类型
-     *
      * @param o the o
      * @return the boolean
      */
@@ -68,7 +74,6 @@ public class User extends AbstractEntity {
     /**
      * Hash code int.
      * 计算哈希值
-     *
      * @return the int
      */
     @Override

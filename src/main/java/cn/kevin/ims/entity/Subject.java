@@ -7,32 +7,38 @@ import java.util.Objects;
 /**
  * The type Subject.
  * Subject
+ * 课程POJO类
  * @author kevin
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Subject extends AbstractEntity {
+public class Subject extends BaseEntity {
     /**
-     * 序列化参数
+     * 序列化
+     * The constant serialVersionUID.
      */
     private static final long serialVersionUID = 9037415837973538853L;
     /**
-     * 课程ID
+     * 课程号
+     * The Sub id.
      */
     private Integer subId;
     /**
-     * 课程名称
+     * 课程名
+     * The Sub name.
      */
     private String subName;
     /**
-     * 授课教师
+     * 课程授课教师号
+     * The Sub teacher id.
      */
     private String subTeacherId;
     /**
      * 课程学分
+     * The Sub credit.
      */
     private Double subCredit;
 

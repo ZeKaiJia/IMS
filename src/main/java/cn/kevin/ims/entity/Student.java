@@ -8,40 +8,48 @@ import java.util.Objects;
 /**
  * The type Student.
  * Student
+ * 学生POJO类
  * @author kevin
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student extends AbstractEntity {
+public class Student extends BaseEntity {
     /**
-     * 序列化参数
+     * 序列化
+     * The constant serialVersionUID.
      */
     private static final long serialVersionUID = -3103418538707967614L;
     /**
-     * 学生ID
+     * 学号
+     * The Stu id.
      */
     private String stuId;
     /**
      * 学生姓名
+     * The Stu name.
      */
     private String stuName;
     /**
      * 学生性别
+     * The Stu gender.
      */
     private Integer stuGender;
     /**
      * 学生生日
+     * The Stu birthday.
      */
     private Date stuBirthday;
     /**
      * 学生邮箱
+     * The Stu email.
      */
     private String stuEmail;
     /**
-     * 学生手机号
+     * 学生联系电话
+     * The Stu phone.
      */
     private String stuPhone;
 
@@ -62,7 +70,6 @@ public class Student extends AbstractEntity {
         Student student = (Student) o;
         return this.stuId.equals(student.stuId);
     }
-
 
     /**
      * Hash code int.

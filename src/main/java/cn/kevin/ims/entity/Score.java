@@ -4,31 +4,37 @@ import lombok.*;
 
 import java.util.Objects;
 
+
 /**
- * The type Score.
+ * 成绩POJO类
  * Score
- * @author kevin
+ * @Author: Kevin
+ * @Date: 2020 /8/1 3:07 下午
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Score extends AbstractEntity {
+public class Score extends BaseEntity {
     /**
-     * 序列化参数
+     * 序列化
+     * The constant serialVersionUID.
      */
     private static final long serialVersionUID = 488188911958680866L;
     /**
-     * 学生ID
+     * 学号
+     * The Stu id.
      */
     private String stuId;
     /**
-     * 课程ID
+     * 课程号
+     * The Sub id.
      */
     private Integer subId;
     /**
      * 课程分数
+     * The Sub score.
      */
     private Integer subScore;
 

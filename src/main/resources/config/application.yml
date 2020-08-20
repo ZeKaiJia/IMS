@@ -12,8 +12,8 @@ spring:
     view:
       suffix: html
     static-path-pattern: /**
-  resources:
-    static-locations: classpath:/static/
+#  resources:
+#    static-locations: classpath:/static/
 ################### Mybatis DataSource Configuration ##########################
 mybatis:
   configuration:
