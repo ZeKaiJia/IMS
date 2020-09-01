@@ -53,6 +53,7 @@ public class RoleController extends BaseController {
     }
 
     @ApiOperation(value = "查询角色", notes = "查询所有角色记录")
+    @GetMapping(value = "/selectAll")
     @ResponseBody
     public Response<List<Role>> selectAll() {
         List<Role> result = roleService.selectAll();
