@@ -1,5 +1,8 @@
 package cn.kevin.ims.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * 自定义响应体类
  * Response
@@ -7,26 +10,32 @@ package cn.kevin.ims.vo;
  * @Author: Kevin
  * @Date: 2020 /2/18 10:56 下午
  */
+@ApiModel(description = "响应体", value = "响应体模板类")
 public class Response<T> {
     /**
      * 是否成功
      */
+    @ApiModelProperty(value = "是否成功")
     private Boolean success;
     /**
      * 状态码
      */
+    @ApiModelProperty(value = "状态码")
     private Integer code;
     /**
      * 反馈信息
      */
+    @ApiModelProperty(value = "反馈信息")
     private String message;
     /**
      * 时间戳
      */
+    @ApiModelProperty(value = "时间戳")
     private Long timestamp;
     /**
      * 实体模板类数据
      */
+    @ApiModelProperty(value = "实体数据")
     private T data;
 
 

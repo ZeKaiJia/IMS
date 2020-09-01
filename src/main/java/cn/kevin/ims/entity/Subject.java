@@ -1,5 +1,7 @@
 package cn.kevin.ims.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.util.Objects;
@@ -10,6 +12,7 @@ import java.util.Objects;
  * 课程POJO类
  * @author kevin
  */
+@ApiModel(description = "课程实体", value = "课程实体类")
 @Getter
 @Setter
 @ToString(callSuper = true)
@@ -25,21 +28,25 @@ public class Subject extends BaseEntity {
      * 课程号
      * The Sub id.
      */
+    @ApiModelProperty(value = "课程号", required = true)
     private Integer subId;
     /**
      * 课程名
      * The Sub name.
      */
+    @ApiModelProperty(value = "课程名", required = true)
     private String subName;
     /**
      * 课程授课教师号
      * The Sub teacher id.
      */
+    @ApiModelProperty(value = "课程授课教师号", required = true)
     private String subTeacherId;
     /**
      * 课程学分
      * The Sub credit.
      */
+    @ApiModelProperty(value = "课程学分", required = true)
     private Double subCredit;
 
 

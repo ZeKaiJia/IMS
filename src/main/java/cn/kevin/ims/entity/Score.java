@@ -1,5 +1,7 @@
 package cn.kevin.ims.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.util.Objects;
@@ -11,6 +13,7 @@ import java.util.Objects;
  * @Author: Kevin
  * @Date: 2020 /8/1 3:07 下午
  */
+@ApiModel(description = "成绩实体", value = "成绩实体类")
 @Getter
 @Setter
 @ToString(callSuper = true)
@@ -26,16 +29,19 @@ public class Score extends BaseEntity {
      * 学号
      * The Stu id.
      */
+    @ApiModelProperty(value = "学号", required = true)
     private String stuId;
     /**
      * 课程号
      * The Sub id.
      */
+    @ApiModelProperty(value = "课程号", required = true)
     private Integer subId;
     /**
      * 课程分数
      * The Sub score.
      */
+    @ApiModelProperty(value = "课程分数", required = true)
     private Integer subScore;
 
     /**

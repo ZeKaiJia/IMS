@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2020/8/19 7:11 下午
  */
 public class CorsUtil {
+    private static final String OPTIONS_FOR_REQUEST = "OPTIONS";
     public static void setResponseHeader(HttpServletResponse response, HttpServletRequest request) {
         // 设施之编码格式
         response.setContentType("text/html;charset=UTF-8");
@@ -21,8 +22,12 @@ public class CorsUtil {
         response.setHeader( "Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With," +
                 "If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type," +
                 "X-E4M-With,userId,token, Accept, Authorization" );
-        //是否允许浏览器携带用户身份信息（cookie）
+        // 允许浏览器携带用户身份信息（cookie）
         response.setHeader( "Access-Control-Allow-Credentials", "true" );
         response.setHeader("XDomainRequestAllowed","1");
+        // 允许OPTIONS请求直接通过
+        if (OPTIONS_FOR_REQUEST.equals((request).getMethod().toUpperCase())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
     }
 }

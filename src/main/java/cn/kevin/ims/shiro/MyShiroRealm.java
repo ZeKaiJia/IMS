@@ -1,9 +1,9 @@
 package cn.kevin.ims.shiro;
 
 import cn.kevin.ims.entity.User;
-import cn.kevin.ims.service.implement.PermissionServiceImpl;
-import cn.kevin.ims.service.implement.RoleServiceImpl;
-import cn.kevin.ims.service.implement.UserServiceImpl;
+import cn.kevin.ims.service.PermissionService;
+import cn.kevin.ims.service.RoleService;
+import cn.kevin.ims.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.Set;
 
 /**
@@ -24,17 +25,17 @@ import java.util.Set;
  */
 public class MyShiroRealm extends AuthorizingRealm {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyShiroRealm.class);
-    @Autowired
-    private RoleServiceImpl roleServiceImpl;
-    @Autowired
-    private PermissionServiceImpl permissionServiceImpl;
-    @Autowired
-    private UserServiceImpl userServiceImpl;
+    @Resource(name = "roleServiceImpl")
+    private RoleService roleService;
+    @Resource(name = "permissionServiceImpl")
+    private PermissionService permissionService;
+    @Resource(name = "userServiceImpl")
+    private UserService userService;
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String userName = token.getUsername();
-        User user = userServiceImpl.selectByName(userName);
+        User user = userService.selectByName(userName);
         if (user == null) {
             throw new UnknownAccountException("Message not found");
         } else if (!user.getValid()) {
@@ -56,10 +57,10 @@ public class MyShiroRealm extends AuthorizingRealm {
             return null;
         }
         try {
-            Set<String> roles = roleServiceImpl.findRoleByUserName(userName);
+            Set<String> roles = roleService.findRoleByUserName(userName);
             simpleAuthorizationInfo.addRoles(roles);
             for (String role : roles) {
-                Set<String> permissions = permissionServiceImpl.findPermissionByRole(role);
+                Set<String> permissions = permissionService.findPermissionByRole(role);
                 simpleAuthorizationInfo.addStringPermissions(permissions);
             }
             return simpleAuthorizationInfo;

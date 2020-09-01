@@ -19,25 +19,22 @@ import java.io.IOException;
 public class ShiroLoginFilter  implements Filter {
 
     private FilterConfig config = null;
+
     @Override
     public void init(FilterConfig config) throws ServletException {
         this.config = config;
     }
+
     @Override
     public void destroy() {
         this.config = null;
     }
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         CorsUtil.setResponseHeader(response, request);
-        if ("OPTIONS".equals(request.getMethod().toUpperCase())) {
-            response.setStatus( 200 );
-            return;
-        }
         filterChain.doFilter( servletRequest, response );
     }
-
-
 }

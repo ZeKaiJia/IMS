@@ -82,7 +82,12 @@ public interface RoleService {
      * @return the role
      */
     Role selectById(Integer paramId);
-
+    /**
+     * Select by id role.
+     * 查询角色列表
+     * @return the role
+     */
+    List<Role> selectAll();
     /**
      * Select any param list.
      * 根据任意字段查询角色

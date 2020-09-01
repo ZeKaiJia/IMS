@@ -10,13 +10,13 @@ import lombok.*;
  * @Author: Kevin
  * @Date: 2020 /8/1 9:11 下午
  */
+@ApiModel(description = "权限实体", value = "权限实体类")
 @Getter
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "权限对象")
 public class Permission extends BaseEntity {
     /**
      * 序列化
@@ -27,20 +27,24 @@ public class Permission extends BaseEntity {
      * 权限Id
      * The Id.
      */
+    @ApiModelProperty(value = "权限号", required = true)
     private Integer id;
     /**
      * 权限名
      * The Name.
      */
+    @ApiModelProperty(value = "权限名", required = true)
     private String name;
     /**
      * 权限代码
      * The Permission.
      */
+    @ApiModelProperty(value = "权限代码", required = true)
     private String permission;
     /**
      * 权限Url
      * The Url.
      */
+    @ApiModelProperty(value = "权限Url", required = true)
     private String url;
 }

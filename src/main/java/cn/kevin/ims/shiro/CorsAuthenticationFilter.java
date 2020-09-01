@@ -20,8 +20,7 @@ import java.util.Map;
  * @Date: 2020/8/4 2:06 下午
  */
 public class CorsAuthenticationFilter extends UserFilter {
-
-    private static final Logger logger = LoggerFactory.getLogger(CorsAuthenticationFilter.class);
+    private static final String OPTIONS_FOR_REQUEST = "OPTIONS";
 
     public CorsAuthenticationFilter() {
         super();
@@ -29,7 +28,7 @@ public class CorsAuthenticationFilter extends UserFilter {
 
     @Override
     public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        if ("OPTIONS".equals(((HttpServletRequest) request).getMethod().toUpperCase())) {
+        if (OPTIONS_FOR_REQUEST.equals(((HttpServletRequest) request).getMethod().toUpperCase())) {
             return true;
         }
         return super.isAccessAllowed(request, response, mappedValue);
@@ -41,7 +40,6 @@ public class CorsAuthenticationFilter extends UserFilter {
         HttpServletRequest req = (HttpServletRequest)request;
         CorsUtil.setResponseHeader(res, req);
         res.setStatus(HttpServletResponse.SC_OK);
-        res.setCharacterEncoding("UTF-8");
         PrintWriter writer = res.getWriter();
         Map<String, Object> map= new HashMap<>(16);
         map.put("success", false);

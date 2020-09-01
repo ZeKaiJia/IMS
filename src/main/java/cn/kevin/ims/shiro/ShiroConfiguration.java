@@ -45,7 +45,8 @@ public class ShiroConfiguration {
     public SessionManager sessionManager() {
         return new CustomSessionManager();
     }
-    public CorsAuthenticationFilter corsAuthenticationFilter(){
+    @Bean
+    public CorsAuthenticationFilter corsAuthenticationFilter() {
         return new CorsAuthenticationFilter();
     }
     @Bean

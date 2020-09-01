@@ -1,5 +1,7 @@
 package cn.kevin.ims.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.Objects;
  * 学生POJO类
  * @author kevin
  */
+@ApiModel(description = "学生实体", value = "学生实体类")
 @Getter
 @Setter
 @ToString(callSuper = true)
@@ -26,31 +29,37 @@ public class Student extends BaseEntity {
      * 学号
      * The Stu id.
      */
+    @ApiModelProperty(value = "学号", required = true)
     private String stuId;
     /**
-     * 学生姓名
+     * 姓名
      * The Stu name.
      */
+    @ApiModelProperty(value = "姓名", required = true)
     private String stuName;
     /**
-     * 学生性别
+     * 性别
      * The Stu gender.
      */
+    @ApiModelProperty(value = "性别", required = true)
     private Integer stuGender;
     /**
-     * 学生生日
+     * 生日
      * The Stu birthday.
      */
+    @ApiModelProperty(value = "生日", required = true)
     private Date stuBirthday;
     /**
-     * 学生邮箱
+     * 邮箱
      * The Stu email.
      */
+    @ApiModelProperty(value = "邮箱", required = true)
     private String stuEmail;
     /**
-     * 学生联系电话
+     * 联系电话
      * The Stu phone.
      */
+    @ApiModelProperty(value = "联系电话", required = true)
     private String stuPhone;
 
     /**

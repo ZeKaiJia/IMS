@@ -27,9 +27,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Application {
     public static void main(String[] args) {
         log.info("Programme start.");
-        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-        String[] beanDefinitionNames = context.getBeanDefinitionNames();
-        System.out.println(JSON.toJSONString(beanDefinitionNames));
+        SpringApplication.run(Application.class, args);
+//        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+//        String[] beanDefinitionNames = context.getBeanDefinitionNames();
+//        System.out.println(JSON.toJSONString(beanDefinitionNames));
         log.info("Programme end.");
     }
 }
