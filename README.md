@@ -282,4 +282,4 @@
 - 修复了一个 bug，之前重构 Service 层的时候直接用了自动重命名，导致 Controller 层注入的还是 Service 的实现类，应当注入接口类。
 
 ### 2020.9.1 - Demo 3.5.6
-- 完成了 Swagger 的注解，对于 Integer 类型的参数报错采用日志忽略
+- 完成了 Swagger 的注解，对于 Integer 类型的参数报错采用日志忽略。
