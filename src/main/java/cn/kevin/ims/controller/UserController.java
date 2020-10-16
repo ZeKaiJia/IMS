@@ -196,7 +196,7 @@ public class UserController extends BaseController {
         return getSuccessResult("logout");
     }
 
-    @ApiOperation(value = "强制", notes = "后台未登录用户强制登录")
+    @ApiOperation(value = "强制登录", notes = "后台未登录用户强制登录")
     @RequestMapping(value = "/toLogin", method = RequestMethod.GET)
     public String toLogin() {
         return "redirect:user/login";

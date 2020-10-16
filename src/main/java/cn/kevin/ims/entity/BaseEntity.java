@@ -31,7 +31,7 @@ public abstract class BaseEntity implements Serializable {
       * UTC修改时间
      * The Utc modify.
      */
-     @ApiModelProperty(value = "修改时间", required = true)
+    @ApiModelProperty(value = "修改时间", required = true)
     protected long utcModify;
     /**
      * 修改人

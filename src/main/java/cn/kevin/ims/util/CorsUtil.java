@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CorsUtil {
     private static final String OPTIONS_FOR_REQUEST = "OPTIONS";
     public static void setResponseHeader(HttpServletResponse response, HttpServletRequest request) {
-        // 设施之编码格式
+        // 设置编码格式
         response.setContentType("text/html;charset=UTF-8");
         // 允许哪些Origin发起跨域请求,nginx下正常
         response.setHeader( "Access-Control-Allow-Origin", request.getHeader("Origin"));
