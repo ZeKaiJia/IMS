@@ -1,6 +1,7 @@
 package cn.kevin.ims.service;
 
 import cn.kevin.ims.entity.Role;
+import org.apache.ibatis.annotations.Param;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -103,6 +104,14 @@ public interface RoleService {
      * @return the set
      */
     Set<String> findRoleByUserName(String usrName);
+
+    /**
+     * Find role by user name set.
+     * 根据用户名查询用户对应角色描述
+     * @param usrName the usr name
+     * @return the set
+     */
+    Set<String> findRoleDescription(String usrName);
 
     /**
      * Select all user role list.

@@ -92,6 +92,14 @@
         FROM sys_user_role
         WHERE user_name = #{usrName}
     </select>
+    <select id="findRoleDescription" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT description
+        FROM sys_role
+        WHERE role =
+        (SELECT role
+        FROM sys_user_role
+        WHERE user_name = #{usrName})
+    </select>
     <select id="selectAllUserRole" resultType="java.lang.String">
         SELECT role
         FROM sys_user_role

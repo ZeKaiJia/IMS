@@ -41,6 +41,19 @@ public class RoleController extends BaseController {
         return getFailResult(404, "Message not found!");
     }
 
+    @ApiOperation(value = "根据用户名查询角色描述", notes = "根据用户名查询一条角色描述记录")
+    @ApiImplicitParam(name = "usrName", value = "用户名", required = true, dataTypeClass = String.class)
+    @GetMapping(value = "/findRoleDesByUserName")
+    @ResponseBody
+    public Response<String> findRoleDesByUserName(@RequestParam String usrName) {
+        Set<String> roles = roleService.findRoleDescription(usrName);
+        List<String> result = new ArrayList<String>(roles);
+        if (result.size() != 0) {
+            return getSuccessResult(result.get(0));
+        }
+        return getFailResult(404, "Message not found!");
+    }
+
     @ApiOperation(value = "查询用户角色", notes = "查询所有用户角色记录")
     @GetMapping(value = "/selectAllUserRole")
     @ResponseBody

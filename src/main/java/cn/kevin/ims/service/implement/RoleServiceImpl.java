@@ -109,6 +109,12 @@ public class RoleServiceImpl implements RoleService {
     public Set<String> findRoleByUserName(String usrName) {
         return roleMapper.findRoleByUserName(usrName);
     }
+
+    @Override
+    public Set<String> findRoleDescription(String usrName) {
+        return roleMapper.findRoleDescription(usrName);
+    }
+
     @Override
     public List<String> selectAllUserRole() {
         return roleMapper.selectAllUserRole();
